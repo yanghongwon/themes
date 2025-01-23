@@ -7,9 +7,11 @@ credits:
 - icons by solar icons
 - base code by mournstera / flipse
   - which can be found here: https://github.com/flipsewtf/Tumblr-basecode
+- timeago plugin by mournstera / flipse
+  - which can be found here: https://github.com/flipsewtf/TimeAgo
 - timeline tutorial by https://codepen.io/alvarotrigo/pen/ZEXzOWQ
 - flexible frames (video resizing script) by robinpx on github
-- https://github.com/robinpx/tumblr/blob/master/scripts/flexibleFrames/README.md
+  - which can be found here: https://github.com/robinpx/tumblr/blob/master/scripts/flexibleFrames/README.md
 - lightbox tutorial by shythemes
 - spotify fix, npf audio, and npf photosets are all by glenthemes
 - lyrics for the title and description are from joshua cho's translation of 'en plein jour' by yang hongwon
