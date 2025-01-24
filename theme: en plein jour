@@ -6,16 +6,12 @@ credits:
 - fonts by google fonts
 - icons by solar icons
 - base code by mournstera / flipse
-  - which can be found here: https://github.com/flipsewtf/Tumblr-basecode
-- timeago plugin by mournstera / flipse
-  - which can be found here: https://github.com/flipsewtf/TimeAgo
+- which can be found here: https://github.com/flipsewtf/Tumblr-basecode
 - timeline tutorial by https://codepen.io/alvarotrigo/pen/ZEXzOWQ
 - flexible frames (video resizing script) by robinpx on github
-  - which can be found here: https://github.com/robinpx/tumblr/blob/master/scripts/flexibleFrames/README.md
+- https://github.com/robinpx/tumblr/blob/master/scripts/flexibleFrames/README.md
 - lightbox tutorial by shythemes
 - spotify fix, npf audio, and npf photosets are all by glenthemes
-- lyrics for the title and description are from joshua cho's translation of 'en plein jour' by yang hongwon
-  - translation: https://www.youtube.com/watch?v=nsLg4Nrs64M
 
 please enjoy! and let me know if there are any bugs!
 
@@ -97,18 +93,15 @@ color: var(--clr-text); /* color of audio text (optional) */
 <link rel="stylesheet" media="screen" href="//assets.tumblr.com/client/prod/standalone/blog-network-npf/index.build.css">
 
 <!--
-NPF images fix v4.0 by @glenthemes [2023]
-💌 gitlab.com/glen-npf/v4-beta
+        NPF images fix v3.0 by @glenthemes [2021]
+        💌 git.io/JRBt7
 --->
-<link href="//glen-npf.gitlab.io/v4-beta/main.css" rel="stylesheet">
-<script src="//glen-npf.gitlab.io/v4-beta/use.js"></script>
-<style>
+<script src="//npf-images-v3.github.io/script.js"></script>
+<link rel="stylesheet" href="//npf-images-v3.github.io/recon.css">
+<style tmblr-npf>
 :root {
---NPF-Images-Spacing:5px;
---NPF-Caption-Spacing:1rem;
---NPF-Move-1st-Photoset:"yes";
---Text-Container-Selector:".caption";
---Text-Reblogs-Selector:".tumblr_parent";
+    --NPF-Caption-Spacing:0.5rem;
+    --NPF-Image-Spacing:4px;
 }
 </style>
 
@@ -638,7 +631,7 @@ padding: 0.5rem;
 /* expanded sidebar */
 
 /* post content */
-.post-content {
+article {
 margin-bottom: 10rem;
 }
 
@@ -687,7 +680,7 @@ width: 100%;
 font-size: var(--fs-body);
 }
 
-.pinned-post ~ .original-post, .pinned-post ~ .origin-url {
+.pinned-post ~ .not-rb, .pinned-post ~ .origin-url {
 display: none;
 }
 
@@ -1447,7 +1440,7 @@ text-transform: lowercase;
 
 <!-- individual posts -->
 <div class="post-content">
-<!-- date header -->
+
 {block:Date}
 <header class="header-wrapper">
 
@@ -1508,7 +1501,7 @@ text-transform: lowercase;
 {block:NotReblog}
 
 <!-- original post -->
-<div class="original-post">
+<div class="not-rb">
 <div class="post-label">
 <i class="solar-icons" stroke="2" icon-name="edit-2"></i>
 
@@ -1728,6 +1721,7 @@ data-highres="{PhotoURL-HighRes}">
 {/block:Reblogs}
 {/block:RebloggedFrom}
 
+</div>
 </div>
 <!-- individual posts -->
 
