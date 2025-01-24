@@ -12,7 +12,6 @@ credits:
 - https://github.com/robinpx/tumblr/blob/master/scripts/flexibleFrames/README.md
 - lightbox tutorial by shythemes
 - spotify fix, npf audio, and npf photosets are all by glenthemes
-- inline image fix by gukthemes
 
 please enjoy! and let me know if there are any bugs!
 
@@ -725,11 +724,6 @@ display: block;
 margin-block: 1rem;
 }
 
-.reblogs .user.deactivated:hover::after {
-content: 'deactivated';
-margin-left: 10px;
-}
-
 {block:IndexPage}
 .reblogs:first-child .user {
 display: none!important;
@@ -737,7 +731,7 @@ display: none!important;
 {/block:IndexPage}
 
 {block:PermalinkPage}
-.reblogs:first-child .user {
+.reblogs:has(.caption):first-child .user {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -749,6 +743,10 @@ display: none!important;
     height: 1px;
     background: var(--clr-borders);
     flex: 1;
+}
+
+.reblogs:has(:not(.caption)):first-child .user {
+    display: none;
 }
 {/block:PermalinkPage}
 
