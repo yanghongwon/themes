@@ -532,10 +532,6 @@ color: var(--clr-background);
 .sidebar-header {
 position: relative;
 }
-
-.header-img {
-height: 120px;
-}
 /* sidebar header */
 
 /* sidebar links */
