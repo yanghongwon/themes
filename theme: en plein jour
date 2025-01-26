@@ -42,6 +42,7 @@ please enjoy! and let me know if there are any bugs!
 
 <!-- tooltips scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" media="screen" href="//assets.tumblr.com/client/prod/standalone/blog-network-npf/index.build.css">
 
 <script src="https://unpkg.com/popper.js@1"></script>
 <script src="https://unpkg.com/tippy.js@5/dist/tippy-bundle.iife.js"></script>
@@ -90,8 +91,6 @@ color: var(--clr-text); /* color of audio text (optional) */
 }
 </style>
 
-<link rel="stylesheet" media="screen" href="//assets.tumblr.com/client/prod/standalone/blog-network-npf/index.build.css">
-
 <!--
         NPF images fix v3.0 by @glenthemes [2021]
         💌 git.io/JRBt7
@@ -107,22 +106,6 @@ color: var(--clr-text); /* color of audio text (optional) */
 
 <!-- flexible frames by robinpx on github -->
 <script src="https://rawgit.com/robinpx/tumblr/master/scripts/flexibleFrames/flexibleFrames.min.js"></script>
-
-<script>
-$(document).ready(function() {
-flexibleFrames($(".video"));  // $(".video") is the class selector passed in the argument
-});
-
-function flexFrame() {
-$(".caption").each(function() {
-$(this).find("iframe").wrap("<div class='iframe-flex'></div>"); // wrap iframe 
-flexibleFrames($(".iframe-flex"));
-});
-flexibleFrames($(".video"));
-}
-
-$(document).ready(flexFrame);
-</script>
 
 
 
@@ -334,6 +317,7 @@ border-left: 1px solid var(--clr-borders);
 
 iframe[src*='open.spotify.com'][src*='track'], figure[data-npf*='open.spotify.com'][data-npf*='track'] {
 height:80px!important; 
+width: 100%!important;
 } 
 /* tumblr-specific basics */
 
@@ -1974,16 +1958,19 @@ var spotsongs = document.querySelectorAll("iframe[src*='open.spotify.com'][src*=
 
 const elements = document.querySelectorAll('.timeago');
 
-$(".tmblr-full, figure").each(function(){
-	var imgWidth = $(this).attr("data-orig-width"),
-  		img = $(this).find("img"),
-      imgSrc = img.attr("src");
-	$('figure').css({'margin-left':'0','margin-right':'0','display':'inline-block'});
-  if (imgWidth >= 500){
-  	img.attr("src",imgSrc.replace("_500.","_1280."));
-    $('.tmblr-full img, figure img').css({'width':'auto','height':'auto','vertical-align':'middle'});
-  }
-});  
+$(document).ready(function() {
+flexibleFrames($(".video"));  // $(".video") is the class selector passed in the argument
+});
+
+function flexFrame() {
+$(".caption").each(function() {
+$(this).find("iframe").wrap("<div class='iframe-flex'></div>"); // wrap iframe 
+flexibleFrames($(".iframe-flex"));
+});
+flexibleFrames($(".video"));
+}
+
+$(document).ready(flexFrame);
 
 
 tippy('[title]', {
@@ -2015,3 +2002,4 @@ return title;
 </script>
 </body>
 </html>
+
