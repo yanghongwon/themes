@@ -1696,7 +1696,7 @@ data-highres="{PhotoURL-HighRes}">
 {/block:Answer}
 
 <!-- caption -->
-<div class="caption source-head {block:notreblog} original-post {/block:notreblog}">
+<div class="caption {block:notreblog} original-post {/block:notreblog}">
 {block:Text}
 {block:Title}<h2>{Title}</h2>{/block:Title}
 {/block:Text}
@@ -1717,7 +1717,7 @@ data-highres="{PhotoURL-HighRes}">
 {block:Rebloggedfrom}
 {block:Reblogs}
 <!-- display:none; below hides the double comments that sometimes appear in old pre-2014 reblogged quote posts --> 
-<div class="reblogs source-head" {block:Quote}style="display:none;"{/block:Quote}>
+<div class="reblogs" {block:Quote}style="display:none;"{/block:Quote}>
 <div class="reblog-header">
 {block:IsActive}
 <a href="{Permalink}" class="user">{Username}</a>
