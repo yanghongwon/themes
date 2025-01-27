@@ -715,14 +715,14 @@ display: none!important;
 {/block:IndexPage}
 
 {block:PermalinkPage}
-.reblogs:first-child .user {
+.reblogs:first-child .reblog-header {
     display: flex;
     align-items: center;
     gap: 10px;
     flex: 1;
 }
 
-.reblogs:first-child .user::before {
+.reblogs:first-child .reblog-header::before {
     content: '';
     width: 6px;
     aspect-ratio: 1;
@@ -730,14 +730,14 @@ display: none!important;
     background: var(--clr-text);
 }
 
-.reblogs:first-child .user::after {
+.reblogs:first-child .reblog-header::after {
     content: '';
     height: 1px;
     background: var(--clr-borders);
     flex: 1;
 }
 
-.reblogs:has(:not(.caption)):first-child .user {
+.reblogs:has(:not(.caption)):first-of-type .reblog-header {
     display: none;
 }
 {/block:PermalinkPage}
