@@ -737,7 +737,7 @@ display: none!important;
     flex: 1;
 }
 
-.reblogs:has(:not(.caption)):first-of-type .reblog-header {
+.reblogs:has(p:empty):first-child .reblog-header {
     display: none;
 }
 {/block:PermalinkPage}
