@@ -1294,7 +1294,7 @@ text-transform: lowercase;
 <i class="solar-icons" stroke="2" icon-name="{text:Custom Link 3 Icon}"></i>
 <p>{text:Custom Link 3 Name}</p>
 </a>
-{/block:ifCustomLink1URL}
+{/block:ifCustomLink3URL}
 <!-- custom link 3 -->
 
 <!-- custom link 4 -->
