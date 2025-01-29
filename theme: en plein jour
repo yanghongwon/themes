@@ -32,7 +32,7 @@ please enjoy! and let me know if there are any bugs!
 <link rel="shortcut icon" href="{Favicon}"/>
 <link rel="alternate" type="application/rss+xml" href="{RSS}">
 {block:Description}
-<meta name="description" content="{Description}"/>
+<meta name="description" content="{MetaDescription}"/>
 {/block:Description}
 
 <!-- google fonts -->
@@ -625,7 +625,7 @@ article {
 margin-bottom: 10rem;
 }
 
-article .caption p {
+article .caption p, .original-post p {
     margin-top: 0.5rem;
 }
 
