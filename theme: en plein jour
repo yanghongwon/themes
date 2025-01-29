@@ -100,8 +100,8 @@ color: var(--clr-text); /* color of audio text (optional) */
 <link rel="stylesheet" href="//npf-images-v3.github.io/recon.css">
 <style tmblr-npf>
 :root {
-    --NPF-Caption-Spacing:1em;
-    --NPF-Image-Spacing:4px;
+    --NPF-Caption-Spacing:1rem;
+    --NPF-Image-Spacing: var(--gutter-size);
 }
 </style>
 
@@ -136,6 +136,12 @@ color: var(--clr-text); /* color of audio text (optional) */
 <meta name="select:Body Font Size" content="1rem" label="1rem"/>
 <meta name="select:Body Font Size" content="1.1rem" label="1.1rem"/>
 <meta name="select:Body Font Size" content="1.2rem" label="1.2rem"/>
+
+<meta name="select:Photoset Gutter" content="1px" label="1px"/>
+<meta name="select:Photoset Gutter" content="2px" label="2px"/>
+<meta name="select:Photoset Gutter" content="3px" label="3px"/>
+<meta name="select:Photoset Gutter" content="4px" label="4px"/>
+<meta name="select:Photoset Gutter" content="5px" label="5px"/>
 
 <meta name="text:Body Font Family" content="Poppins"/>
 <meta name="text:Heading Font Family" content="DM Serif Display"/>
@@ -208,6 +214,7 @@ color: var(--clr-text); /* color of audio text (optional) */
 
 --sidebar-size: 250px;
 --container-size: 500px;
+--gutter-size: {select:Photoset Gutter};
 }
 
 .dark {
@@ -615,6 +622,10 @@ article {
 margin-bottom: 10rem;
 }
 
+article .caption p {
+    margin-top: 0.5rem;
+}
+
 /* post content basics */
 .post-content img, blockquote img, .npf_row-img, .video {
 max-width: 100%;
@@ -846,6 +857,58 @@ background-color:rgba(from var(--clr-background) r g b / 0.5)!important;
 box-shadow:none !important;
 border-radius:0 !important;
 max-width:none;
+}
+
+/* -------------------------------------  legacy photoset stuff. */
+
+/* Gutter width has to be divided into 2 since it's the padding
+that's around each photo-row or legacy-photoset-inner - last one
+being the inner container of the photoset.
+See 5ppi Flexible Photoset credit for more info */
+
+.photo-row {
+    padding: calc(var(--gutter-size) / 2) 0; 
+    display:flex;
+}
+.photo-row:first-child {
+	padding-top:0;
+}
+.photo-row:last-child {
+	padding-bottom:0;
+}
+/* legacy-photoset-inner is inside each photo-row,
+use inspect firefox or chrome to see more  */
+.legacy-photoset-inner {
+    cursor:pointer;
+    padding: 0 calc(var(--gutter-size) / 2); 
+    flex-grow:1;
+}
+.legacy-photoset-inner:first-child {
+    padding-left:0;
+}
+.legacy-photoset-inner:last-child {
+    padding-right:0;
+}
+/* every single img.image inide legacy-photoset-inner */
+.image {
+    width:100%;
+    height:100%;
+	display:block;
+	object-fit:cover; /* technically not needed, but helps when browsers glitch */
+}
+.photo-row-1 .legacy-photoset-inner {
+    width:100%;
+}
+.photo-row-2 .legacy-photoset-inner {
+    width:50%;
+}
+.photo-row-3 .legacy-photoset-inner {
+    width:33.3333333%;
+}
+
+/* single legacy photo post */
+.photo-single {
+    cursor: pointer;
 }
 /* photos and photoset posts */
 
@@ -1524,7 +1587,7 @@ text-transform: lowercase;
 <i class="solar-icons" stroke="2" icon-name="stickynote-1"></i>
 
 <!-- note count label -->
-<span class="note-label label">{NoteCountWithLabel}</span>
+<span class="note-label label notecount">{NoteCountWithLabel}</span>
 <!-- note count label -->
  
 </div>
@@ -1746,7 +1809,7 @@ data-highres="{PhotoURL-HighRes}">
 <div class="post-label">
 <i class="solar-icons" stroke="2" icon-name="stickynote-1"></i>
 <span class="note-label label">
-<a href="{Permalink}">{NoteCountWithLabel}</a>
+<a href="{Permalink}" class="notecount">{NoteCountWithLabel}</a>
 </span>
 </div>
 <!-- note count label -->
@@ -1914,6 +1977,9 @@ tagged: {block:Tags}<a href="{TagURL}">#{Tag}</a>{/block:Tags}
 <!-- main container -->
 
 
+<!-- PHOTOSET: legacy -->
+<script src="https://static.tumblr.com/diajl5m/y39s6mwvr/legacy-photoset.js"></script>
+
 <script>
 // check for saved 'darkMode' in localStorage
 let darkMode = localStorage.getItem('darkMode'); 
@@ -1979,6 +2045,20 @@ flexibleFrames($(".video"));
 }
 
 $(document).ready(flexFrame);
+
+   // ------------------- shorten note count by @mournstera
+    const noteCounts = document.querySelectorAll(".notecount");
+
+    noteCounts.forEach(function (noteCountElement) {
+        let noteCount = parseInt(noteCountElement.textContent.replace(/,/g, "").split(" ")[0], 10);
+
+        if (noteCount >= 1000000) {
+            noteCountElement.textContent = `${(noteCount / 1000000).toFixed(2)}m notes`;
+        } else if (noteCount >= 1000) {
+            noteCountElement.textContent = `${(noteCount / 1000).toFixed(1)}k notes`;
+        }
+    });
+    
 
 
 tippy('[title]', {
