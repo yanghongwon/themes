@@ -6,12 +6,15 @@ credits:
 - fonts by google fonts
 - icons by solar icons
 - base code by mournstera / flipse
-- which can be found here: https://github.com/flipsewtf/Tumblr-basecode
+	- which can be found here: https://github.com/flipsewtf/Tumblr-basecode
+- shortening note count script by mournstera / flipse
 - timeline tutorial by https://codepen.io/alvarotrigo/pen/ZEXzOWQ
 - flexible frames (video resizing script) by robinpx on github
-- https://github.com/robinpx/tumblr/blob/master/scripts/flexibleFrames/README.md
+	- https://github.com/robinpx/tumblr/blob/master/scripts/flexibleFrames/README.md
 - lightbox tutorial by shythemes
 - spotify fix, npf audio, and npf photosets are all by glenthemes
+- theme name and the preview's title and description are from 'en plein jour' by yang hongwon
+	- english lyrics are translations from joshua cho's video (https://www.youtube.com/watch?v=nsLg4Nrs64M)
 
 please enjoy! and let me know if there are any bugs!
 
