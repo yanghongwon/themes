@@ -800,13 +800,6 @@ align-items: center;
 gap: 5px;
 }
 
-.ask-info span {
-max-width: 10ch;
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
-}
-
 .ask-info {
 display: flex;
 align-items: center;
@@ -1109,6 +1102,10 @@ background-color: var(--clr-text);
 color: var(--clr-background);
 text-align: center;
 text-transform: lowercase;
+}
+
+p:empty {
+    display: none;
 }
 
 </style>
@@ -2061,6 +2058,13 @@ $(document).ready(flexFrame);
             noteCountElement.textContent = `${(noteCount / 1000).toFixed(1)}k notes`;
         }
     });
+    
+    // ------------------- remove empty p tags
+for (const p of document.querySelectorAll('p')) {
+    if (p.innerHTML.trim() === '') {
+       p.remove()
+    }
+}
     
 
 
