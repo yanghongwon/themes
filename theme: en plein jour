@@ -1097,6 +1097,18 @@ background: var(--clr-accent);
 }
 /* credit */
 
+article iframe:not(iframe.bandcamp_audio_player,.spotify_audio_player, iframe.soundcloud_audio_player, iframe.tumblr_audio_player) {
+    max-width: 100%;
+    aspect-ratio: 16/9;
+    height: auto;
+}
+
+iframe.soundcloud_audio_player,
+.tumblr_video_container {
+    width: 100%!important;
+    height: auto!important;
+}
+
 .tippy-tooltip.custom-theme {
 background-color: var(--clr-text);
 color: var(--clr-background);
