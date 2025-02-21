@@ -14,6 +14,7 @@ credits:
 - tooltips script by atomiks
 - gradient transition tutorial by stackoverflow
 - https://stackoverflow.com/a/63848864
+- lightbox tutorial by shythemes
 - title and description from "when i think of you" by the black skirts
 
 note: everything should be able to be edited in the meta tags, which means you shouldn't have to go into the code for anything
@@ -1062,6 +1063,19 @@ background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2)
 
 transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
 }
+}
+
+.vignette, #vignette {
+    opacity:0;
+}
+.lightbox-image, #tumblr_lightbox img {
+    box-shadow:none !important;
+    border-radius:0 !important;
+    max-width:none;
+}
+
+.tmblr-lightbox, #tumblr_lightbox {
+    background-color:rgba(from var(--clr-background) r g b / 0.7) !important;
 }
 
 /* -------------------------------------  npf photoset stuff. */
