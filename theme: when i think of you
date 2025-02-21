@@ -624,7 +624,7 @@ background: var(--clr-accent-2-gradient);
 position: fixed;
 inset: 0;
 background: rgba(from var(--clr-background) r g b / 0.6);
-z-index: 10;
+z-index: 100;
 
 overflow: scroll;
 overscroll-behavior: contain;
