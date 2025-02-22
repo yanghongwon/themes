@@ -494,6 +494,7 @@ position: fixed;
 top: 0;
 left: 0;
 background: var(--clr-posts);
+z-index: 1;
 
 height: calc(var(--sidebar-size-sm) + var(--padding));
 width: 100%;
@@ -2132,7 +2133,7 @@ position: fixed;
 top: 0;
 left: 0;
 background: var(--clr-posts);
-z-index: 0;
+z-index: 1;
 
 width: calc(var(--sidebar-size-sm) + var(--padding));
 height: 100svh;
