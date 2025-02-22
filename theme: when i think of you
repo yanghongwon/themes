@@ -2083,7 +2083,7 @@ top: 1rem;
 }
 
 iframe.tmblr-iframe {
-translate: 0 0.3rem;
+translate: -0.7rem 0.3rem;
 }
 
 .s-title {
