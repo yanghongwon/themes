@@ -550,7 +550,7 @@ background: var(--clr-accent);
 color: var(--clr-background);
 }
 
-.content {
+div.content {
 width: var(--container-size);
 grid-area: content;
 }
@@ -1184,6 +1184,11 @@ cursor: pointer;
 article blockquote {
 border-left: 1px solid var(--clr-borders);
 padding-left: var(--text-margin);
+margin-left: var(--text-margin);
+}
+
+article blockquote:first-of-type {
+    margin-top: calc((var(--text-margin) / 2) * -1);
 }
 /* there's already a margins around <p> *and* blockquote, so let's remove it around <p> */
 article blockquote p {
@@ -2034,6 +2039,44 @@ transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
 
 transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
 }
+}
+
+span.tmblr-text-alt-helper {
+    background: var(--clr-background)!important;
+    color: var(--clr-accent)!important;
+    opacity: 0.5!important;
+}
+
+.popover.tutorial {
+    word-wrap: break-word!important;
+    padding: 1rem!important;
+    border: 1px solid var(--clr-borders);
+    border-radius: var(--radius-sm);
+    background: var(--clr-posts)!important;
+}
+
+.popover.tutorial .title, .popover.tutorial p.content {
+    color: var(--clr-text)!important;
+    font-family: var(--ff-body)!important;
+    font-size: var(--fs-body);
+}
+
+.popover.tutorial .ok_button {
+    margin: 1rem 0 0 0!important;
+    border: 1px solid var(--clr-borders)!important;
+    width: 100%!important;
+    background: var(--clr-accent)!important;
+    color: var(--clr-background)!important;
+    text-transform: lowercase;
+    border-radius: var(--radius-sm)!important;
+    padding: 0.5rem 1rem!important;
+    font-weight: 900!important;
+    transition: all 0.7s ease-in-out!important;
+}
+
+.popover.tutorial .ok_button:hover {
+    background: var(--clr-background)!important;
+    color: var(--clr-accent)!important;
 }
 
 .tippy-tooltip.custom-theme {
@@ -3318,3 +3361,4 @@ return title;
 <!-- javascript -->
 </body>
 </html>
+
