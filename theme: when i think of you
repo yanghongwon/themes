@@ -550,7 +550,7 @@ background: var(--clr-accent);
 color: var(--clr-background);
 }
 
-div.content {
+section.content {
 width: var(--container-size);
 grid-area: content;
 }
