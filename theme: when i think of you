@@ -413,7 +413,7 @@ color: var(--clr-accent);
 iframe.tmblr-iframe {
 transform: scale(0.75, 0.75);
 filter: invert(100%);
-translate: 0rem calc(var(--sidebar-size-sm) + 1.2rem);
+translate: -1rem calc(var(--sidebar-size-sm) + 1.2rem);
 
 opacity: 0;
 visibility: hidden;
@@ -2130,7 +2130,7 @@ top: 1rem;
 }
 
 iframe.tmblr-iframe {
-translate: 0rem 0.3rem;
+translate: -1rem 0.3rem;
 }
 
 .s-title {
