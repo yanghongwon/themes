@@ -857,7 +857,7 @@ row-gap: 14px;
 display: flex;
 align-items: center;
 gap: 6px;
-flex: 1 0 calc(33% - 1rem);
+flex: 1 0 calc(33% - 0.5rem);
 
 &:hover i {
 color: var(--clr-accent-gradient);
@@ -2205,7 +2205,7 @@ display: none;
 }
 
 .link {
-flex: 1 0 calc(50% - 1rem);
+flex: 1 0 calc(50% - 0.5rem);
 }
 
 }
