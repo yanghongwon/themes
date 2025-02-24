@@ -1187,7 +1187,7 @@ padding-left: var(--text-margin);
 margin-left: var(--text-margin);
 }
 
-article blockquote:first-of-type {
+article blockquote:only-of-type {
     margin-top: calc((var(--text-margin) / 2) * -1);
 }
 /* there's already a margins around <p> *and* blockquote, so let's remove it around <p> */
