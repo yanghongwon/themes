@@ -506,7 +506,6 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 gap: 10px;
-z-index: 0;
 }
 
 .s-icon {
@@ -847,6 +846,7 @@ margin-block: 1rem;
 }
 
 .links-list {
+--flex-column-gap: 1rem;
 display: flex;
 flex-wrap: wrap;
 column-gap: 1rem;
@@ -857,7 +857,7 @@ row-gap: 14px;
 display: flex;
 align-items: center;
 gap: 6px;
-flex: 1 0 calc(33% - 1rem);
+flex: 1 0 calc(33% - var(--flex-column-gap));
 
 &:hover i {
 color: var(--clr-accent-gradient);
@@ -1115,17 +1115,17 @@ margin-right: 0;
 .more_photoset,
 .legacy-photo img,
 .photoset {
-border-radius: var(--photo-corners);
+border-radius: var(--radius-sm);
 overflow:hidden;
 margin: auto;
 }
 .npf-photos:has(+figure) {
-border-radius: var(--photo-corners) var(--photo-corners) 0 0;
+border-radius: var(--radius-sm) var(--radius-sm) 0 0;
 max-width: fit-content;
 }
 .npf-photos + figure {
 overflow: hidden;
-border-radius: 0 0 var(--photo-corners) var(--photo-corners);
+border-radius: 0 0 var(--radius-sm) var(--radius-sm);
 margin: var(--photo-gutter) auto auto;
 max-width: fit-content;
 }
@@ -1187,7 +1187,7 @@ padding-left: var(--text-margin);
 margin-left: var(--text-margin);
 }
 
-article blockquote:only-of-type {
+article blockquote:first-of-type {
     margin-top: calc((var(--text-margin) / 2) * -1);
 }
 /* there's already a margins around <p> *and* blockquote, so let's remove it around <p> */
@@ -1458,6 +1458,7 @@ transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
 
 .question {
 display: inline-flex;
+flex-wrap: wrap;
 margin-block-start: 0.5rem;
 
 &::before {
@@ -1472,6 +1473,7 @@ margin-inline-end: 1rem;
 
 .reverse-question {
 display: inline-flex;
+flex-wrap: wrap;
 margin-block-start: 0.5rem;
 text-align: end;
 
@@ -1486,7 +1488,7 @@ margin-inline-end: 2rem;
 }
 
 /* keep npf photos from extending over the askbox size */
-.question .npf_inst {
+.question .npf_inst, .rb-answer .npf_inst {
 max-width: 100%;
 margin: 0;
 }
@@ -2205,7 +2207,7 @@ display: none;
 }
 
 .link {
-flex: 1 0 calc(50% - 0.5rem);
+flex: 1 0 calc(50% - calc(var(--flex-column-gap) / 2));
 }
 
 }
@@ -2451,10 +2453,9 @@ data-highres="{PhotoURL-HighRes}">
 <i class="solar-icons" stroke="2" icon-name="chats-1"></i>
 </div>
 <div class="ask-user-info">
-<p>
-{Asker}
-sent a message
-</p>
+<span>
+    {Asker} sent a message
+</span>
 </div>
 </div>
 
@@ -2469,21 +2470,21 @@ sent a message
 
 {block:Answerer}
 <div class="ask-container rb-answer">
+
 <div class="asker-wrap aw-reverse">
+
 <div class="answer-img">
 <img src="{AnswererPortraitURL-64}"/>
 <i class="solar-icons" stroke="2" icon-name="chat-reply"></i>
 </div>
-<div class="ask-user-info">
-<p>
-{Answerer} answered
-</p>
 
+<div class="ask-user-info">
+<span>{Answerer} answered</span>
 </div>
 </div>
 
 <div class="reverse-question">
-<div>{Answer}</div>
+{Answer}
 </div>
 </div>
 {/block:Answerer}
