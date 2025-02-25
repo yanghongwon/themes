@@ -1185,6 +1185,7 @@ article blockquote {
 border-left: 1px solid var(--clr-borders);
 padding-left: var(--text-margin);
 margin-left: var(--text-margin);
+margin-top: var(--text-margin);
 }
 
 /* there's already a margins around <p> *and* blockquote, so let's remove it around <p> */
