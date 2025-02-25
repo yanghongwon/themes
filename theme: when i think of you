@@ -296,7 +296,6 @@ padding: 0;
 }
 
 h1, h2, h3 {
-width: max-content;
 line-height: 1.1;
 text-wrap: balance;
 font-family: var(--ff-body);
