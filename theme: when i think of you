@@ -2483,7 +2483,7 @@ sent a message
 </div>
 
 <div class="reverse-question">
-<div>{Question}</div>
+<div>{Answer}</div>
 </div>
 </div>
 {/block:Answerer}
