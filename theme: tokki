@@ -759,9 +759,7 @@ margin: 4rem auto;
 .header main, .left-sb main, .right-sb main {
 grid-template-areas: 'tabs'
 'panels';
-}
 
-.header main {
 .sb-pagination {
 display: none;
 }
@@ -2951,6 +2949,10 @@ font-size: calc(var(--fs-body) + 0.3rem);
 
 .pagination-wrapper {
 display: none;
+}
+
+.sb-pagination {
+display: block;
 }
 }
 }
