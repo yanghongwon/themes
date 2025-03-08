@@ -2952,7 +2952,7 @@ display: none;
 }
 
 .sb-pagination {
-display: block;
+display: flex;
 }
 }
 }
