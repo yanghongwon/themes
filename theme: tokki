@@ -1117,7 +1117,7 @@ flex: 1;
 }
 
 i {
-background: var(--clr-background);
+background: var(--clr-posts);
 color: var(--clr-accent);
 padding: 0.4rem;
 border: 1px solid var(--clr-borders);
