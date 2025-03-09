@@ -222,7 +222,7 @@ document.documentElement.setAttribute("data-theme", storedTheme);
 <meta name="text:Dislikes Icon" content="face-sad"/>
 <meta name="text:Dislikes Title" content="things the user doesn't like"/>
 
-<meta name="text:Extra Update Text" content="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque optio, architecto ea vero, assumenda vitae laudantium officiis numquam, laboriosam velit accusamus modi? Asperiores temporibus commodi illum eos, voluptatum minima? Officia quisquam consequuntur harum ab molestiae tempore a totam rerum et."/> 
+<meta name="text:Extra Update" content="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque optio, architecto ea vero, assumenda vitae laudantium officiis numquam, laboriosam velit accusamus modi? Asperiores temporibus commodi illum eos, voluptatum minima? Officia quisquam consequuntur harum ab molestiae tempore a totam rerum et."/> 
 
 <meta name="text:Update 1 Icon" content="tv"/>
 <meta name="text:Update 1 Title" content="shows/films i'm watching"/>
@@ -254,9 +254,6 @@ document.documentElement.setAttribute("data-theme", storedTheme);
 <meta name="text:Task 5" content="task #5"/>
 <meta name="text:Task 6" content="task #6"/>
 <meta name="text:Task 7" content="task #7. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, molestiae cupiditate cumque laudantium ullam doloribus. Soluta non accusamus ducimus, impedit explicabo repudiandae dicta, commodi sint expedita, placeat officiis molestiae quam!"/> 
-
-<meta name="text:Modal Icon" content="edit-circle"/>
-<meta name="text:Modal Text" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod temporibus accusamus nisi debitis distinctio enim aliquid animi dolore amet labore esse cum quas eius molestiae corrupti magnam explicabo, quasi a exercitationem quam corporis aspernatur, harum quo? Officia labore maiores asperiores."/> 
 
 <meta name="text:Sideblog 1 Icon" content="code-1"/>
 <meta name="text:Sideblog 1 URL" content="/"/>
