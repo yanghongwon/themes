@@ -45,6 +45,8 @@ note: everything's editable in the 'customize' panel, save for the likes/dislike
     {block:TagPage} | posts tagged as #{Tag}{/block:TagPage}
     {block:DayPage} | posts made on {Month} {DayOfMonthWithSuffix}, {Year}{/block:DayPage}
 </title>
+<link rel="shortcut icon" href="{Favicon}"/>
+<meta name="description" content="{MetaDescription}"/>
 
 <!-- google fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
