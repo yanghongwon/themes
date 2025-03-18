@@ -68,7 +68,7 @@ document.documentElement.setAttribute("data-theme", storedTheme);
 <meta name="color:Background" content="#f0f0f0"/>
 <meta name="color:Background 2" content="#fff"/>
 <meta name="color:Text" content="#000"/>
-<meta name="color:Link" content="#252525"/>
+<meta name="color:Links" content="#252525"/>
 <meta name="color:Borders" content="#d3d3d3"/>
 <meta name="color:Accent" content="#7886C7"/>
 <meta name="color:Accent Gradient" content="#C890A7"/>
@@ -77,7 +77,7 @@ document.documentElement.setAttribute("data-theme", storedTheme);
 <meta name="color:Dark Background" content="#101010"/>
 <meta name="color:Dark Background 2" content="#202020"/>
 <meta name="color:Dark Text" content="#fff"/>
-<meta name="color:Dark Link" content="#eee"/>
+<meta name="color:Dark Links" content="#eee"/>
 <meta name="color:Dark Borders" content="#484848"/>
 <meta name="color:Dark Accent" content="#A5BFCC"/>
 <meta name="color:Dark Accent Gradient" content="#FFCFCF"/>
@@ -1002,7 +1002,7 @@ article ol {
 padding-left: var(--text-margin);
 }
 
-.poll-post .pooll-question {
+.poll-post .poll-question {
 font-size: calc(var(--fs-body) + 0.3rem);
 font-weight: 600;
 font-family: inherit;
