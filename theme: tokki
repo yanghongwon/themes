@@ -312,30 +312,30 @@ document.documentElement.setAttribute("data-theme", storedTheme);
 --light-mode: none;
 --dark-mode: flex;
 
---clr-background: #f0f0f0;
---clr-posts: #fff;
---clr-text: #000;
---clr-links: #202020;
---clr-borders: #d3d3d3;
---clr-accent: #c6e5dd;
---clr-accent-2:  #206a83;
---clr-accent-gradient: #f1c7eb;
---clr-accent-2-gradient: #d67acd;
+--clr-background: {color:Background};
+--clr-posts: {color:Background 2};
+--clr-text: {color:Text};
+--clr-links: {color:Links};
+--clr-borders: {color:Borders};
+--clr-accent: {color:Accent};
+--clr-accent-2: {color:Accent 2};
+--clr-accent-gradient: {color:Accent Gradient};
+--clr-accent-2-gradient: {color:Accent 2 Gradient};
 }
 
 html[data-theme="dark"] {
 --light-mode: flex;
 --dark-mode: none;
 
---clr-background: #101010;
---clr-posts: #202020;
---clr-text: #fff;
---clr-links: #eee;
---clr-borders: #505050;
---clr-accent: #FFCDCE;
---clr-accent-2: #EED1E5;
---clr-accent-gradient: #B8B3D4;
---clr-accent-2-gradient: #928FBE;
+--clr-background: {color:Dark Background};
+--clr-posts: {color:Dark Background 2};
+--clr-text: {color:Dark Text};
+--clr-links: {color:Dark Links};
+--clr-borders: {color:Dark Borders};
+--clr-accent: {color:Dark Accent};
+--clr-accent-2: {color:Dark Accent 2};
+--clr-accent-gradient: {color:Dark Accent Gradient};
+--clr-accent-2-gradient: {color:Dark Accent 2 Gradient};
 }
 
 @property --clr-gradient {
