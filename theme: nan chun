@@ -11,7 +11,7 @@ note #2: everything can be edited in the 'customize' panel, so don't worry about
 note #3: if you want to add more likes or dislikes, follow this format and make sure to add '{ }' around everything and remove the space between 'text:' and '/block:':
 
 put this in the meta options:
-<meta name="text:Like 11" content="like 11"/>
+<meta name="text: Like 11" content="like 11"/>
 
 put this in the html after--> <!-- [/block: ifLike10]
 block:Like11
