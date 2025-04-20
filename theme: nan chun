@@ -8,40 +8,7 @@ note #1: don't alter, move, or delete my credit in the bottom right corner or in
 
 note #2: everything can be edited in the 'customize' panel, so don't worry about getting into the code —except when you want to add something
 
-note #3: if you want to add more likes or dislikes, follow this format and make sure to add '{ }' around everything and remove the space between 'text:' and '/block:':
-
-put this in the meta options:
-<meta name="text: Like 11" content="like 11"/>
-
-put this in the html after--> <!-- [/block: ifLike10]
-block:Like11
-<li class="like-item">
-text: Like11
-</li>
-/block:Like11
-
-replace 'like' with 'dislike' if you want to add to the dislikes list
-
-note #4: if you want to add more tasks, follow this format and make sure to add '{ }' around everything and remove the space between 'text:', 'select:', and '/block::
-
-put this in the meta options:
-<meta name="select: Task 5 Status" content="" title="not done"/>
-<meta name="select: Task 5 Status" content="almost-done" title="almost done"/>
-<meta name="select: Task 5 Status" content="done" title="done"/>
-
-<meta name="text:Task 5" content="Task 5"/>
-
-put this in the html after [/block: ifTask4]
-
-block:ifTask5
-<li class="task select: Task 5 Status">
-<span class="checkbox"></span>
-
-<p>text: Task 5</p>
-</li>
-/block:ifTask5
-
-note #5: if you want to replace the sideblog images, follow these steps:
+note #3: if you want to replace the sideblog images, follow these steps:
 
 step 1) find the image you want to use (or, if you want to use your tumblr avatar, this is the format: //api.tumblr.com/v2/blog/[Sideblog Name].tumblr.com/avatar)
 step 2) right click on the image, there'll be a few options when you do that
@@ -3638,7 +3605,7 @@ opacity: 1;
 </span>
 <!-- likes icon -->
 
-<!-- likes list. read note #3 if you want to add more -->
+<!-- likes list -->
 <ul class="likes-list">
 
 <!-- like 1 -->
@@ -3722,7 +3689,7 @@ opacity: 1;
 <!-- like 10 -->
 
 </ul>
-<!-- likes list. read note #3 if you want to add more -->
+<!-- likes list -->
 
 </li>
 {block:ifLike1}
@@ -4014,13 +3981,13 @@ opacity: 1;
 <!-- sideblog 1 image and icon -->
 <div class="image-and-icon">
 
-<!-- sideblog image. read note #5 if you want to change it -->
+<!-- sideblog image. read note #3 if you want to change it -->
 {block:ifSideblog1Image}
 <figure>
 <img src="{text:Sideblog 1 Image}" class="sideblog-image"/>
 </figure>
 {/block:ifSideblog1Image}
-<!-- sideblog image. read note #5 if you want to change it -->
+<!-- sideblog image. read note #3 if you want to change it -->
 
 <!-- sideblog 1 icon -->
 {block:ifSideblog1Icon}
@@ -4052,13 +4019,13 @@ opacity: 1;
 
 <div class="image-and-icon">
 
-<!-- sideblog image. read note #5 if you want to change it -->
+<!-- sideblog image. read note #3 if you want to change it -->
 {block:ifSideblog2Image}
 <figure>
 <img src="{text:Sideblog 2 Image}" class="sideblog-image"/>
 </figure>
 {/block:ifSideblog2Image}
-<!-- sideblog image. read note #5 if you want to change it -->
+<!-- sideblog image. read note #3 if you want to change it -->
 
 <!-- sideblog 2 icon -->
 {block:ifSideblog2Icon}
@@ -4084,13 +4051,13 @@ opacity: 1;
 
 <div class="image-and-icon">
 
-<!-- sideblog image. read note #5 if you want to change it -->
+<!-- sideblog image. read note #3 if you want to change it -->
 {block:ifSideblog3Image}
 <figure>
 <img src="{text:Sideblog 3 Image}" class="sideblog-image"/>
 </figure>
 {/block:ifSideblog3Image}
-<!-- sideblog image. read note #5 if you want to change it -->
+<!-- sideblog image. read note #3 if you want to change it -->
 
 <!-- sideblog 3 icon -->
 {block:ifSideblog3Icon}
@@ -4116,13 +4083,13 @@ opacity: 1;
 
 <div class="image-and-icon">
 
-<!-- sideblog image. read note #5 if you want to change it -->
+<!-- sideblog image. read note #3 if you want to change it -->
 {block:ifSideblog4Image}
 <figure>
 <img src="{text:Sideblog 4 Image}" class="sideblog-image"/>
 </figure>
 {/block:ifSideblog4Image}
-<!-- sideblog image. read note #5 if you want to change it -->
+<!-- sideblog image. read note #3 if you want to change it -->
 
 <!-- sideblog 4 icon -->
 {block:ifSideblog4Icon}
@@ -4148,13 +4115,13 @@ opacity: 1;
 
 <div class="image-and-icon">
 
-<!-- sideblog image. read note #5 if you want to change it -->
+<!-- sideblog image. read note #3 if you want to change it -->
 {block:ifSideblog5Image}
 <figure>
 <img src="{text:Sideblog 5 Image}" class="sideblog-image"/>
 </figure>
 {/block:ifSideblog5Image}
-<!-- sideblog image. read note #5 if you want to change it -->
+<!-- sideblog image. read note #3 if you want to change it -->
 
 <!-- sideblog 5 icon -->
 {block:ifSideblog5Icon}
