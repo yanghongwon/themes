@@ -1,0 +1,5218 @@
+<!--
+
+nan chun by pouthongwon
+
+a dual sidebar theme with a tabbed modal and (optional) custom links on click
+
+note #1: don't alter, move, or delete my credit in the bottom right corner or in this code
+
+note #2: everything can be edited in the 'customize' panel, so don't worry about getting into the code —except when you want to add something
+
+note #3: if you want to add more likes or dislikes, follow this format and make sure to replace the '[ ]' with '{ }':
+
+put this in the meta options:
+<meta name="text:Like 11" content="like 11"/>
+
+put this in the html after--> <!-- [/block:ifLike10]
+[block:ifLike11]
+<li class="like-item">
+[text:Like 11]
+</li>
+[/block:ifLike11]
+
+replace 'like' with 'dislike' if you want to add to the dislikes list
+
+note #4: if you want to add more tasks, follow this format and make sure to replace the '[ ]' with '{ }':
+
+put this in the meta options:
+<meta name="select:Task 5 Status" content="" title="not done"/>
+<meta name="select:Task 5 Status" content="almost-done" title="almost done"/>
+<meta name="select:Task 5 Status" content="done" title="done"/>
+
+<meta name="text:Task 5" content="Task 5"/>
+
+put this in the html after [/block:ifTask4]
+
+[block:ifTask5]
+<li class="task [select:Task 5 Status]">
+<span class="checkbox"></span>
+
+<p>[text:Task 5]</p>
+</li>
+[/block:ifTask5]
+
+note #5: if you want to replace the sideblog images, follow these steps:
+
+step 1) find the image you want to use (or, if you want to use your tumblr avatar, this is the format: //api.tumblr.com/v2/blog/[Sideblog Name].tumblr.com/avatar)
+step 2) right click on the image, there'll be a few options when you do that
+step 3) find 'copy image url' (or something similar) and click on it, the url is now copied to your clipboard
+step 4) go to the customize panel and find 'Sideblog [#] Image', there will be a string of text underneath it
+step 5) delete the text and paste the image url you've copied
+
+credits:
+fonts by google fonts
+icons by solar icons
+base code by @mournstera (+ light/dark toggle, poll post styling, and the following scripts: unifyaudio, shorten notecount, and timeago)
+- modal by geeksforgeeks
+- accessible tabs by code concisely
+- modified scroll to top tutorial by w3schools
+- images are from a variety of places (notably, various korean actors'/models' instagrams for the sideblogs and sidebar. pexels for the modal images)
+- theme title from 'nan chun' by se so neon and custom title + description are from the same song, translated by ana on youtube
+- link: https://www.youtube.com/watch?v=TmgU7GVj7yo
+
+-->
+
+
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{Title} {block:PostSummary} | {PostSummary}{/block:PostSummary} {block:TagPage} | tagged as #{Tag}{/block:TagPage} {block:DayPage} | posted on {Month} {DayofMonthWithSuffix} {Year}{/block:DayPage}</title>
+<link rel="shortcut icon" href="{Favicon}"/>
+<link rel="alternate" type="application/rss+xml" href="{RSS}">
+{block:Description}
+<meta name="description" content="{MetaDescription}" />
+{/block:Description}
+
+<!-- google fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family={text:Accent Font}:ital,wght@0,400;0,500;1,400;1,500&family={text:Body Font}:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+<!-- solar icons -->
+<link href="https://solar-icons.gitlab.io/i/icons.css" rel="stylesheet" crossorigin>
+
+<!-- jquery for tooltips by atomiks -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<!-- light/dark toggle by @mournstera -->
+<script>
+const storedTheme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+if (storedTheme) {
+document.documentElement.setAttribute("data-theme", storedTheme);
+}
+</script>
+
+<meta name="image:Light Sidebar Image" content="https://cdn.glitch.global/a2e573a5-9a54-498f-8487-9957f05a7e48/%40alo%20Photo%20shared%20by%20JISOO%20on%20April%2017%2C%202025%20tagging%20%40alo.%20May%20be%20an%20i-1%20copy.jpg?v=1745117062453"/>
+<meta name="image:Dark Sidebar Image" content="https://cdn.glitch.global/a2e573a5-9a54-498f-8487-9957f05a7e48/yeeun%2012.jpg?v=1745116782800"/>
+<meta name="image:Light Modal Header Image" content="https://images.pexels.com/photos/2179424/pexels-photo-2179424.jpeg?auto=compress&cs=tinysrgb&w=1600"/>
+<meta name="image:Dark Modal Header Image" content="https://images.pexels.com/photos/2339009/pexels-photo-2339009.jpeg?auto=compress&cs=tinysrgb&w=1600"/>
+
+<meta name="color:Background" content="#f0f0f0"/>
+<meta name="color:Background 2" content="#fff"/>
+<meta name="color:Text" content="#000"/>
+<meta name="color:Links" content="#202020"/>
+<meta name="color:Borders" content="#d3d3d3"/>
+<meta name="color:Accent" content="#ab83ae"/>
+<meta name="color:Accent 2" content="#6b81a9"/>
+<meta name="color:Accent Gradient" content="#df9191"/>
+<meta name="color:Accent 2 Gradient" content="#8c95c5"/>
+
+<meta name="color:Dark Background" content="#101010"/>
+<meta name="color:Dark Background 2" content="#202020"/>
+<meta name="color:Dark Text" content="#fff"/>
+<meta name="color:Dark Links" content="#eee"/>
+<meta name="color:Dark Borders" content="#505050"/>
+<meta name="color:Dark Accent" content="#fdd6a6"/>
+<meta name="color:Dark Accent 2" content="#d3c6fd"/>
+<meta name="color:Dark Accent Gradient" content="#f9baba"/>
+<meta name="color:Dark Accent 2 Gradient" content="#a7d3d4"/>
+
+<meta name="text:Body Font" content="Poppins"/>
+<meta name="text:Accent Font" content="DM Mono"/>
+
+<meta name="select:Layout" content="header" title="header"/>
+<meta name="select:Layout" content="left-sb" title="left sidebar"/>
+<meta name="select:Layout" content="right-sb" title="right sidebar"/>
+
+<meta name="select:Body Font Size" content="0.9rem" title="0.9rem"/>
+<meta name="select:Body Font Size" content="1rem" title="1rem"/>
+<meta name="select:Body Font Size" content="1.1rem" title="1.1rem"/>
+
+<meta name="select:Post Width" content="400px" title="400px"/>
+<meta name="select:Post Width" content="450px" title="450px"/>
+<meta name="select:Post Width" content="500px" title="500px"/>
+<meta name="select:Post Width" content="540px" title="540px"/>
+
+<meta name="select:Post Margin" content="5rem" title="extra small"/>
+<meta name="select:Post Margin" content="7rem" title="small"/>
+<meta name="select:Post Margin" content="9rem" title="medium"/>
+<meta name="select:Post Margin" content="11rem" title="large"/>
+<meta name="select:Post Margin" content="13rem" title="extra large"/>
+
+<meta name="select:Sidebar Width" content="270px" title="270px"/>
+<meta name="select:Sidebar Width" content="290px" title="290px"/>
+<meta name="select:Sidebar Width" content="310px" title="310px"/>
+<meta name="select:Sidebar Width" content="330px" title="330px"/>
+<meta name="select:Sidebar Width" content="350px" title="350px"/>
+
+<meta name="select:Custom Links Layout" content="in-sidebar" title="in sidebar"/>
+<meta name="select:Custom Links Layout" content="in-modal" title="in modal"/>
+
+<meta name="text:Title Icon" content="text"/>
+<meta name="text:Title" content="put a sidebar title here, there's no limit, so it won't be cut off"/>
+
+<meta name="text:Description Icon" content="info-circle"/>
+<meta name="text:Description" content="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi dolores eos facilis perferendis laudantium enim? Temporibus veniam architecto ad excepturi!"/>
+
+<meta name="text:Home Icon" content="home-2"/>
+<meta name="text:Home Label" content="home"/>
+
+<meta name="text:Askbox Icon" content="notif-unread-2"/>
+<meta name="text:Askbox Label" content="askbox"/>
+
+<meta name="text:Archive Icon" content="archive"/>
+<meta name="text:Archive Label" content="archive"/>
+
+<meta name="text:Extra Link Icon" content="link-1"/>
+<meta name="text:Extra Link URL" content="/"/>
+<meta name="text:Extra Link Label" content="extra link"/>
+
+<meta name="text:Modal Button Icon" content="user-heart-1"/>
+<meta name="text:Modal Button Label" content="about the user"/>
+
+<meta name="text:Custom Links Button Icon" content="menu-lines-3"/>
+<meta name="text:Custom Links Button Label" content="custom links"/>
+
+<meta name="text:Modal Tab 1 Icon" content="info-circle"/>
+<meta name="text:Modal Tab 1 Label" content="about the user"/>
+
+<meta name="text:Modal Tab 2 Icon" content="menu-lines-3"/>
+<meta name="text:Modal Tab 2 Label" content="links and sideblogs"/>
+
+<meta name="text:Modal Tab 3 Icon" content="bell-1"/>
+<meta name="text:Modal Tab 3 Label" content="updates"/>
+
+<meta name="text:Modal Quote Icon" content="edit-circle"/>
+<meta name="text:Modal Quote" content="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam nesciunt impedit maiores rerum blanditiis molestiae ipsa, obcaecati corrupti vero excepturi."/>
+
+<meta name="text:Stat 1 Icon" content="user-1"/>
+<meta name="text:Stat 1 Title" content="pronouns"/>
+<meta name="text:Stat 1 Text" content="pronoun/pronoun"/>
+
+<meta name="text:Stat 2 Icon" content="info-circle"/>
+<meta name="text:Stat 2 Title" content="gender, sexuality"/>
+<meta name="text:Stat 2 Text" content="gender, sexuality"/>
+
+<meta name="text:Stat 3 Icon" content="star"/>
+<meta name="text:Stat 3 Title" content="star sign"/>
+<meta name="text:Stat 3 Text" content="star sign"/>
+
+<meta name="text:Stat 4 Icon" content="map-pin-2"/>
+<meta name="text:Stat 4 Title" content="location"/>
+<meta name="text:Stat 4 Text" content="where you are"/>
+
+<meta name="text:Stat 5 Icon" content="bar-chart-1"/>
+<meta name="text:Stat 5 Title" content="status"/>
+<meta name="text:Stat 5 Text" content="online, semi-hiatus, hiatus..."/>
+
+<meta name="text:Stat 6 Icon" content="face-neutral"/>
+<meta name="text:Stat 6 Title" content="mood"/>
+<meta name="text:Stat 6 Text" content="mood"/>
+
+<meta name="text:About Title" content="about the user"/>
+<meta name="text:About Text" content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut soluta vero illum voluptas, saepe dolorem tempora suscipit temporibus dolore maxime optio consectetur nemo mollitia cumque animi, accusamus eaque iste a?"/>
+
+<meta name="text:Likes Icon" content="face-smile"/>
+<meta name="text:Like 1" content="like #1"/>
+<meta name="text:Like 2" content="like #2"/>
+<meta name="text:Like 3" content="like #3"/>
+<meta name="text:Like 4" content="like #4"/>
+<meta name="text:Like 5" content="like #5"/>
+<meta name="text:Like 6" content="like #6"/>
+<meta name="text:Like 7" content="like #7"/>
+<meta name="text:Like 8" content="like #8"/>
+<meta name="text:Like 9" content="like #9"/>
+<meta name="text:Like 10" content="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora omnis alias officia delectus."/> 
+
+<meta name="text:Dislikes Icon" content="face-sad"/>
+<meta name="text:Dislike 1" content="dislike #1"/>
+<meta name="text:Dislike 2" content="dislike #2"/>
+<meta name="text:Dislike 3" content="dislike #3"/>
+<meta name="text:Dislike 4" content="dislike #4"/>
+<meta name="text:Dislike 5" content="dislike #5"/>
+<meta name="text:Dislike 6" content="dislike #6"/>
+<meta name="text:Dislike 7" content="dislike #7"/>
+<meta name="text:Dislike 8" content="dislike #8"/>
+<meta name="text:Dislike 9" content="dislike #9"/>
+<meta name="text:Dislike 10" content="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora omnis alias officia delectus."/> 
+
+<meta name="text:Custom Link 1 Icon" content="user-1"/>
+<meta name="text:Custom Link 1 URL" content="/"/>
+<meta name="text:Custom Link 1 Text" content="custom link 1"/>
+
+<meta name="text:Custom Link 2 Icon" content="bed-2"/>
+<meta name="text:Custom Link 2 URL" content="/"/>
+<meta name="text:Custom Link 2 Text" content="custom link 2"/>
+
+<meta name="text:Custom Link 3 Icon" content="planet-1"/>
+<meta name="text:Custom Link 3 URL" content="/"/>
+<meta name="text:Custom Link 3 Text" content="custom link 3"/>
+
+<meta name="text:Custom Link 4 Icon" content="star-3d"/>
+<meta name="text:Custom Link 4 URL" content="/"/>
+<meta name="text:Custom Link 4 Text" content="custom link 4"/>
+
+<meta name="text:Custom Link 5 Icon" content="fire-3"/>
+<meta name="text:Custom Link 5 URL" content="/"/>
+<meta name="text:Custom Link 5 Text" content="custom link 5"/>
+
+<meta name="text:Custom Link 6 Icon" content="bonfire"/>
+<meta name="text:Custom Link 6 URL" content="/"/>
+<meta name="text:Custom Link 6 Text" content="custom link 6"/>
+
+<meta name="text:Sideblog 1 Image" content="https://cdn.glitch.global/a2e573a5-9a54-498f-8487-9957f05a7e48/%40_choiiii__%20Photo%20by%20%E1%84%8E%E1%85%AC%E1%84%92%E1%85%A7%E1%86%AB%E1%84%8B%E1%85%AE%E1%86%A8%20on%20November%2024%2C%202024.-3%20copy.jpg?v=1745116250733"/>
+<meta name="text:Sideblog 1 Icon" content="link-2"/>
+<meta name="text:Sideblog 1 URL" content="/"/>
+<meta name="text:Sideblog 1 Link" content="sideblog #1"/>
+<meta name="text:Sideblog 1 Description" content="short description"/>
+
+<meta name="text:Sideblog 2 Image" content="https://cdn.glitch.global/a2e573a5-9a54-498f-8487-9957f05a7e48/%40hye_yoon1110%20Photo%20by%20%E1%84%80%E1%85%B5%E1%86%B7%E1%84%92%E1%85%A8%E1%84%8B%E1%85%B2%E1%86%AB%20on%20June%2003%2C%202024.-3.jpg?v=1745117166169"/>
+<meta name="text:Sideblog 2 Icon" content="link-3"/>
+<meta name="text:Sideblog 2 URL" content="/"/>
+<meta name="text:Sideblog 2 Link" content="sideblog #2"/>
+<meta name="text:Sideblog 2 Description" content="short description"/>
+
+<meta name="text:Sideblog 3 Image" content="https://cdn.glitch.global/a2e573a5-9a54-498f-8487-9957f05a7e48/%40musinsa.official%20Photo%20shared%20by%20%E1%84%80%E1%85%B5%E1%86%B7%E1%84%8B%E1%85%A7%E1%86%BC%E1%84%83%E1%85%A2%20on%20February%2017%2C%202024%20t.jpg?v=1745117203767"/>
+<meta name="text:Sideblog 3 Icon" content="link-1"/>
+<meta name="text:Sideblog 3 URL" content="/"/>
+<meta name="text:Sideblog 3 Link" content="sideblog #3"/>
+<meta name="text:Sideblog 3 Description" content="short description"/>
+
+<meta name="text:Sideblog 4 Image" content="https://cdn.glitch.global/a2e573a5-9a54-498f-8487-9957f05a7e48/%40300ver%20Photo%20by%20%E1%84%92%E1%85%A9%E1%86%BC%E1%84%90%E1%85%A2%E1%84%8C%E1%85%AE%E1%86%AB%20TaeJun%20on%20March%2009%2C%202025.%20May%20be%20an%20image%20of%201-2.jpg?v=1745117398782"/>
+<meta name="text:Sideblog 4 Icon" content="add"/>
+<meta name="text:Sideblog 4 URL" content="/"/>
+<meta name="text:Sideblog 4 Link" content="sideblog #4"/>
+<meta name="text:Sideblog 4 Description" content="short description"/>
+
+<meta name="text:Sideblog 5 Image" content="https://cdn.glitch.global/a2e573a5-9a54-498f-8487-9957f05a7e48/%40yebin__%20Photo%20by%20%E1%84%8E%E1%85%AC%E1%84%8B%E1%85%A8%E1%84%87%E1%85%B5%E1%86%AB%20on%20April%2017%2C%202025.%20May%20be%20an%20image%20of%201%20pers-10.jpg?v=1745117620909"/>
+<meta name="text:Sideblog 5 Icon" content="minus"/>
+<meta name="text:Sideblog 5 URL" content="/"/>
+<meta name="text:Sideblog 5 Link" content="sideblog #5"/>
+<meta name="text:Sideblog 5 Description" content="short description"/>
+
+<meta name="text:Update 1 Icon" content="tv"/>
+<meta name="text:Update 1 Text" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ea harum iure esse, fuga molestias recusandae facere rem debitis deserunt."/>
+
+<meta name="text:Update 2 Icon" content="book-open-2"/>
+<meta name="text:Update 2 Text" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ea harum iure esse, fuga molestias recusandae facere rem debitis deserunt."/>
+
+<meta name="text:Update 3 Icon" content="earphones"/>
+<meta name="text:Update 3 Text" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ea harum iure esse, fuga molestias recusandae facere rem debitis deserunt."/>
+
+<meta name="text:Update 4 Icon" content="briefcase-2"/>
+<meta name="text:Update 4 Text" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ea harum iure esse, fuga molestias recusandae facere rem debitis deserunt."/>
+
+<meta name="text:Update 5 Icon" content="warning-circle"/>
+<meta name="text:Update 5 Text" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ea harum iure esse, fuga molestias recusandae facere rem debitis deserunt."/>
+
+<meta name="select:Task 1 Status" content="" title="not done"/>
+<meta name="select:Task 1 Status" content="almost-done" title="almost done"/>
+<meta name="select:Task 1 Status" content="done" title="done"/>
+
+<meta name="select:Task 2 Status" content="" title="not done"/>
+<meta name="select:Task 2 Status" content="almost-done" title="almost done"/>
+<meta name="select:Task 2 Status" content="done" title="done"/>
+
+<meta name="select:Task 3 Status" content="" title="not done"/>
+<meta name="select:Task 3 Status" content="almost-done" title="almost done"/>
+<meta name="select:Task 3 Status" content="done" title="done"/>
+
+<meta name="select:Task 4 Status" content="" title="not done"/>
+<meta name="select:Task 4 Status" content="almost-done" title="almost done"/>
+<meta name="select:Task 4 Status" content="done" title="done"/>
+
+<meta name="text:Task 1" content="task #1"/>
+<meta name="text:Task 2" content="task #2"/>
+<meta name="text:Task 3" content="task #3"/>
+<meta name="text:Task 4" content="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore, modi. Obcaecati, magnam?"/> 
+
+<style type="text/css">
+:root {
+--ff-body: '{text:Body Font}', sans-serif;
+--ff-accent: '{text:Accent Font}', monospace;
+
+--fs-body: {select:Body Font Size};
+--fs-h3: calc(var(--fs-body) + 0.2rem);
+--fs-h2: calc(var(--fs-body) + 0.4rem);
+--fs-h1: calc(var(--fs-body) + 0.6rem);
+
+--radius-sm: 0.4rem;
+--radius-round: 50%;
+
+--container-size: {select:Post Width};
+--container-gap: 4rem;
+--sidebar-size: {select:Sidebar Width};
+--extra-sidebar-size: 250px;
+--post-margin: {select:Post Margin};
+}
+
+:root, html[data-theme="light"] {
+--light-mode: none;
+--dark-mode: flex;
+
+--clr-background: {color:Background};
+--clr-container: {color:Background 2};
+--clr-text: {color:Text};
+--clr-links: {color:Links};
+--clr-borders: {color:Borders};
+--clr-accent: {color:Accent};
+--clr-accent-2: {color:Accent 2};
+--clr-accent-gradient: {color:Accent Gradient};
+--clr-accent-2-gradient: {color:Accent 2 Gradient};
+}
+
+html[data-theme="dark"] {
+--light-mode: flex;
+--dark-mode: none;
+
+--clr-background: {color:Dark Background};
+--clr-container: {color:Dark Background 2};
+--clr-text: {color:Dark Text};
+--clr-links: {color:Dark Links};
+--clr-borders: {color:Dark Borders};
+--clr-accent: {color:Dark Accent};
+--clr-accent-2: {color:Dark Accent 2};
+--clr-accent-gradient: {color:Dark Accent Gradient};
+--clr-accent-2-gradient: {color:Dark Accent 2 Gradient};
+}
+
+@property --clr-gradient {
+syntax: '<color>';
+initial-value: transparent;
+inherits: false;
+}
+
+@property --clr-gradient-2 {
+syntax: '<color>';
+initial-value: transparent;
+inherits: false;
+}
+
+*, *::before, *::after {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *:before,
+html.theme-transition *:after {
+transition: 0s !important;
+transition-delay: 0 !important;
+}
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+background: var(--clr-background);
+color: var(--clr-text);
+font-family: var(--ff-body);
+font-size: var(--fs-body);
+overflow-wrap: break-word;
+min-height: 100vh;
+min-height: 100dvh;
+
+display: grid;
+grid-template-columns: 1rem 1fr 1rem;
+}
+
+a {
+color: var(--clr-links);
+text-decoration: none;
+transition: color 0.8s ease-in-out;
+
+&:hover {
+color: var(--clr-accent);
+}
+}
+
+h1, h2, h3, p, ul:is([class], [id]), ol:is([class], [id]) {
+margin: 0;
+padding: 0;
+}
+
+h1, h2, h3 {
+font-family: inherit;
+font-size: var(--fs-heading);
+line-height: 1.2rem;
+font-weight: 700;
+}
+
+h1 {
+--fs-heading: var(--fs-h1);
+}
+
+h2 {
+--fs-heading: var(--fs-h2);
+}
+
+h3 {
+--fs-heading: var(--fs-h3);
+}
+
+p:not(:last-child, :only-child) {
+margin-bottom: 0.6rem;
+}
+
+p:empty {
+display: none;
+}
+
+ul:is([class], [id]), ol:is([class], [id]) {
+list-style: none;
+}
+
+button {
+background: inherit;
+color: inherit;
+font-family: inherit;
+font-size: inherit;
+padding: 0;
+cursor: pointer;
+
+border: 1px solid transparent;
+}
+
+.light-mode {
+display: var(--light-mode);
+}
+
+.dark-mode {
+display: var(--dark-mode);
+}
+
+.solar-icons {
+font-size: var(--fs-h3);
+}
+
+.controls {
+position: fixed;
+top: 1rem;
+right: 1rem;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+background: var(--clr-text);
+color: var(--clr-background);
+padding: 0.4rem;
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+}
+
+iframe.tmblr-iframe {
+transform: scale(0.75, 0.75);
+filter: invert(100%);
+translate: -1.4rem 0.3rem;
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+}
+
+html[data-theme="dark"] iframe.tmblr-iframe {
+filter: invert(0);
+}
+
+iframe.tmblr-iframe.active {
+opacity: 1;
+visibility: visible;
+}
+
+.line-gradient {
+grid-column: 1 / -1;
+height: 0.3rem;
+background: linear-gradient(to right, var(--clr-accent-gradient), var(--clr-accent-2-gradient));
+}
+
+main {
+grid-column: 2 / 3;
+
+display: grid;
+align-items: start;
+justify-content: center;
+justify-items: center;
+gap: var(--container-gap);
+
+margin: 4rem auto;
+}
+
+.header main, .left-sb main, .right-sb main {
+grid-template-areas: 'header-sidebar'
+'content'
+'links';
+}
+
+.header-sidebar {
+grid-area: header-sidebar;
+position: relative;
+
+max-width: var(--container-size);
+width: 100%;
+
+container-type: inline-size;
+
+@container (width = 400px) {
+.custom-links-wrapper {
+grid-template-columns: repeat(2, 1fr);
+}
+}
+
+@container (width = 450px) {
+.custom-links-wrapper {
+grid-template-columns: repeat(2, 1fr);
+}
+}
+
+@container (width = 500px) {
+.custom-links-wrapper {
+grid-template-columns: repeat(3, 1fr);
+}
+}
+
+@container (width = 540px) {
+.custom-links-wrapper {
+grid-template-columns: repeat(3, 1fr);
+}
+}
+
+&::after {
+content: '';
+width: 60%;
+height: 3px;
+background: linear-gradient(to right, var(--clr-accent), var(--clr-accent-2));
+
+display: block;
+margin-block: 3rem 0;
+margin-inline: auto;
+}
+}
+
+.hs-inner {
+display: grid;
+gap: 1rem;
+position: relative;
+
+&::before {
+content: '';
+width: 1px;
+height: 100%;
+background: var(--clr-borders);
+
+position: absolute;
+left: 0;
+translate: 2.5rem 0;
+}
+}
+
+.modal {
+background: rgba(from var(--clr-background) r g b / 0.8);
+width: 100%;
+height: 100%;
+inset: 0;
+position: fixed;
+overflow: auto;
+overscroll-behavior: contain;
+cursor: pointer;
+z-index: 10;
+}
+
+.modal-dialog {
+max-width: var(--container-size);
+width: 100%;
+height: auto;
+margin: 4rem auto;
+position: relative;
+}
+
+.modal-container {
+max-width: var(--container-size);
+width: 100%;
+}
+
+.modal.hide {
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+}
+
+.modal:not(.hide) {
+opacity: 1;
+visibility: visible;
+transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+}
+
+.close-btn {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+
+position: absolute;
+top: 0;
+right: 0;
+translate: 3rem 0;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0.4rem;
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-repeat: no-repeat;
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+
+&:hover {
+--clr-gradient: var(--clr-container);
+--clr-gradient-2: var(--clr-container);
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+
+& i {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+}
+}
+
+i {
+--clr-gradient: var(--clr-background);
+--clr-gradient-2: var(--clr-background);
+
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+}
+}
+
+.modal-container {
+width: 100%;
+display: grid;
+gap: 3rem;
+}
+
+.modal-tabs {
+width: 100%;
+
+position: relative;
+
+h3 {
+font-family: var(--ff-accent);
+max-width: 16ch;
+isolation: isolate;
+font-size: calc(var(--fs-h3) + 0.1rem);
+
+width: 100%;
+text-overflow: ellipsis;
+overflow: clip;
+white-space: nowrap;
+
+span {
+
+position: relative;
+
+&::before {
+content: '';
+width: 100%;
+height: 5px;
+background: linear-gradient(to right, var(--clr-accent-gradient), var(--clr-accent-2-gradient));
+
+position: absolute;
+bottom: 0;
+translate: 0 -0.2rem;
+z-index: -1;
+}
+}
+}
+}
+
+.modal-image {
+width: 100%;
+height: 120px;
+background: linear-gradient(to right, var(--clr-accent-gradient), var(--clr-accent-2-gradient));
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center center;
+border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+html[data-theme="light"] .modal-image {
+background-image: url('{image:Light Modal Header Image}');
+}
+
+html[data-theme="dark"] .modal-image {
+background-image: url('{image:Dark Modal Header Image}');
+}
+
+.modal-header {
+width: calc(100% - 2rem);
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 1rem;
+
+position: absolute;
+bottom: 0;
+left: 0;
+translate: 1rem 1.5rem;
+
+background: var(--clr-container);
+border-bottom: 2px solid var(--clr-borders);
+padding: 0.7rem 1rem;
+border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.tab-group {
+.group-inner {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+}
+
+button {
+.tab-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0.4rem;
+border: 1px solid var(--clr-borders);
+background: var(--clr-background);
+border-radius: var(--radius-sm);
+}
+
+&[aria-selected="true"] {
+cursor: default;
+}
+
+&[aria-selected="true"] .tab-icon {
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-repeat: no-repeat;
+color: var(--clr-background);
+}
+
+&[aria-selected="true"]:nth-child(odd) .tab-icon {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+
+&[aria-selected="true"]:nth-child(even) .tab-icon {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+}
+}
+}
+
+.modal-quote {
+display: flex;
+align-items: flex-start;
+gap: 10px;
+
+position: relative;
+
+&::before {
+content: '';
+width: 1px;
+height: 100%;
+background: var(--clr-borders);
+
+position: absolute;
+top: 0;
+left: 0;
+translate: 1rem 0;
+z-index: -1;
+}
+}
+
+.panels-group > * {
+animation: fade-in 0.9s linear forwards;
+}
+
+.tab-block {
+&:not(:last-of-type)::after {
+content: '';
+width: 50%;
+height: 2px;
+background: var(--clr-borders);
+
+display: block;
+margin-inline: auto;
+margin-block: 1.5rem;
+}
+
+&.bio-wrapper h3 span::before {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+
+&.in-modal {
+display: block;
+}
+
+&.in-sidebar {
+display: none;
+}
+
+h3 {
+font-family: var(--ff-accent);
+isolation: isolate;
+
+span {
+position: relative;
+
+&::before {
+content: '';
+width: 100%;
+height: 5px;
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+
+position: absolute;
+bottom: 0;
+translate: 0 -0.2rem;
+z-index: -1;
+}
+}
+}
+}
+
+.tab-title {
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+h3 {
+font-family: var(--ff-accent);
+display: flex;
+align-items: center;
+gap: 10px;
+flex: 1;
+
+&::after {
+content: '';
+height: 1px;
+background: var(--clr-borders);
+flex: 1;
+}
+}
+
+.title-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+background: linear-gradient(to bottom, var(--clr-accent), var(--clr-accent-2));
+color: var(--clr-background);
+padding: 0.4rem;
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+}
+}
+
+.tab-text {
+margin-inline-end: 2rem;
+}
+
+.quote-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0.4rem;
+background: var(--clr-container);
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+
+i {
+background: linear-gradient(to bottom, var(--clr-accent-gradient), var(--clr-accent-2-gradient));
+background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+}
+}
+
+.quote-text {
+font-family: var(--ff-accent);
+font-weight: 500;
+}
+
+.stats-wrapper {
+margin-block-start: 2rem;
+}
+
+.stats-list, .custom-links-list {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+align-items: start;
+gap: 1rem;
+
+.stat-item {
+&:nth-child(odd) .stat-icon i {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+}
+
+&:nth-child(even) .stat-icon i {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+}
+}
+
+.stat-title {
+display: flex;
+align-items: center;
+gap: 10px;
+
+.stat-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+background: var(--clr-container);
+padding: 0.4rem;
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+
+i {
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+}
+}
+
+p {
+font-weight: 700;
+font-family: var(--ff-accent);
+}
+}
+
+.stat-item {
+display: grid;
+gap: 5px;
+}
+
+.ld-list {
+position: relative;
+display: grid;
+gap: 1rem;
+
+&::before {
+content: '';
+width: 1px;
+height: 100%;
+background: var(--clr-borders);
+
+position: absolute;
+top: 0;
+left: 0;
+translate: 1rem 0;
+z-index: -1;
+}
+
+li {
+&:nth-child(odd) .likes-icon i {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+}
+
+&:nth-child(odd) li::after {
+background: var(--clr-accent);
+}
+
+&:nth-child(even) li::after {
+background: var(--clr-accent-2-gradient);
+}
+
+&:nth-child(even) .likes-icon i {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+}
+}
+
+.likes-block {
+display: flex;
+align-items: flex-start;
+gap: 10px;
+
+.likes-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0.4rem;
+background: var(--clr-container);
+color: var(--clr-background);
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+
+i {
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+}
+}
+}
+
+.likes-list li {
+display: inline;
+
+&:not(:last-child)::after {
+content: '';
+width: 5px;
+aspect-ratio: 1;
+border-radius: var(--radius-round);
+
+display: inline-block;
+vertical-align: middle;
+margin-inline: 2.5px;
+}
+}
+
+.custom-links-list {
+grid-template-columns: repeat(3, 1fr);
+row-gap: 0;
+}
+
+.custom-link {
+&:not(:nth-last-of-type(-n + 3))::after {
+content: '';
+width: 100%;
+height: 1px;
+background: var(--clr-borders);
+
+display: block;
+margin-block: 1rem;
+}
+
+&:nth-child(odd) .custom-icon, &:nth-child(even):hover .custom-icon, &:nth-child(odd) a:hover {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+}
+
+&:nth-child(even) .custom-icon, &:nth-child(odd):hover .custom-icon, &:nth-child(even) a:hover {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+
+.link-label {
+display: flex;
+align-items: center;
+gap: 10px;
+
+a {
+--clr-gradient: var(--clr-links);
+--clr-gradient-2: var(--clr-links);
+
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+}
+}
+
+.custom-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0.4rem;
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-repeat: no-repeat;
+color: var(--clr-background);
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+}
+}
+
+.sideblogs-list {
+display: grid;
+gap: 1.5rem;
+isolation: isolate;
+position: relative;
+
+&::before {
+content: '';
+width: 1px;
+height: 100%;
+background: var(--clr-borders);
+
+position: absolute;
+bottom: 0;
+left: 0;
+translate: 1.9rem 0;
+z-index: -1;
+}
+}
+
+.sideblog-item {
+display: flex;
+align-items: center;
+gap: 1.4rem;
+
+&:nth-child(odd) a span::before, &:nth-child(even) a::after, &:nth-child(even) a:hover span::before, &:nth-child(odd):hover a::after, &:nth-child(odd) .sideblog-icon i {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+
+&:nth-child(even) a span::before, &:nth-child(odd) a::after, &:nth-child(odd) a:hover span::before, &:nth-child(even):hover a::after, &:nth-child(even) .sideblog-icon i  {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+}
+
+&:nth-child(odd) .sideblog-image {
+--clr-image-border: var(--clr-accent);
+}
+
+&:nth-child(even) .sideblog-image {
+--clr-image-border: var(--clr-accent-2);
+}
+
+&:has(figure) {
+gap: 0.5rem;
+}
+}
+
+.image-and-icon {
+position: relative;
+
+figure + .sideblog-icon {
+position: absolute;
+bottom: 0;
+right: 0;
+translate: 0rem 0;
+border-radius: var(--radius-round);
+
+i {
+font-size: var(--fs-body);
+}
+}
+}
+
+.sideblog-image {
+width: 4rem;
+aspect-ratio: 1;
+object-fit: cover;
+border-radius: var(--radius-round);
+background: var(--clr-background);
+border: 1px solid rgba(from var(--clr-image-border) r g b / 0.6);
+padding: 0.4rem;
+}
+
+.sideblog-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0.4rem;
+background: var(--clr-container);
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+
+translate: 0.9rem 0;
+
+i {
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+}
+}
+
+.sideblog-link {
+width: 100%;
+display: flex;
+align-items: flex-start;
+justify-content: space-between;
+gap: 10px;
+
+a {
+display: flex;
+align-items: center;
+gap: 10px;
+flex: 1;
+
+&:hover {
+color: var(--clr-text);
+}
+
+&::after {
+content: '';
+height: 2px;
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+flex: 1;
+}
+
+span {
+position: relative;
+isolation: isolate;
+
+&::before {
+content: '';
+width: 100%;
+height: 5px;
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+
+position: absolute;
+bottom: 0;
+translate: 0 -0.2rem;
+z-index: -1;
+}
+}
+}
+
+p {
+font-style: italic;
+}
+}
+
+.hs-top {
+display: flex;
+align-items: center;
+justify-content: space-between;
+flex: 1;
+
+&::after {
+content: '';
+height: 1px;
+background: var(--clr-borders);
+flex: 1;
+}
+}
+
+.sidebar-middle {
+max-width: calc(100% - 1.5rem);
+width: 100%;
+}
+
+.sidebar-block {
+display: flex;
+align-items: flex-start;
+gap: 10px;
+translate: 1.5rem 0;
+
+&:nth-child(odd) .sidebar-icon {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+
+&:nth-child(even) .sidebar-icon {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+}
+}
+
+.sidebar-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-repeat: no-repeat;
+color: var(--clr-background);
+padding: 0.4rem;
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+}
+
+.image-and-toggle {
+position: relative;
+}
+
+.btns-container {
+position: absolute;
+right: 0;
+
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+
+.open-btn, .open-custom {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0.4rem;
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-repeat: no-repeat;
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+
+&:hover {
+--clr-gradient: var(--clr-container);
+--clr-gradient-2: var(--clr-container);
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+
+& i {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+}
+}
+
+i {
+--clr-gradient: var(--clr-background);
+--clr-gradient-2: var(--clr-background);
+
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+}
+}
+
+.open-custom {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+
+&:hover i {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+
+&.in-sidebar {
+display: flex;
+}
+
+&.in-modal {
+display: none;
+}
+}
+
+.sidebar-links {
+display: grid;
+grid-template-rows: 0fr;
+transition: grid-template-rows 1s ease-in-out;
+}
+
+.open-links .sidebar-links {
+grid-template-rows: 1fr;
+}
+
+.links-wrapper {
+overflow: hidden;
+container-type: inline-size;
+
+&.in-sidebar {
+display: block;
+}
+
+&.in-modal {
+display: none;
+}
+
+&::before {
+content: '';
+width: 100%;
+height: 1px;
+background: var(--clr-borders);
+
+display: block;
+margin-block: 1rem;
+margin-inline: auto;
+}
+}
+
+.open-links .open-icon, .close-icon {
+display: none;
+}
+
+.open-links .close-icon, .open-icon {
+display: flex;
+}
+
+.custom-links-wrapper {
+display: grid;
+gap: 1rem;
+position: relative;
+}
+
+.header-sidebar .custom-link {
+display: flex;
+align-items: center;
+gap: 10px;
+
+&::after {
+display: none;
+}
+
+&:nth-child(odd) .custom-icon, &:nth-child(even):hover .custom-icon, &:nth-child(odd) a:hover {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+}
+
+&:nth-child(even) .custom-icon, &:nth-child(odd):hover .custom-icon, &:nth-child(even) a:hover {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+
+a {
+--clr-gradient: var(--clr-links);
+--clr-gradient-2: var(--clr-links);
+
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+}
+
+.custom-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0.4rem;
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-repeat: no-repeat;
+color: var(--clr-background);
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+}
+}
+
+.hs-title {
+h1 {
+font-size: var(--fs-h3);
+font-family: var(--ff-accent);
+line-height: 1.4rem;
+}
+}
+
+.hs-image {
+width: 5rem;
+aspect-ratio: 1;
+object-fit: cover;
+border-radius: var(--radius-round);
+
+background: var(--clr-background);
+padding: 0.4rem;
+border: 1px solid rgba(from var(--clr-accent) r g b / 0.5);
+}
+
+html[data-theme="light"] .dark-img, html[data-theme="dark"] .light-img {
+display: none;
+}
+
+html[data-theme="light"] .light-img, html[data-theme="dark"] .dark-img {
+display: flex;
+}
+
+.toggle {
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0.4rem;
+background: var(--clr-accent);
+color: var(--clr-background);
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-round);
+
+position: absolute;
+bottom: 0;
+right: 0;
+translate: 0.2rem 0.2rem;
+}
+
+.sidebar-middle {
+display: grid;
+justify-content: start;
+align-items: start;
+gap: 1rem;
+}
+
+.main-content {
+--margin: var(--post-margin);
+--photo-gutter: 5px;
+--text-margin: 1rem;
+
+max-width: var(--container-size);
+width: 100%;
+grid-area: content;
+}
+
+section.content img {
+max-width: 100%;
+height: auto;
+}
+
+section.content article {
+width: 100%;
+margin-bottom: var(--margin);
+}
+
+p:empty {
+display: none;
+}
+
+:is(article h1, article h2, article h3, article p, article ul, article ol, article blockquote, article .question, ol.notes) {
+line-height: 1.5rem;
+}
+
+article figcaption.audio-caption, /* <-- npf audio wrapper */
+article h1,
+article h2,
+article h3,
+article ul,
+article ol,
+article pre,
+article blockquote,
+article .caption p,
+article .question p,
+article .replies p {
+margin: calc(var(--text-margin) / 2) 0;
+}
+
+article .caption p {
+margin-block-end: 0;
+}
+
+article ul, article ol {
+padding-left: var(--text-margin);
+}
+
+.day-and-tag {
+display: grid;
+gap: 0.5rem;
+
+&::after {
+content: '';
+width: 50%;
+height: 1px;
+background: var(--clr-borders);
+
+display: block;
+margin-block: 2rem 2.5rem;
+margin-inline: auto;
+}
+}
+
+.day-page .dt-icon {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+}
+
+.tag-page .dt-icon {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+
+.dt-wrapper {
+position: relative;
+isolation: isolate;
+
+&::before {
+content: '';
+width: 2px;
+height: 100%;
+background: var(--clr-accent);
+
+position: absolute;
+top: 0;
+left: 0;
+translate: 0.9rem 0;
+z-index: -1;
+}
+}
+
+.dt-title {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.dt-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+color: var(--clr-background);
+padding: 0.4rem;
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+}
+
+.dt-title-text {
+font-size: calc(var(--fs-body) + 0.1rem);
+font-weight: 700;
+font-family: var(--ff-accent);
+}
+
+.dt-text {
+margin-inline-start: 2.5rem;
+}
+
+.poll-post .poll-question {
+font-weight: 700;
+font-family: inherit;
+line-height: 2rem;
+}
+
+.reblog-header {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-block: calc(var(--text-margin) / 2);
+}
+
+.reblog-header:is(:not(.original)) {
+border-top: 3px solid transparent;
+border-image: linear-gradient(to right, var(--clr-accent-gradient), var(--clr-accent-2-gradient));
+border-image-slice: 1;
+padding-block: var(--text-margin) 0;
+margin-block: var(--text-margin) calc(var(--text-margin) / 2);
+}
+
+.reblog-header a {
+position: relative;
+isolation: isolate;
+
+&:hover {
+color: var(--clr-text);
+}
+
+&:hover::before {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+}
+
+&::before {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+
+content: '';
+width: 100%;
+height: 5px;
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+
+position: absolute;
+bottom: 0;
+translate: 0 -0.2rem;
+z-index: -1;
+}
+}
+
+.reblog-header .top-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0.4rem;
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-repeat: no-repeat;
+color: var(--clr-background);
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+}
+
+.reblog-header:is(.original) .original-icon, .reblog-header:is(:not(.original)) .reblog-icon {
+display: flex;
+}
+
+.reblog-header:is(.original) .reblog-icon, .reblog-header:is(:not(.original)) .original-icon {
+display: none;
+}
+
+.reblog-header:is(.original) .top-icon {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+
+.reblog-header:is(:not(.original)) .top-icon {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+}
+
+p.read_more_container {
+display: flex;
+align-items: center;
+gap: 10px;
+flex: 1;
+text-transform: uppercase;
+font-weight: 600;
+font-family: var(--ff-accent);
+
+&::before, &::after {
+content: '';
+height: 2px;
+background: linear-gradient(to right, var(--clr-accent), var(--clr-accent-2));
+
+flex: 1;
+}
+}
+
+.pinned {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+text-transform: uppercase;
+margin-block-end: calc(var(--text-margin) / 2);
+}
+
+.pinned-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+background: var(--clr-container);
+padding: 0.4rem;
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+
+i {
+background: linear-gradient(to bottom, var(--clr-accent), var(--clr-accent-2));
+background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+}
+}
+
+.pinned-label {
+display: flex;
+align-items: center;
+gap: 10px;
+flex: 1;
+
+&::before {
+content: '';
+height: 1px;
+background: var(--clr-borders);
+flex: 1;
+}
+
+span {
+position: relative;
+isolation: isolate;
+font-family: var(--ff-accent);
+font-weight: 600;
+
+&::before {
+content: '';
+width: 100%;
+height: 5px;
+background: linear-gradient(to right, var(--clr-accent-gradient), var(--clr-accent-2-gradient));
+
+position: absolute;
+bottom: 0;
+translate: 0 -0.3rem;
+z-index: -1;
+}
+}
+}
+
+.poll-post a.poll-row {
+color: var(--clr-background);
+padding: 0.7rem 1rem;
+background: var(--clr-accent);
+border-radius: var(--radius-sm);
+border: 1px solid var(--clr-borders);
+text-align: center;
+width: auto!important;
+font-weight: 700;
+margin: calc(var(--text-margin) / 2) 0;
+min-height: auto;
+font-size: var(--fs-body)!important;
+transition: background 0.8s ease-in-out, color 0.8s ease-in-out;
+
+&:hover {
+background: var(--clr-container);
+color: var(--clr-accent);
+}
+}
+
+a.poll-row p {
+margin: 0!important;
+}
+
+.poll-post a.poll-see-results {
+display: flex;
+align-items: center;
+gap: 10px;
+font-family: var(--ff-accent);
+text-transform: uppercase;
+font-weight: 600;
+flex: 1;
+
+&::before, &::after {
+content: '';
+height: 2px;
+background: linear-gradient(to right, var(--clr-accent-gradient), var(--clr-accent-2-gradient));
+
+flex: 1;
+}
+}
+
+.post-bottom {
+margin-block-start: calc(var(--text-margin) / 2);
+padding-block-start: calc(var(--text-margin) / 2);
+border-top: 1px solid var(--clr-borders);
+}
+
+.post-bottom-info {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+}
+
+.date-and-notes {
+display: flex;
+align-items: center;
+gap: 10px;
+flex: 1;
+
+&::after {
+content: '';
+height: 1px;
+background: var(--clr-borders);
+flex: 1;
+}
+}
+
+.date {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.date::after {
+content: '';
+width: 5px;
+aspect-ratio: 1;
+background: var(--clr-accent-gradient);
+border-radius: var(--radius-round);
+flex: 1;
+}
+
+.like-and-rb {
+display: flex;
+align-items: center;
+gap: 10px;
+
+.custom-rb {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.custom-rb::before {
+content: '/';
+opacity: 0.4;
+}
+}
+
+a.custom-like-container {
+position: relative;
+}
+a.custom-like-container .like_button {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+width: 100%;
+height: 100%;
+opacity: 0;
+}
+a.custom-like-container .like_button iframe {
+width: 100%!important;
+height: 100%!important;
+}
+a.custom-like-container .liked + .like-icon {
+color: var(--clr-accent)!important;
+}
+
+.tags-container {
+margin-block-start: calc(var(--text-margin) / 2);
+position: relative;
+
+&::before {
+content: '';
+width: 1px;
+height: 100%;
+background: var(--clr-borders);
+
+position: absolute;
+top: 0;
+left: 0;
+}
+}
+
+.tags-list {
+margin-inline-start: 0.5rem;
+}
+
+.tag-link {
+display: inline;
+
+&:not(:last-child)::after {
+content: '';
+width: 5px;
+aspect-ratio: 1;
+background: var(--clr-accent-2-gradient);
+border-radius: var(--radius-round);
+
+display: inline-block;
+vertical-align: middle;
+margin-inline: 5px;
+}
+}
+
+.permalink-wrapper {
+display: grid;
+gap: 10px;
+padding-top: 1rem;
+border-top: 1px solid var(--clr-borders);
+margin-bottom: 5rem;
+text-transform: lowercase;
+padding-bottom: 1rem;
+border-bottom: 1px solid var(--clr-borders);
+}
+
+.reblog-wrapper {
+display: grid;
+gap: 10px;
+}
+
+.rb-wrapper {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.rbw-img {
+width: 2rem;
+aspect-ratio: 1;
+border-radius: var(--radius-round);
+border: 1px solid var(--clr-borders);
+padding: 0.2rem;
+}
+
+span.p-label {
+position: relative;
+
+&::before {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+
+content: '';
+width: 100%;
+height: 5px;
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+
+position: absolute;
+bottom: 0;
+left: 0;
+translate: 0 -0.3rem;
+z-index: -1;
+}
+}
+
+.p-tag-label {
+width: fit-content;
+position: relative;
+
+&::before {
+content: '';
+width: 100%;
+height: 5px;
+background: linear-gradient(to right, var(--clr-accent-gradient), var(--clr-accent-2-gradient));
+
+position: absolute;
+bottom: 0;
+left: 0;
+translate: 0 -0.3rem;
+z-index: -1;
+}
+}
+
+.p-tags {
+display: inline-block;
+text-align: left;
+line-height: 1.5;
+}
+
+.p-tags a {
+&:not(:last-child)::after {
+content: ',';
+margin-right: 5px;
+}
+}
+
+.notes-container {
+margin-top: calc(var(--margin) - 3rem);
+}
+
+span.note-counter {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+margin-bottom: 1rem;
+}
+
+.note-icon {
+display: flex;
+align-items: center;
+gap: 10px;
+flex: 1;
+
+i {
+background: var(--clr-container);
+color: var(--clr-accent);
+padding: 0.4rem;
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-round);
+}
+
+&::before {
+content: '';
+height: 1px;
+background: var(--clr-borders);
+flex: 1;
+}
+}
+
+ol.notes li.note {
+padding: 1rem 0;
+position: relative;
+}
+
+ol.notes li.note img.avatar {
+margin-right: 10px;
+vertical-align: middle;
+width: 3rem;
+aspect-ratio: 1;
+object-fit: cover;
+border-radius: var(--radius-round);
+border: 1px solid var(--clr-borders);
+padding: 0.2rem;
+}
+
+a.more_notes_link {
+background: var(--clr-accent);
+color: var(--clr-background);
+padding: 0.5rem 1rem;
+border-radius: var(--radius-sm);
+border: 1px solid var(--clr-borders);
+text-transform: lowercase;
+transition: background 0.8s ease-in-out, color 0.8s ease-in-out;
+}
+
+a.more_notes_link:hover {
+background: var(--clr-container);
+color: var(--clr-accent);
+}
+
+span.action a:not(a.source_tumblelog) {
+position: relative;
+
+&::before {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+
+content: '';
+width: 100%;
+height: 5px;
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+
+position: absolute;
+bottom: 0;
+left: 0;
+translate: 0 -0.3rem;
+z-index: -1;
+
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+}
+
+&:hover {
+color: var(--clr-text);
+}
+
+&:hover::before {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+}
+}
+
+a.source_tumblelog {
+position: relative;
+
+&::before {
+--clr-gradient: rgba(from var(--clr-accent-gradient) r g b / 0.4);
+--clr-gradient-2: rgba(from var(--clr-accent-2-gradient) r g b / 0.9);
+
+content: '';
+width: 100%;
+height: 5px;
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+
+position: absolute;
+bottom: 0;
+left: 0;
+translate: 0 -0.3rem;
+z-index: -1;
+
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+}
+
+&:hover {
+color: var(--clr-text);
+}
+
+&:hover::before {
+--clr-gradient: rgba(from var(--clr-accent-gradient) r g b / 0.4);
+--clr-gradient-2: rgba(from var(--clr-accent) r g b / 0.9);
+
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+}
+}
+
+li.note blockquote {
+border-left: 1px solid var(--clr-borders);
+padding-left: 1rem;
+margin: 0.5rem 1.5rem 0;
+}
+
+.pagination-wrapper {
+position: relative;
+}
+
+.jump-wrapper, .nav-and-current {
+padding: 0.7rem 1rem;
+background: var(--clr-container);
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 10px;
+}
+
+.jump-wrapper {
+padding-block: 2rem 1rem;
+padding-inline: 0;
+gap: 1rem;
+}
+
+.page {
+opacity: 0.6;
+transition: opacity 0.8s ease-in-out, color 0.8s ease-in-out;
+
+&:hover {
+opacity: 1;
+color: var(--links);
+}
+}
+
+.current-page {
+width: 2rem;
+aspect-ratio: 1;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+background: linear-gradient(to bottom, var(--clr-accent), var(--clr-accent-2));
+color: var(--clr-background);
+padding: 0.4rem;
+border-radius: var(--radius-sm);
+}
+
+.jump-page {
+opacity: 0.5;
+}
+
+.nav-and-current {
+width: max-content;
+
+position: absolute;
+left: 0;
+top: 0;
+translate: 1rem -2rem;
+
+
+a {
+display: flex;
+align-items: center;
+justify-content: center;
+
+background: var(--clr-container);
+border: 1px solid var(--clr-borders);
+padding: 0.4rem;
+border-radius: var(--radius-sm);
+}
+}
+
+.vignette, #vignette {
+opacity: 0;
+}
+.lightbox-image, #tumblr_lightbox img {
+box-shadow:none !important;
+border-radius:0 !important;
+max-width:none;
+}
+
+.tmblr-lightbox, #tumblr_lightbox {
+background-color:rgba(from var(--clr-background) r g b / 0.7) !important;
+}
+
+/* -------------------------------------  npf photoset stuff. */
+
+figure.tmblr-full:is(:not(:last-of-type)) {
+margin-bottom: var(--photo-gutter);
+}
+figure:is(:not(:last-of-type)) {
+margin-bottom: var(--photo-gutter);
+}
+article img {
+display: block;
+}
+article iframe,
+article img {
+max-width: 100%;
+height: auto;
+}
+.post-content div.npf_row {
+margin-bottom: calc(var(--photo-gutter) - 4px);
+}
+.post-content div.npf_row:last-child {
+margin-bottom: 0;
+}
+.post-content div.npf_row .npf_col {
+margin-right: calc(var(--photo-gutter) - 4px); 
+}
+.post-content div.npf_row .npf_col:last-child {
+margin-right: 0;
+}
+.npf_row:only-of-type,
+.npf-photos,
+.more_photoset,
+.legacy-photo img,
+.photoset {
+border-radius: var(--radius-sm);
+overflow:hidden;
+margin: auto;
+}
+.npf-photos:has(+figure) {
+border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+max-width: fit-content;
+}
+.npf-photos + figure {
+overflow: hidden;
+border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+margin: var(--photo-gutter) auto auto;
+max-width: fit-content;
+}
+/* -------------------------------------  legacy photoset stuff. */
+
+/* Gutter width has to be divided into 2 since it's the padding
+that's around each photo-row or legacy-photoset-inner - last one
+being the inner container of the photoset.
+See 5ppi Flexible Photoset credit for more info */
+
+.photo-row {
+padding: calc(var(--photo-gutter) / 2) 0; 
+display:flex;
+}
+.photo-row:first-child {
+padding-top:0;
+}
+.photo-row:last-child {
+padding-bottom:0;
+}
+/* legacy-photoset-inner is inside each photo-row,
+use inspect firefox or chrome to see more  */
+.legacy-photoset-inner {
+cursor:pointer;
+padding: 0 calc(var(--photo-gutter) / 2); 
+flex-grow:1;
+}
+.legacy-photoset-inner:first-child {
+padding-left:0;
+}
+.legacy-photoset-inner:last-child {
+padding-right:0;
+}
+/* every single img.image inide legacy-photoset-inner */
+.legacy-photoset-inner .image {
+width:100%;
+height:100%;
+display:block;
+object-fit:cover; /* technically not needed, but helps when browsers glitch */
+}
+.photo-row-1 .legacy-photoset-inner {
+width:100%;
+}
+.photo-row-2 .legacy-photoset-inner {
+width:50%;
+}
+.photo-row-3 .legacy-photoset-inner {
+width:33.3333333%;
+}
+
+/* single legacy photo post */
+.photo-single {
+cursor: pointer;
+}
+
+/* .audio-caption is set as flex by tumblr as default, but we need it to be display block */
+.tmblr-full>.audio-caption {
+display: block!important;
+}
+/* wrapper for entire audio post */
+figcaption.audio-caption {
+background: var(--clr-container);
+border: 1px solid var(--clr-borders);
+border-radius: 6px;
+}
+/* wrapper for button, audio details and album */
+.audio-info {
+display: flex;
+align-items: center;
+gap: 20px;
+padding: 20px;
+}
+/* audio text (album title, etc.) */
+.tmblr-full>.audio-caption .audio-details {
+max-width: 100%;
+padding: 0; /* remove tumblr default padding */
+flex: auto;
+}
+/* album cover */
+.tmblr-full>.audio-caption .album-cover {
+width: 80px;
+height: 80px;
+border-radius: 6px;
+object-fit: cover;
+}
+/* plauy-pause button wrapper */
+.custom-audio-player-container .play-pause {
+display: flex;
+}
+/* plauy-pause svg */
+.custom-audio-player-container .play-pause svg {
+width: 26px;
+height: 26px;
+color: var(--clr-accent);
+}
+/* Tumblr has a 1.2em on artist text, resetting it here */
+.tmblr-full>.audio-caption .album, .tmblr-full>.audio-caption .artist {
+font-size: 1em;
+line-height: 1.5;
+}
+/* wrapper for progress bar and time display */
+.progress-bar-container {
+display: flex;
+align-items: center;
+gap: 20px;
+border-top: 1px solid var(--clr-borders);
+padding: 20px;
+}
+
+/* Style the progress bar track (actually it's range input itself but it's only for chrome) */
+.progress-bar {
+width: 100%;
+height: 10px;
+-webkit-appearance: none;  /* removes the default styling in most browsers */
+background: var(--clr-background);
+border-radius: 5px;
+border: 1px solid var(--clr-borders);
+}
+
+/* Style the track for both WebKit and Mozilla browsers */
+.progress-bar::-webkit-slider-runnable-track,
+.progress-bar::-moz-range-track {
+width: 100%;
+height: 10px;
+background: var(--clr-background);
+border-radius: 5px;
+border: 1px solid var(--clr-borders);
+}
+
+/* Style the thumb for WebKit (Chrome, Safari, etc.) */
+.progress-bar::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 16px;
+height: 16px;
+background: var(--clr-accent-2);
+border-radius: 50%;
+cursor: pointer;
+}
+
+/* Style the thumb for Mozilla (Firefox) */
+.progress-bar::-moz-range-thumb {
+width: 16px;
+height: 16px;
+background: var(--clr-accent-2);
+border:0; /* remove weird border in firefox */
+border-radius: 50%;
+cursor: pointer;
+}
+/* style MM:SS time count */
+.time-display {
+flex-shrink: 0;
+}
+
+/* -------------------------------------  POST-TYPE: chat */
+p.npf_chat span.label {
+font-weight: 600;
+}
+p.npf_chat {
+font-family: var(--ff-accent)!important;
+}
+
+/* -------------------------------------  POST-TYPE: quote */
+p.npf_quote {
+background: var(--clr-container);
+border: 1px solid var(--clr-borders);
+line-height: 2rem;
+padding: 1rem;
+border-radius: var(--radius-sm);
+font-family: var(--ff-accent);
+font-style: italic;
+}
+
+.npf_quote + p {
+margin-inline-start: auto;
+text-align: end;
+
+&::before {
+content: '—';
+margin-inline-end: 5px;
+}
+}
+
+.ask-and-answer {
+display: grid;
+gap: calc(var(--text-margin) / 2);
+
+position: relative;
+isolation: isolate;
+
+&::before {
+content: '';
+width: 1px;
+height: 100%;
+background: var(--clr-borders);
+
+position: absolute;
+top: 0;
+left: 0;
+translate: 1.3rem 0;
+z-index: -1;
+}
+}
+
+.question {
+margin-inline-start: 2rem;
+
+p:first-of-type {
+margin-block-start: 0!important;
+}
+}
+
+.ask-img {
+width: 2.8rem!important;
+aspect-ratio: 1!important;
+object-fit: cover;
+border-radius: var(--radius-round);
+border: 1px solid var(--clr-borders);
+padding: 0.2rem;
+background: var(--clr-background);
+}
+
+.asker-wrap {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-block-end: 0.3rem;
+}
+
+.ask-user {
+position: relative;
+isolation: isolate;
+
+& a:hover {
+color: var(--clr-text);
+}
+
+& a::before {
+content: '';
+width: 100%;
+height: 5px;
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+transition: --clr-gradient 0.8s ease-in-out, --clr-gradient-2 0.8s ease-in-out;
+
+position: absolute;
+bottom: 0;
+translate: 0 -0.2rem;
+z-index: -1;
+}
+
+& a.asker::before, & a.answerer:hover::before {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+
+& a.answerer::before, & a.asker:hover::before {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+}
+
+}
+
+.replies::before {
+content: '';
+width: 100%;
+height: 2px;
+background: linear-gradient(to right, var(--clr-accent-gradient), var(--clr-accent-2-gradient));
+
+display: block;
+margin-block: calc(var(--text-margin) / 2);
+}
+
+/* -------------------------------------  POST TYPE: link */
+
+/* recreated tumblr's npf style of
+link posts so legacy will match. see
+HTML part for more info */
+div.npf-link-block {
+align-items: flex-start;
+border: 1px solid var(--clr-borders);
+background-color: var(--clr-container);
+border-radius: var(--radius-sm);
+display: flex;
+justify-content: center;
+margin: var(--text-margin) 0;
+overflow: hidden;
+flex-direction: column;
+}
+div.npf-link-block .poster {
+-ms-flex-align: center;
+align-items: center;
+background-position: 50%;
+background-repeat: no-repeat;
+background-size: cover;
+background-clip: content-box;
+border-bottom: 1px solid var(--clr-borders);
+display: -ms-flexbox;
+display: flex;
+height: 250px;
+-ms-flex-pack: center;
+justify-content: center;
+position: relative;
+}
+div.npf-link-block .title {
+font-size: var(--fs-h2);
+line-height: 1.3rem;
+max-height: 136px;
+overflow: hidden;
+overflow-wrap: anywhere;
+text-overflow: ellipsis;
+font-weight: 500;
+padding: 1rem 1rem 0;
+}
+div.npf-link-block .poster .title {
+color: inherit;
+font-weight: 400;
+padding: 0.4rem;
+position: absolute;
+text-align: center;
+}
+div.npf-link-block .bottom {
+color: inherit;
+line-height: 1.5rem;
+padding: 1rem;
+}
+div.npf-link-block .bottom .description {
+color: inherit;
+font-size: inherit;
+line-height: inherit;
+margin: 0;
+max-height: 80px;
+overflow: hidden;
+overflow-wrap: anywhere;
+text-overflow: ellipsis;
+}
+div.npf-link-block .bottom .site-name {
+color: var(--clr-links);
+font-size: inherit;
+font-weight: 400;
+line-height: 1.5rem;
+margin-top: 10px;
+opacity: 1;
+text-transform: uppercase;
+}
+
+/* -------------------------------------  video /audio responsiveness */
+
+/* since aspect-ratio is now supported CSS,
+the following takes care of reponsiveness and the aspect
+ratio of videos and iframes and sound. */
+
+article iframe:not(iframe.bandcamp_audio_player,.spotify_audio_player, iframe.soundcloud_audio_player, iframe.tumblr_audio_player) {
+max-width: 100%;
+aspect-ratio: 16/9;
+height: auto;
+}
+
+iframe.soundcloud_audio_player,
+.tumblr_video_container {
+width: 100%!important;
+height: auto!important;
+}
+figure iframe.spotify_audio_player,
+iframe.spotify_audio_player {
+max-height: 90px;
+width: 100%;
+}
+article iframe[src*='soundcloud'] {
+max-height: 130px;
+width: 100%;
+}
+figure iframe.bandcamp_audio_player {
+max-height: 120px;
+width: 100%;
+}
+iframe.tumblr_audio_player {
+max-height: 85px;
+width: 100%;
+}
+
+/* keep npf photos from extending over the askbox size */
+.question .npf_inst {
+max-width: 100%;
+margin: 0;
+}
+/* keeps the aspect ratio and width on images inside asks */
+:where(.question, .replies, .rb-answer) img {
+width: auto!important;
+max-width: 100%;
+border-radius: var(--radius-sm);
+}
+
+.extra-sidebar {
+max-width: var(--container-size);
+width: 100%;
+grid-area: links;
+}
+
+.standard-links-wrapper {
+background: var(--clr-container);
+padding: 1rem;
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+}
+
+.standard-links {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 1rem;
+}
+
+.standard-item {
+&:nth-child(odd) a:hover {
+background: var(--clr-accent-gradient);
+color: var(--clr-background);
+}
+
+&:nth-child(even) a:hover {
+background: var(--clr-accent-2-gradient);
+color: var(--clr-background);
+}
+}
+
+.standard-item a {
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0.4rem;
+background: var(--clr-background);
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+
+transition: background 0.8s ease-in-out, color 0.8s ease-in-out;
+}
+
+.updates-list, .tasklist {
+position: relative;
+
+display: grid;
+gap: 1rem;
+isolation: isolate;
+
+&::before {
+content: '';
+width: 1px;
+height: 100%;
+background: var(--clr-borders);
+
+position: absolute;
+top: 0;
+left: 0;
+translate: 1rem 0;
+z-index: -1;
+}
+}
+
+.update-item {
+display: flex;
+align-items: flex-start;
+gap: 10px;
+
+&:nth-child(odd) .update-icon i {
+--clr-gradient: var(--clr-accent-gradient);
+--clr-gradient-2: var(--clr-accent-2-gradient);
+}
+
+&:nth-child(even) .update-icon i {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+}
+
+.update-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0.4rem;
+background: var(--clr-container);
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+
+i {
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+}
+}
+
+.tasklist-wrapper {
+margin-block-start: 1rem;
+}
+
+.tasklist::before {
+translate: 0.7rem 0;
+}
+
+.task {
+display: grid;
+grid-template-columns: 22px auto;
+gap: 10px;
+
+&.done .checkbox {
+background: var(--clr-container);
+
+&::after {
+clip-path: polygon(28% 38%, 41% 53%, 75% 24%, 86% 38%, 40% 78%, 15% 50%);
+background: var(--clr-accent);
+}
+}
+
+&.almost-done .checkbox {
+background: var(--clr-container);
+}
+}
+
+.checkbox {
+width: 22px;
+aspect-ratio: 1;
+background: var(--clr-background);
+border: 1px solid var(--clr-borders);
+border-radius: calc(var(--radius-sm) - 0.2rem);
+
+position: relative;
+
+&::after {
+content: '';
+width: 100%;
+height: 100%;
+
+position: absolute;
+inset: 0;
+}
+}
+
+.scroll-and-credit {
+position: fixed;
+bottom: 1rem;
+right: 1rem;
+
+display: grid;
+gap: 10px;
+}
+
+.scroll-to-top, .credit {
+display: flex;
+align-items: center;
+justify-content: center;
+
+padding: 0.4rem;
+background: var(--clr-text);
+color: var(--clr-background);
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+transition: background 0.8s ease-in-out, color 0.8s ease-in-out;
+}
+
+.scroll-to-top {
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+}
+
+.scroll-and-credit.show-scroll .scroll-to-top {
+opacity: 1;
+visibility: visible;
+}
+
+.credit:hover {
+background: var(--clr-container);
+color: var(--clr-accent);
+}
+
+span.tmblr-text-alt-helper {
+background: var(--clr-background)!important;
+color: var(--clr-accent)!important;
+opacity: 0.5!important;
+}
+
+.popover.tutorial {
+word-wrap: break-word!important;
+padding: 1rem!important;
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+background: var(--clr-container)!important;
+}
+
+.popover.tutorial .title, .popover.tutorial p.content {
+color: var(--clr-text)!important;
+font-family: var(--ff-body)!important;
+font-size: var(--fs-body);
+}
+
+.popover.tutorial .ok_button {
+margin: 1rem 0 0 0!important;
+border: 1px solid var(--clr-borders)!important;
+width: 100%!important;
+background: var(--clr-accent)!important;
+color: var(--clr-background)!important;
+text-transform: lowercase;
+border-radius: var(--radius-sm)!important;
+padding: 0.5rem 1rem!important;
+font-weight: 900!important;
+transition: all 0.7s ease-in-out!important;
+}
+
+.popover.tutorial .ok_button:hover {
+background: var(--clr-background)!important;
+color: var(--clr-accent)!important;
+}
+
+.tippy-tooltip.custom-theme {
+background-color: var(--clr-text);
+color: var(--clr-background);
+font-family: var(--ff-accent);
+font-weight: 500;
+margin-block: 0.75rem;
+text-align: center;
+}
+
+.tippy-tooltip.custom-theme .tippy-svg-arrow {
+fill: var(--clr-text);
+}
+
+@media screen and (width > calc({select:Post Width} + {select:Sidebar Width} + 250px + 4rem)) {
+
+.left-sb main {
+grid-template-areas: 'header-sidebar content links'
+}
+
+.right-sb main {
+grid-template-areas: 'links content header-sidebar';
+}
+
+.left-sb main, .right-sb main {
+.header-sidebar {
+width: var(--sidebar-size);
+position: sticky;
+top: 2rem;
+
+@container (width = {select:Sidebar Width}) {
+.custom-links-wrapper {
+grid-template-columns: 1fr;
+isolation: isolate;
+
+&::before {
+content: '';
+width: 1px;
+height: 100%;
+background: var(--clr-borders);
+
+position: absolute;
+top: 0;
+left: 0;
+translate: 1rem 0;
+z-index: -1;
+}
+}
+}
+
+&::after {
+display: none;
+}
+}
+
+.extra-sidebar {
+width: var(--extra-sidebar-size);
+position: sticky;
+top: 2rem;
+}
+}
+}
+
+@media screen and (width <= calc({select:Post Width} + {select:Sidebar Width} + 250px + 4rem)) {
+
+.header-sidebar, .main-content, .links {
+max-width: var(--container-size);
+width: 100%;
+}   
+}
+
+@keyframes fade-in {
+from {
+opacity: 0;
+}
+
+to {
+opacity: 1;
+}
+}
+</style>
+</head>
+<body class="{select:Layout}">
+
+<!-- line gradient at the top -->
+<div class="line-gradient"></div>
+<!-- line gradient at the top -->
+
+<!-- tumblr controls on click -->
+<button class="controls" title="tumblr controls">
+<i class="solar-icons" stroke="2" icon-name="sliders-horizontal"></i>
+</button>
+<!-- tumblr controls on click -->
+
+
+<!-- main container -->
+<main>
+
+<!-- header or sidebar, depending on your screen size -->
+<aside class="header-sidebar">
+
+<!-- header or sidebar inner -->
+<div class="hs-inner">
+
+<!-- header or sidebar top -->
+<div class="hs-top">
+
+<!-- image and light/dark toggle -->
+<div class="image-and-toggle">
+
+<!-- image if the theme is light -->
+<img src="{image:Light Sidebar Image}" class="light-img hs-image"/>
+<!-- image if the theme is light -->
+
+<!-- image if the theme is dark -->
+<img src="{image:Dark Sidebar Image}" class="dark-img hs-image"/>
+<!-- image if the theme is dark -->
+
+<button class="toggle">
+<span class="light-mode" title="turn on the lights">
+<i class="solar-icons" stroke="2" icon-name="sun-2"></i>
+</span>
+
+<span class="dark-mode" title="turn off the lights">
+<i class="solar-icons" stroke="2" icon-name="moon-stars"></i>
+</span>
+</button>
+</div>
+<!-- image and light/dark toggle -->
+
+<!-- buttons for modal and custom links -->
+<div class="btns-container">
+
+<!-- button for modal -->
+{block:ifModalButtonLabel}
+<button class="open-btn" title="{text:Modal Button Label}">
+<i class="solar-icons" stroke="2" icon-name="{text:Modal Button Icon}"></i>
+</button>
+{/block:ifModalButtonLabel}
+<!-- button for modal -->
+
+<!-- button for custom links if you enabled sidebar links (this'll disappear if you don't) -->
+<button class="open-custom {select:Custom Links Layout}" title="{text:Custom Links Button Label}">
+<span class="open-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Custom Links Button Icon}"></i>
+</span>
+
+<span class="close-icon">
+<i class="solar-icons" stroke="2" icon-name="close"></i>
+</span>
+</button>
+<!-- button for custom links if you enabled sidebar links (this'll disappear if you don't) -->
+
+</div>
+<!-- buttons for modal and custom links -->
+</div>
+
+<!-- sidebar middle with title and description -->
+<div class="sidebar-middle">
+
+<!-- sidebar block: icon and title -->
+<div class="sidebar-block">
+
+<!-- sidebar block icon -->
+<span class="sidebar-icon">
+<i class="solar-icons" stroke="2" icon-name="text"></i>
+</span>
+<!-- sidebar block icon -->
+
+<!-- sidebar title -->
+<div class="hs-title">
+
+<!-- custom title -->
+{block:ifTitle}
+<h1>{text:Title}</h1>
+{/block:ifTitle}
+<!-- custom title -->
+
+<!-- default title if you don't have a custom one -->
+{block:ifNotTitle}
+<h1>{Title}</h1>
+{/block:ifNotTitle}
+<!-- default title if you don't have a custom one -->
+
+</div>
+<!-- sidebar title -->
+
+</div>
+<!-- sidebar block: icon and title -->
+
+<!-- sidebar block: icon and description -->
+<div class="sidebar-block">
+
+<!-- sidebar block icon -->
+<span class="sidebar-icon">
+<i class="solar-icons" stroke="2" icon-name="info-circle"></i>
+</span>
+<!-- sidebar block icon -->
+
+<!-- custom description -->
+{block:ifDescription}
+<div class="sidebar-text">
+{text:Description}
+</div>
+{/block:ifDescription}
+<!-- custom description -->
+
+<!-- default description if you don't have a custom one -->
+{block:ifNotDescription}
+<div class="sidebar-text">
+{Description}
+</div>
+{/block:ifNotDescription}
+<!-- default description if you don't have a custom one -->
+
+</div>
+<!-- sidebar block: icon and description -->
+
+</div>
+<!-- sidebar middle with title and description -->
+
+</div>
+<!-- header or sidebar inner -->
+
+<!-- sidebar links, will appear if you have it enabled -->
+<div class="sidebar-links">
+<div class="links-wrapper {select:Custom Links Layout}">
+<div class="custom-links-wrapper">
+
+<!-- custom link #1 -->
+{block:ifCustomLink1URL}
+<div class="custom-link">
+
+<!-- custom link #1 icon -->
+<div class="custom-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Custom Link 1 Icon}"></i>
+</div>
+<!-- custom link #1 icon -->
+
+<!-- custom link #1 url and text -->
+<a href="{text:Custom Link 1 URL}">{text:Custom Link 1 Text}</a>
+<!-- custom link #1 url and text -->
+
+</div>
+{/block:ifCustomLink1URL}
+<!-- custom link #1 -->
+
+<!-- custom link #2 -->
+{block:ifCustomLink2URL}
+<div class="custom-link">
+
+<!-- custom link #2 icon -->
+<div class="custom-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Custom Link 2 Icon}"></i>
+</div>
+<!-- custom link #2 icon -->
+
+<!-- custom link #2 url and text -->
+<a href="{text:Custom Link 2 URL}">{text:Custom Link 2 Text}</a>
+<!-- custom link #2 url and text -->
+
+</div>
+{/block:ifCustomLink2URL}
+<!-- custom link #2 -->
+
+<!-- custom link #3 -->
+{block:ifCustomLink3URL}
+<div class="custom-link">
+
+<!-- custom link #3 icon -->
+<div class="custom-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Custom Link 3 Icon}"></i>
+</div>
+<!-- custom link #3 icon -->
+
+<!-- custom link #3 url and text -->
+<a href="{text:Custom Link 3 URL}">{text:Custom Link 3 Text}</a>
+<!-- custom link #3 url and text -->
+
+</div>
+{/block:ifCustomLink3URL}
+<!-- custom link #3 -->
+
+<!-- custom link #4 -->
+{block:ifCustomLink4URL}
+<div class="custom-link">
+
+<!-- custom link #4 icon -->
+<div class="custom-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Custom Link 4 Icon}"></i>
+</div>
+<!-- custom link #4 icon -->
+
+<!-- custom link #4 url and text -->
+<a href="{text:Custom Link 4 URL}">{text:Custom Link 4 Text}</a>
+<!-- custom link #4 url and text -->
+
+</div>
+{/block:ifCustomLink4URL}
+<!-- custom link #4 -->
+
+<!-- custom link #5 -->
+{block:ifCustomLink5URL}
+<div class="custom-link">
+
+<!-- custom link #5 icon -->
+<div class="custom-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Custom Link 5 Icon}"></i>
+</div>
+<!-- custom link #5 icon -->
+
+<!-- custom link #5 url and text -->
+<a href="{text:Custom Link 5 URL}">{text:Custom Link 5 Text}</a>
+<!-- custom link #5 url and text -->
+
+</div>
+{/block:ifCustomLink5URL}
+<!-- custom link #5 -->
+
+<!-- custom link #6 -->
+{block:ifCustomLink6URL}
+<div class="custom-link">
+
+<!-- custom link #6 icon -->
+<div class="custom-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Custom Link 6 Icon}"></i>
+</div>
+<!-- custom link #6 icon -->
+
+<!-- custom link #6 url and text -->
+<a href="{text:Custom Link 6 URL}">{text:Custom Link 6 Text}</a>
+<!-- custom link #6 url and text -->
+
+</div>
+{/block:ifCustomLink6URL}
+<!-- custom link #6 -->
+
+</div>
+</div>
+</div>
+<!-- sidebar links, will appear if you have it enabled -->
+
+</aside>
+<!-- header or sidebar, depending on your screen size -->
+
+<!-- modal with information, custom links and sideblogs, and updates -->
+<div class="modal hide">
+<div class="modal-dialog">
+<div class="close-window">
+<button class="close-btn" title="close the modal">
+<i class="solar-icons" stroke="2" icon-name="close"></i>
+</button>
+</div>
+
+<!-- modal container with tab buttons and panels -->
+<div class="modal-container">
+
+<!-- modal tab buttons -->
+<div class="modal-tabs">
+
+<!-- modal header image -->
+<div class="modal-image"></div>
+<!-- modal header image -->
+
+<!-- modal header: username and buttons -->
+<div class="modal-header">
+
+<!-- username, default is your username -->
+<h3>
+<span>@{Name}</span>
+</h3>
+<!-- username, default is your username -->
+
+<!-- tab group, where the buttons are -->
+<div class="tab-group">
+<div class="group-inner">
+
+<!-- tab #1, controls the biography -->
+<button id="tab-1" role="tab" aria-controls="biography" aria-selected="true" tabindex="0">
+
+<!-- tab #1 label and icon -->
+<span class="tab-icon" title="{text:Modal Tab 1 Label}">
+
+<!-- tab #1 icon -->
+<i class="solar-icons" stroke="2" icon-name="{text:Modal Tab 1 Icon}"></i>
+<!-- tab #1 icon -->
+
+</span>
+<!-- tab #1 label and icon -->
+
+</button>
+<!-- tab #1, controls the biography -->
+
+
+<!-- tab #2, controls the links and sideblogs -->
+<button id="tab-2" role="tab" aria-controls="links" aria-selected="false" tabindex="-1">
+
+<!-- tab #2 label and icon -->
+<span class="tab-icon" title="{text:Modal Tab 2 Label}">
+
+<!-- tab #2 icon -->
+<i class="solar-icons" stroke="2" icon-name="{text:Modal Tab 2 Icon}"></i>
+<!-- tab #2 icon -->
+
+</span>
+<!-- tab #2 label and icon -->
+
+</button>
+<!-- tab #2, controls the links and sideblogs -->
+
+
+<!-- tab #3, controls the updates -->
+<button id="tab-3" role="tab" aria-controls="updates" aria-selected="false" tabindex="-1">
+
+<!-- tab #3 label and icon -->
+<span class="tab-icon" title="{text:Modal Tab 3 Label}">
+
+<!-- tab #3 icon -->
+<i class="solar-icons" stroke="2" icon-name="{text:Modal Tab 3 Icon}"></i>
+<!-- tab #3 icon -->
+
+</span>
+<!-- tab #3 label and icon -->
+
+</button>
+<!-- tab #3, controls the updates -->
+
+</div>
+</div>
+<!-- tab group, where the buttons are -->
+
+</div>
+<!-- modal header: username and buttons -->
+
+</div>
+<!-- modal tab buttons -->
+
+
+<!-- modal tab panels -->
+<div class="panels-group">
+
+<!-- biography panel, controlled by tab button #1 -->
+<div id="biography" aria-labelledby="tab-1" role="tabpanel" tabindex="0">
+
+<!-- modal quote: icon and text -->
+{block:ifModalQuote}
+<div class="modal-quote">
+
+<!-- modal quote icon -->
+<span class="quote-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Modal Quote Icon}"></i>
+</span>
+<!-- modal quote icon -->
+
+<!-- modal quote text -->
+<div class="quote-text">
+{text:Modal Quote}
+</div>
+<!-- modal quote text -->
+
+</div>
+{/block:ifModalQuote}
+<!-- modal quote: icon and text -->
+
+
+<!-- tab block: stats wrapper -->
+<div class="tab-block stats-wrapper">
+
+<!-- stats list -->
+<ul class="stats-list">
+
+<!-- stat #1, icon, title, and text -->
+{block:ifStat1Text}
+<li class="stat-item">
+
+<!-- stat title: icon and title -->
+<div class="stat-title">
+
+<!-- stat icon -->
+<span class="stat-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Stat 1 Icon}"></i>
+</span>
+<!-- stat icon -->
+
+<!-- stat title -->
+<p>{text:Stat 1 Title}</p>
+<!-- stat title -->
+
+</div>
+<!-- stat title: icon and title -->
+
+<!-- stat text -->
+<div class="stat-text">
+<p>{text:Stat 1 Text}</p>
+</div>
+<!-- stat text -->
+
+</li>
+{/block:ifStat1Text}
+<!-- stat #1, icon, title, and text -->
+
+<!-- stat #2, icon, title, and text -->
+{block:ifStat2Text}
+<li class="stat-item">
+
+<!-- stat title: icon and title -->
+<div class="stat-title">
+
+<!-- stat icon -->
+<span class="stat-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Stat 2 Icon}"></i>
+</span>
+<!-- stat icon -->
+
+<!-- stat title -->
+<p>{text:Stat 2 Title}</p>
+<!-- stat title -->
+
+</div>
+<!-- stat title: icon and title -->
+
+<!-- stat text -->
+<div class="stat-text">
+<p>{text:Stat 2 Text}</p>
+</div>
+<!-- stat text -->
+
+</li>
+{/block:ifStat2Text}
+<!-- stat #2, icon, title, and text -->
+
+<!-- stat #3, icon, title, and text -->
+{block:ifStat3Text}
+<li class="stat-item">
+
+<!-- stat title: icon and title -->
+<div class="stat-title">
+
+<!-- stat icon -->
+<span class="stat-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Stat 3 Icon}"></i>
+</span>
+<!-- stat icon -->
+
+<!-- stat title -->
+<p>{text:Stat 3 Title}</p>
+<!-- stat title -->
+
+</div>
+<!-- stat title: icon and title -->
+
+<!-- stat text -->
+<div class="stat-text">
+<p>{text:Stat 3 Text}</p>
+</div>
+<!-- stat text -->
+
+</li>
+{/block:ifStat3Text}
+<!-- stat #3, icon, title, and text -->
+
+<!-- stat #4, icon, title, and text -->
+{block:ifStat4Text}
+<li class="stat-item">
+
+<!-- stat title: icon and title -->
+<div class="stat-title">
+
+<!-- stat icon -->
+<span class="stat-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Stat 4 Icon}"></i>
+</span>
+<!-- stat icon -->
+
+<!-- stat title -->
+<p>{text:Stat 4 Title}</p>
+<!-- stat title -->
+
+</div>
+<!-- stat title: icon and title -->
+
+<!-- stat text -->
+<div class="stat-text">
+<p>{text:Stat 4 Text}</p>
+</div>
+<!-- stat text -->
+
+</li>
+{/block:ifStat4Text}
+<!-- stat #4, icon, title, and text -->
+
+<!-- stat #5, icon, title, and text -->
+{block:ifStat5Text}
+<li class="stat-item">
+
+<!-- stat title: icon and title -->
+<div class="stat-title">
+
+<!-- stat icon -->
+<span class="stat-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Stat 5 Icon}"></i>
+</span>
+<!-- stat icon -->
+
+<!-- stat title -->
+<p>{text:Stat 5 Title}</p>
+<!-- stat title -->
+
+</div>
+<!-- stat title: icon and title -->
+
+<!-- stat text -->
+<div class="stat-text">
+<p>{text:Stat 5 Text}</p>
+</div>
+<!-- stat text -->
+
+</li>
+{/block:ifStat5Text}
+<!-- stat #5, icon, title, and text -->
+
+<!-- stat #6, icon, title, and text -->
+{block:ifStat6Text}
+<li class="stat-item">
+
+<!-- stat title: icon and title -->
+<div class="stat-title">
+
+<!-- stat icon -->
+<span class="stat-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Stat 6 Icon}"></i>
+</span>
+<!-- stat icon -->
+
+<!-- stat title -->
+<p>{text:Stat 6 Title}</p>
+<!-- stat title -->
+
+</div>
+<!-- stat title: icon and title -->
+
+<!-- stat text -->
+<div class="stat-text">
+<p>{text:Stat 6 Text}</p>
+</div>
+<!-- stat text -->
+
+</li>
+{/block:ifStat6Text}
+<!-- stat #6, icon, title, and text -->
+
+</ul>
+<!-- stats list -->
+
+</div>
+<!-- tab block: stats wrapper -->
+
+<!-- tab block: biography -->
+<div class="tab-block bio-wrapper">
+
+<!-- biography title -->
+<h3>
+<span>{text:About Title}</span>
+</h3>
+<!-- biography title -->
+
+<!-- biography text -->
+<div class="tab-block-text">
+{text:About Text}
+</div>
+<!-- biography text -->
+
+</div>
+<!-- tab block: biography -->
+
+
+<!-- tab block: likes and dislikes -->
+<div class="tab-block ld-list-wrapper">
+
+<!-- likes and dislikes list -->
+<ul class="ld-list">
+
+<!-- likes block: icon and list -->
+{block:ifLike1}
+<li class="likes-block">
+
+<!-- likes icon -->
+<span class="likes-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Likes Icon}"></i>
+</span>
+<!-- likes icon -->
+
+<!-- likes list. read note #3 if you want to add more -->
+<ul class="likes-list">
+
+<!-- like 1 -->
+{block:ifLike1}
+<li class="like-item">
+{text:Like 1}
+</li>
+{/block:ifLike1}
+<!-- like 1 -->
+
+<!-- like 2 -->
+{block:ifLike2}
+<li class="like-item">
+{text:Like 2}
+</li>
+{/block:ifLike2}
+<!-- like 2 -->
+
+<!-- like 3 -->
+{block:ifLike3}
+<li class="like-item">
+{text:Like 3}
+</li>
+{/block:ifLike3}
+<!-- like 3 -->
+
+<!-- like 4 -->
+{block:ifLike4}
+<li class="like-item">
+{text:Like 4}
+</li>
+{/block:ifLike4}
+<!-- like 4 -->
+
+<!-- like 5 -->
+{block:ifLike5}
+<li class="like-item">
+{text:Like 5}
+</li>
+{/block:ifLike5}
+<!-- like 5 -->
+
+<!-- like 6 -->
+{block:ifLike6}
+<li class="like-item">
+{text:Like 6}
+</li>
+{/block:ifLike6}
+<!-- like 6 -->
+
+<!-- like 7 -->
+{block:ifLike7}
+<li class="like-item">
+{text:Like 7}
+</li>
+{/block:ifLike7}
+<!-- like 7 -->
+
+<!-- like 8 -->
+{block:ifLike8}
+<li class="like-item">
+{text:Like 8}
+</li>
+{/block:ifLike8}
+<!-- like 8 -->
+
+<!-- like 9 -->
+{block:ifLike9}
+<li class="like-item">
+{text:Like 9}
+</li>
+{/block:ifLike9}
+<!-- like 9 -->
+
+<!-- like 10 -->
+{block:ifLike10}
+<li class="like-item">
+{text:Like 10}
+</li>
+{/block:ifLike10}
+<!-- like 10 -->
+
+</ul>
+<!-- likes list. read note #3 if you want to add more -->
+
+</li>
+{block:ifLike1}
+<!-- likes block: icon and list -->
+
+
+
+<!-- dislikes block: icon and list -->
+{block:ifDislike1}
+<li class="likes-block">
+
+<!-- dislikes icon -->
+<span class="likes-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Dislikes Icon}"></i>
+</span>
+<!-- dislikes icon -->
+
+
+<!-- dislikes list. read note #3 if you want to add more -->
+<ul class="likes-list">
+
+<!-- dislike 1 -->
+{block:ifDislike1}
+<li class="like-item">
+{text:Dislike 1}
+</li>
+{/block:ifDislike1}
+<!-- dislike 1 -->
+
+<!-- dislike 2 -->
+{block:ifDislike2}
+<li class="like-item">
+{text:Dislike 2}
+</li>
+{/block:ifDislike2}
+<!-- dislike 2 -->
+
+<!-- dislike 3 -->
+{block:ifDislike3}
+<li class="like-item">
+{text:Dislike 3}
+</li>
+{/block:ifDislike3}
+<!-- dislike 3 -->
+
+<!-- dislike 4 -->
+{block:ifDislike4}
+<li class="like-item">
+{text:Dislike 4}
+</li>
+{/block:ifDislike4}
+<!-- dislike 4 -->
+
+<!-- dislike 5 -->
+{block:ifDislike5}
+<li class="like-item">
+{text:Dislike 5}
+</li>
+{/block:ifDislike5}
+<!-- dislike 5 -->
+
+<!-- dislike 6 -->
+{block:ifDislike6}
+<li class="like-item">
+{text:Dislike 6}
+</li>
+{/block:ifDislike6}
+<!-- dislike 6 -->
+
+<!-- dislike 7 -->
+{block:ifDislike7}
+<li class="like-item">
+{text:Dislike 7}
+</li>
+{/block:ifDislike7}
+<!-- dislike 7 -->
+
+<!-- dislike 8 -->
+{block:ifDislike8}
+<li class="like-item">
+{text:Dislike 8}
+</li>
+{/block:ifDislike8}
+<!-- dislike 8 -->
+
+<!-- dislike 9 -->
+{block:ifDislike9}
+<li class="like-item">
+{text:Dislike 9}
+</li>
+{/block:ifDislike9}
+<!-- dislike 9 -->
+
+<!-- dislike 10 -->
+{block:ifDislike10}
+<li class="like-item">
+{text:Dislike 10}
+</li>
+{/block:ifDislike10}
+<!-- dislike 10 -->
+
+</ul>
+<!-- dislikes list. read note #3 if you want to add more -->
+
+</li>
+{/block:ifDislike1}
+<!-- dislikes block: icon and list -->
+
+</ul>
+<!-- likes and dislikes list -->
+
+</div>
+<!-- tab block: likes and dislikes -->
+
+</div>
+<!-- biography panel, controlled by tab button #1 -->
+
+
+<!-- links panel, controlled by tab button #2 -->
+<div id="links" aria-labelledby="tab-2" role="tabpanel" tabindex="-1" hidden>
+
+<!-- tab block: custom links (if you enable it) -->
+<div class="tab-block {select:Custom Links Layout}">
+
+<!-- custom links list -->
+<ul class="custom-links-list">
+
+<!-- custom link 1: icon, url, and text -->
+{block:ifCustomLink1URL}
+<li class="custom-link">
+
+<!-- link label -->
+<div class="link-label">
+
+<!-- link icon -->
+<span class="custom-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Custom Link 1 Icon}"></i>
+</span>
+<!-- link icon -->
+
+<!-- link url and text -->
+<a href="{text:Custom Link 1 URL}">{text:Custom Link 1 Text}</a>
+<!-- link url and text -->
+
+</div>
+<!-- link label -->
+
+</li>
+{/block:ifCustomLink1URL}
+<!-- custom link 1: icon, url, and text -->
+
+<!-- custom link 2: icon, url, and text -->
+{block:ifCustomLink2URL}
+<li class="custom-link">
+
+<!-- link label -->
+<div class="link-label">
+
+<!-- link icon -->
+<span class="custom-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Custom Link 2 Icon}"></i>
+</span>
+<!-- link icon -->
+
+<!-- link url and text -->
+<a href="{text:Custom Link 2 URL}">{text:Custom Link 2 Text}</a>
+<!-- link url and text -->
+
+</div>
+<!-- link label -->
+
+</li>
+{/block:ifCustomLink2URL}
+<!-- custom link 2: icon, url, and text -->
+
+<!-- custom link 3: icon, url, and text -->
+{block:ifCustomLink3URL}
+<li class="custom-link">
+
+<!-- link label -->
+<div class="link-label">
+
+<!-- link icon -->
+<span class="custom-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Custom Link 3 Icon}"></i>
+</span>
+<!-- link icon -->
+
+<!-- link url and text -->
+<a href="{text:Custom Link 3 URL}">{text:Custom Link 3 Text}</a>
+<!-- link url and text -->
+
+</div>
+<!-- link label -->
+
+</li>
+{/block:ifCustomLink3URL}
+<!-- custom link 3: icon, url, and text -->
+
+<!-- custom link 4: icon, url, and text -->
+{block:ifCustomLink4URL}
+<li class="custom-link">
+
+<!-- link label -->
+<div class="link-label">
+
+<!-- link icon -->
+<span class="custom-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Custom Link 4 Icon}"></i>
+</span>
+<!-- link icon -->
+
+<!-- link url and text -->
+<a href="{text:Custom Link 4 URL}">{text:Custom Link 4 Text}</a>
+<!-- link url and text -->
+
+</div>
+<!-- link label -->
+
+</li>
+{/block:ifCustomLink4URL}
+<!-- custom link 4: icon, url, and text -->
+
+<!-- custom link 5: icon, url, and text -->
+{block:ifCustomLink5URL}
+<li class="custom-link">
+
+<!-- link label -->
+<div class="link-label">
+
+<!-- link icon -->
+<span class="custom-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Custom Link 5 Icon}"></i>
+</span>
+<!-- link icon -->
+
+<!-- link url and text -->
+<a href="{text:Custom Link 5 URL}">{text:Custom Link 5 Text}</a>
+<!-- link url and text -->
+
+</div>
+<!-- link label -->
+
+</li>
+{/block:ifCustomLink5URL}
+<!-- custom link 5: icon, url, and text -->
+
+<!-- custom link 6: icon, url, and text -->
+{block:ifCustomLink6URL}
+<li class="custom-link">
+
+<!-- link label -->
+<div class="link-label">
+
+<!-- link icon -->
+<span class="custom-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Custom Link 6 Icon}"></i>
+</span>
+<!-- link icon -->
+
+<!-- link url and text -->
+<a href="{text:Custom Link 6 URL}">{text:Custom Link 6 Text}</a>
+<!-- link url and text -->
+
+</div>
+<!-- link label -->
+
+</li>
+{/block:ifCustomLink6URL}
+<!-- custom link 6: icon, url, and text -->
+
+</ul>
+<!-- custom links list -->
+
+</div>
+<!-- tab block: custom links (if you enable it) -->
+
+
+<!-- tab block: sideblogs -->
+<div class="tab-block sideblogs-wrapper">
+
+<!-- sideblogs list -->
+<ul class="sideblogs-list">
+
+<!-- sideblog 1: icon, url, text, and short description -->
+{block:ifSideblog1URL}
+<li class="sideblog-item">
+
+<!-- sideblog 1 image and icon -->
+<div class="image-and-icon">
+
+<!-- sideblog image. read note #5 if you want to change it -->
+{block:ifSideblog1Image}
+<figure>
+<img src="{text:Sideblog 1 Image}" class="sideblog-image"/>
+</figure>
+{/block:ifSideblog1Image}
+<!-- sideblog image. read note #5 if you want to change it -->
+
+<!-- sideblog 1 icon -->
+{block:ifSideblog1Icon}
+<span class="sideblog-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Sideblog 1 Icon}"></i>
+</span>
+{/block:ifSideblog1Icon}
+<!-- sideblog 1 icon -->
+</div>
+<!-- sideblog 1 image and icon -->
+
+<!-- sideblog 1 link and description -->
+<div class="sideblog-link">
+<a href="{text:Sideblog 1 URL}">
+<span>{text:Sideblog 1 Link}</span>
+</a>
+
+<p>{text:Sideblog 1 Description}</p>
+</div>
+<!-- sideblog 1 link and description -->
+
+</li>
+{/block:ifSideblog1URL}
+<!-- sideblog 1: icon, url, text, and short description -->
+
+
+{block:ifSideblog2URL}
+<li class="sideblog-item">
+
+<div class="image-and-icon">
+
+<!-- sideblog image. read note #5 if you want to change it -->
+{block:ifSideblog2Image}
+<figure>
+<img src="{text:Sideblog 2 Image}" class="sideblog-image"/>
+</figure>
+{/block:ifSideblog2Image}
+<!-- sideblog image. read note #5 if you want to change it -->
+
+<!-- sideblog 2 icon -->
+{block:ifSideblog2Icon}
+<span class="sideblog-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Sideblog 2 Icon}"></i>
+</span>
+{/block:ifSideblog2Icon}
+<!-- sideblog 2 icon -->
+</div>
+
+<div class="sideblog-link">
+<a href="{text:Sideblog 2 URL}">
+<span>{text:Sideblog 2 Link}</span>
+</a>
+
+<p>{text:Sideblog 2 Description}</p>
+</div>
+</li>
+{/block:ifSideblog2URL}
+
+{block:ifSideblog3URL}
+<li class="sideblog-item">
+
+<div class="image-and-icon">
+
+<!-- sideblog image. read note #5 if you want to change it -->
+{block:ifSideblog3Image}
+<figure>
+<img src="{text:Sideblog 3 Image}" class="sideblog-image"/>
+</figure>
+{/block:ifSideblog3Image}
+<!-- sideblog image. read note #5 if you want to change it -->
+
+<!-- sideblog 3 icon -->
+{block:ifSideblog3Icon}
+<span class="sideblog-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Sideblog 3 Icon}"></i>
+</span>
+{/block:ifSideblog3Icon}
+<!-- sideblog 3 icon -->
+</div>
+
+<div class="sideblog-link">
+<a href="{text:Sideblog 3 URL}">
+<span>{text:Sideblog 3 Link}</span>
+</a>
+
+<p>{text:Sideblog 3 Description}</p>
+</div>
+</li>
+{/block:ifSideblog3URL}
+
+{block:ifSideblog4URL}
+<li class="sideblog-item">
+
+<div class="image-and-icon">
+
+<!-- sideblog image. read note #5 if you want to change it -->
+{block:ifSideblog4Image}
+<figure>
+<img src="{text:Sideblog 4 Image}" class="sideblog-image"/>
+</figure>
+{/block:ifSideblog4Image}
+<!-- sideblog image. read note #5 if you want to change it -->
+
+<!-- sideblog 4 icon -->
+{block:ifSideblog4Icon}
+<span class="sideblog-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Sideblog 4 Icon}"></i>
+</span>
+{/block:ifSideblog4Icon}
+<!-- sideblog 4 icon -->
+</div>
+
+<div class="sideblog-link">
+<a href="{text:Sideblog 4 URL}">
+<span>{text:Sideblog 4 Link}</span>
+</a>
+
+<p>{text:Sideblog 4 Description}</p>
+</div>
+</li>
+{/block:ifSideblog4URL}
+
+{block:ifSideblog5URL}
+<li class="sideblog-item">
+
+<div class="image-and-icon">
+
+<!-- sideblog image. read note #5 if you want to change it -->
+{block:ifSideblog5Image}
+<figure>
+<img src="{text:Sideblog 5 Image}" class="sideblog-image"/>
+</figure>
+{/block:ifSideblog5Image}
+<!-- sideblog image. read note #5 if you want to change it -->
+
+<!-- sideblog 5 icon -->
+{block:ifSideblog5Icon}
+<span class="sideblog-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Sideblog 5 Icon}"></i>
+</span>
+{/block:ifSideblog5Icon}
+<!-- sideblog 5 icon -->
+</div>
+
+<div class="sideblog-link">
+<a href="{text:Sideblog 5 URL}">
+<span>{text:Sideblog 5 Link}</span>
+</a>
+
+<p>{text:Sideblog 5 Description}</p>
+</div>
+</li>
+{/block:ifSideblog5URL}
+
+</ul>
+<!-- sideblogs list -->
+
+</div>
+<!-- tab block: sideblogs -->
+
+</div>
+<!-- links panel, controlled by tab button #2 -->
+
+
+<!-- updates, controlled by tab button #3 -->
+<div id="updates" aria-labelledby="tab-3" role="tabpanel" tabindex="-1" hidden>
+<div class="tab-block updates-list-wrapper">
+<ul class="updates-list">
+
+<!-- update 1: icon and text -->
+{block:ifUpdate1Text}
+<li class="update-item">
+
+<!-- update icon -->
+<span class="update-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Update 1 Icon}"></i>
+</span>
+<!-- update icon -->
+
+<!-- update text -->
+<div class="update-text">
+{text:Update 1 Text}
+</div>
+<!-- update text -->
+
+</li>
+{/block:ifUpdate1Text}
+<!-- update 1: icon and text -->
+
+<!-- update 2: icon and text -->
+{block:ifUpdate2Text}
+<li class="update-item">
+
+<!-- update icon -->
+<span class="update-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Update 2 Icon}"></i>
+</span>
+<!-- update icon -->
+
+<!-- update text -->
+<div class="update-text">
+{text:Update 2 Text}
+</div>
+<!-- update text -->
+
+</li>
+{/block:ifUpdate2Text}
+<!-- update 2: icon and text -->
+
+<!-- update 3: icon and text -->
+{block:ifUpdate3Text}
+<li class="update-item">
+
+<!-- update icon -->
+<span class="update-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Update 3 Icon}"></i>
+</span>
+<!-- update icon -->
+
+<!-- update text -->
+<div class="update-text">
+{text:Update 3 Text}
+</div>
+<!-- update text -->
+
+</li>
+{/block:ifUpdate3Text}
+<!-- update 3: icon and text -->
+
+<!-- update 4: icon and text -->
+{block:ifUpdate4Text}
+<li class="update-item">
+
+<!-- update icon -->
+<span class="update-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Update 4 Icon}"></i>
+</span>
+<!-- update icon -->
+
+<!-- update text -->
+<div class="update-text">
+{text:Update 4 Text}
+</div>
+<!-- update text -->
+
+</li>
+{/block:ifUpdate4Text}
+<!-- update 4: icon and text -->
+
+<!-- update 5: icon and text -->
+{block:ifUpdate5Text}
+<li class="update-item">
+
+<!-- update icon -->
+<span class="update-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Update 5 Icon}"></i>
+</span>
+<!-- update icon -->
+
+<!-- update text -->
+<div class="update-text">
+{text:Update 5 Text}
+</div>
+<!-- update text -->
+
+</li>
+{/block:Update5Text}
+<!-- update 5: icon and text -->
+
+</ul>
+</div>
+</div>
+<!-- updates, controlled by tab button #3 -->
+
+</div>
+<!-- modal tab panels -->
+
+</div>
+<!-- modal container with tab buttons and panels -->
+
+
+</div>
+</div>
+<!-- modal with information, custom links and sideblogs, and updates -->
+
+
+
+<!-- main content -->
+<div class="main-content">
+<section class="content">
+
+<!-- tag page, what's shown when you click on a post's tag(s) -->
+{block:TagPage}
+<div class="day-and-tag tag-page">
+<div class="dt-wrapper">
+
+<!-- tag page: title and icon -->
+<div class="dt-title">
+
+<!-- tag page icon -->
+<span class="dt-icon">
+<i class="solar-icons" stroke="2" icon-name="hashtag"></i>
+</span>
+<!-- tag page icon -->
+
+<!-- tag page title -->
+<span class="dt-title-text">posts tagged as</span>
+<!-- tag page title -->
+
+</div>
+<!-- tag page: title and icon -->
+
+<!-- tag page text -->
+<div class="dt-text">
+<p>#{Tag}</p>
+</div>
+<!-- tag page text -->
+</div>
+</div>
+{/block:TagPage}
+<!-- tag page, what's shown when you click on a post's tag(s) -->
+
+<!-- day page, what's shown when you click on a post's date -->
+{block:DayPage}
+<div class="day-and-tag day-page">
+<div class="dt-wrapper">
+
+<!-- day page: title and icon -->
+<div class="dt-title">
+
+<!-- day page icon -->
+<span class="dt-icon">
+<i class="solar-icons" stroke="2" icon-name="calendar-search"></i>
+</span>
+<!-- day page icon -->
+
+<!-- day page title -->
+<span class="dt-title-text">posted on</span>
+<!-- day page title -->
+</div>
+<!-- day page: title and icon -->
+
+<!-- day page text -->
+<div class="dt-text">
+<p>{ShortMonth} {DayofMonthWithSuffix} {Year}</p>
+</div>
+<!-- day page text -->
+
+</div>
+</div>
+{/block:DayPage}
+<!-- day page, what's shown when you click on a post's date -->
+
+{block:posts inlineMediaWidth="1280" inlineNestedMediaWidth="1280"}
+
+<!-- post article -->
+<article id="post-{PostID}" class="{posttype}-post posts">
+
+<!-- post content -->
+<div class="post-content">
+
+{block:IndexPage}
+<div class="post-top">
+{block:PinnedPostLabel}
+<div class="pinned" aria-label="pinned post" title="pinned post" aria-label="pinned post">
+<span class="pinned-icon">
+<i class="solar-icons" stroke="2" icon-name="pushpin"></i>
+</span>
+
+<p class="pinned-label">
+<span>{PinnedPostLabel}</span>
+</p>
+</div>
+{/block:PinnedPostLabel}
+</div>
+{/block:IndexPage}
+
+<!-- legacy single photo -->
+{block:Photo}
+<a class="legacy-photo photo-single"  onclick="Tumblr.Lightbox.init([{ width: {PhotoWidth-HighRes}, height: {PhotoHeight-HighRes}, low_res: '{PhotoURL-500}', high_res: '{PhotoURL-HighRes}' }]); $('body').toggleClass('tumblr_lightbox_active'); return false"><img src="{PhotoURL-HighRes}"></a>
+{/block:Photo}
+
+<!-- legacy photoset -->
+{block:Photoset}
+<div class="photoset" data-layout="{PhotosetLayout}">
+{block:Photos}
+<div class="legacy-photoset-inner" 
+data-width="{PhotoWidth-HighRes}" 
+data-height="{PhotoHeight-HighRes}" 
+data-lowres="{PhotoURL-500}" 
+data-highres="{PhotoURL-HighRes}">
+<img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" class="image"/>
+</div>
+{/block:Photos}
+</div>
+{/block:Photoset}
+
+<!-- panorama -->
+{block:Panorama}
+<div class="legacy-photo"><img src="{photourl-panorama}" alt="{photoalt}"></div>
+{/block:Panorama}
+
+<!-- legacy quote (styled as npf) -->
+{block:Quote}
+<div class="caption">
+<p class="npf_quote">{Quote}</p>
+
+{block:Source}
+<p class="source">-{Source}</p>
+{/block:Source}
+</div>
+{/block:Quote}
+
+<!-- legacy chat (styled as npf) -->
+{block:Chat}
+<div class="caption">
+{block:Lines}
+<p class="npf_chat">
+{block:Label}
+<span class="label">{Label}</span>
+{/block:Label}
+{Line}
+</p>
+{/block:Lines}
+</div>
+{/block:Chat}
+
+<!-- legacy link (styled as npf) -->
+{block:link}
+<div class="npf-link-block {block:Thumbnail}has-poster{/block:Thumbnail}">
+<a {Target} href="{URL}" class="link">
+<div {block:Thumbnail}class="poster" style="background:url({Thumbnail-HighRes}); background-position: 50%; background-repeat: no-repeat; background-size: cover; background-clip: content-box;"{/block:Thumbnail}>
+<div class="title">{Name}</div>
+</div>
+<div class="bottom">
+{block:Excerpt}<div class="description">{Excerpt}</div>{/block:Excerpt}
+{block:Host}<div class="site-name">{Host}</div>{/block:Host}
+</div>
+</a>
+</div>
+{/block:link}
+
+<!-- legacy video -->
+{block:Video}
+<div class="video">
+{Video-700}
+</div>
+{/block:Video}
+
+<!-- legacy audio styled as npf audio -->
+{block:Audio}
+<!-- legacy audio -->
+<figure class="tmblr-full">
+<figcaption class="audio-caption legacy">
+<div class="audio-info">
+<span class="tmblr-audio-meta audio-details">
+{block:TrackName}<span class="tmblr-audio-meta title">{TrackName}</span>{/block:TrackName}
+{block:Artist}<span class="tmblr-audio-meta artist">{Artist}</span>{/block:Artist}
+{block:Album}<span class="tmblr-audio-meta album">{Album}</span>{/block:Album}
+</span>
+{block:AlbumArt}<img class="album-cover" src="{AlbumArtURL}" alt="image"/>{/block:AlbumArt}
+</div>
+</figcaption>
+{block:AudioPlayer}{AudioPlayer}{/block:AudioPlayer}
+</figure>
+{/block:Audio}
+
+<!-- ask -->
+{block:Answer}
+<div class="ask-and-answer">
+<div class="ask-container">
+<div class="asker-wrap">
+<img src="{AskerPortraitURL-64}" class="ask-img"/>
+<div class="user-info">
+<p><span class="ask-user">{Asker}</span> sent a message</p>
+</div>
+</div>
+
+<div class="question">
+{Question}
+</div>
+</div>
+
+{block:Answerer}
+<div class="ask-container rb-answer">
+<div class="asker-wrap">
+<img src="{AnswererPortraitURL-64}" class="ask-img"/>
+<div class="user-info">
+<p>
+<span class="ask-user">{Answerer}</span> answered
+</p>
+</div>
+</div>
+
+<div class="question">
+{Answer}
+</div>
+</div>
+{/block:Answerer}
+</div>
+
+{block:NotReblog}
+<div class="replies">{Answer}</div>
+{/block:NotReblog}
+{/block:Answer}
+
+<!-- caption -->
+<div class="caption {block:notreblog} original-post {/block:notreblog}">
+{block:Text}
+{block:Title}<h2>{Title}</h2>{/block:Title}
+{/block:Text}
+
+{block:Link}
+{block:Description}
+{block:NotReblog}{Description}{/block:NotReblog}
+{/block:Description}
+{/block:Link}
+
+{block:notreblog}
+{block:caption}{Caption}{/block:caption}
+<!-- below: 'reblog-content original' needed for secondary photosets to wrap in div -->
+{block:Text}<div class="reblog-content original">{Body}</div>{/block:Text}
+
+{/block:notreblog}
+
+{block:Rebloggedfrom}
+{block:Reblogs}
+<!-- display:none; below hides the double comments that sometimes appear in old pre-2014 reblogged quote posts --> 
+<div class="reblogs" {block:Quote}style="display:none;"{/block:Quote}>
+<div class="reblog-header {block:IsOriginalEntry}original{/block:IsOriginalEntry} flex align-center gap1">
+<div class="top-icon">
+<span class="original-icon">
+<i class="solar-icons" stroke="2" icon-name="user-1"></i>
+</span>
+
+<span class="reblog-icon">
+<i class="solar-icons" stroke="2" icon-name="user-add-1"></i>
+</span>
+</div>
+{block:IsActive}
+<a class="user flex align-center" target="_blank" href="{Permalink}">{Username}</a>
+{/block:IsActive}
+{block:IsDeactivated}
+<span class="user flex align-center deactivated" aria-label="user deactivated">{Username}</span>
+{/block:IsDeactivated}
+</div>
+
+<div class="reblog-content">
+{Body}
+</div>
+</div>
+{/block:Reblogs}
+{/block:RebloggedFrom}
+</div>
+
+</div><!-- post-content end -->     
+
+<div class="post-bottom">
+{block:Date}
+{block:IndexPage}
+<div class="post-bottom-info">
+<div class="date-and-notes">
+<a href="/day/{Year}/{MonthNumberWithZero}/{dayofmonthwithzero}" class="date" title="posted on {ShortMonth} {DayofMonthWithSuffix}">
+<span class="timeago">{TimeStamp}</span>
+</a>
+
+<a href="{Permalink}" class="notes">
+<span class="notecount">{NoteCountWithLabel}</span>
+</a>
+</div>
+
+<div class="like-and-rb">
+<a class="custom-like-container" href="#">
+{LikeButton}
+
+<span class="like-icon">
+<i class="solar-icons" stroke="2" icon-name="heart-1"></i>
+</span>
+</a>
+
+<a href="{ReblogURL}" class="custom-rb">
+<i class="solar-icons" stroke="2" icon-name="refresh"></i>
+</a>
+</div>
+</div>
+
+{block:HasTags}
+<div class="tags-container">
+<div class="tags-list">
+{block:Tags}
+<a href="{TagURL}" class="tag-link">#{Tag}</a>
+{/block:Tags}
+</div>
+</div>
+{/block:HasTags}
+{/block:IndexPage}
+
+{block:PermalinkPage}
+<div class="permalink-wrapper">
+<div class="p-time">
+<span class="p-label"><b>posted</b></span> {TimeAgo} on {Month} {DayofMonthWithSuffix} {Year} at {12Hour}:{Minutes} {CapitalAmPm}
+</div>
+
+{block:NotReblog}
+<div class="original-wrapper">
+<span class="p-label"><b>original post by</b></span> <a href="/">@{Name}</a>
+</div>
+{/block:NotReblog}
+
+{block:RebloggedFrom}
+<div class="reblog-wrapper">
+<div class="rb-wrapper">
+<img src="{ReblogParentPortraitURL-64}" class="rbw-img"/>
+<span class="parent-line">
+<span class="p-label"><b>reblogged from:</b></span> <a href="{ReblogParentURL}">@{ReblogParentName}</a>
+</span>
+</div>
+
+<div class="rb-wrapper">
+<img src="{ReblogRootPortraitURL-64}" class="rbw-img"/>
+<span class="root-line">
+<span class="p-label"><b>original poster:</b></span> <a href="{ReblogRootURL}">@{ReblogRootName}</a>
+</span>
+</div>
+</div>
+{/block:RebloggedFrom}
+
+{block:ContentSource}
+<div class="content-source">
+<b>source:</b> <a href="{SourceURL}">{Source Title}</a>
+</div>
+{/block:ContentSource}
+
+{block:HasTags}
+<div class="p-tags-container">
+<span class="p-label">
+<b>tagged as</b>
+</span><br>
+<div class="p-tags">
+{block:Tags}
+<a href="{TagURL}">#{Tag}</a>
+{/block:Tags}
+</div>
+</div>
+{/block:HasTags}
+</div>
+{/block:PermalinkPage}
+
+{/block:Date}
+</div>
+
+</article>
+
+{block:PostNotes}
+<div class="notes-container">
+<span class="note-counter">
+{NoteCountWithLabel}
+<span class="note-icon">
+<i class="solar-icons" stroke="2" icon-name="list-heart-2"></i>
+</span>
+</span>
+{PostNotes-64}
+</div>
+{/block:PostNotes}
+
+{/block:Posts}
+
+{block:Pagination}
+<nav class="pagination-wrapper" aria-label="Pagination">
+<div class="nav-and-current">
+<a {block:PreviousPage} href="{PreviousPage}" title="prev page"{/block:PreviousPage} class="{block:PreviousPage}prev_{/block:PreviousPage}page">
+<i class="solar-icons" stroke="2" icon-name="chevron-left"></i>
+</a>
+
+<span class="total-pages">
+{CurrentPage} of {TotalPages} pages
+</span>
+
+<a {block:NextPage} href="{NextPage}" title="next page"{/block:NextPage} class="{block:NextPage}next_{/block:NextPage}page">
+<i class="solar-icons" stroke="2" icon-name="chevron-right"></i>
+</a>
+</div>
+
+<div class="jump-wrapper">
+{block:JumpPagination length="4"}
+
+{block:CurrentPage}
+<span class="current-page">
+{CurrentPage}
+</span>
+{/block:CurrentPage}
+
+{block:JumpPage}
+<a href="{URL}" class="jump-page">{PageNumber}</a>
+{/block:JumpPage}
+
+{/block:JumpPagination}
+</div>
+</nav>
+{/block:Pagination}
+</section>
+
+</div>
+<!-- main content -->
+
+
+
+<!-- extra sidebar -->
+<aside class="extra-sidebar">
+
+<!-- wrapper for standard links (home, ask, archive, and an extra one) -->
+<div class="standard-links-wrapper">
+<ul class="standard-links">
+
+<!-- home label and icon -->
+<li class="standard-item">
+
+<!-- home link and label -->
+<a href="/" title="{text:Home Label}">
+
+<!-- home link icon -->
+<i class="solar-icons" stroke="2" icon-name="{text:Home Icon}"></i>
+<!-- home link icon -->
+
+</a>
+<!-- home link and label -->
+
+</li>
+<!-- home label and icon -->
+
+{block:AskEnabled}
+<!-- askbox label and icon -->
+<li class="standard-item">
+
+<!-- askbox link and label -->
+<a href="/ask" title="{text:Askbox Label}">
+
+<!-- askbox link icon -->
+<i class="solar-icons" stroke="2" icon-name="{text:Askbox Icon}"></i>
+<!-- askbox link icon -->
+
+</a>
+<!-- askbox link and label -->
+
+</li>
+<!-- askbox label and icon -->
+{/block:AskEnabled}
+
+<!-- archive label and icon -->
+<li class="standard-item">
+
+<!-- archive link and label -->
+<a href="/archive" title="{text:Archive Label}">
+
+<!-- archive link icon -->
+<i class="solar-icons" stroke="2" icon-name="{text:Archive Icon}"></i>
+<!-- archive link icon -->
+
+</a>
+<!-- archive link and label -->
+
+</li>
+<!-- archive label and icon -->
+
+<!-- extra link label and icon -->
+<li class="standard-item">
+
+<!-- extra link link and label -->
+<a href="{text:Extra Link URL}" title="{text:Extra Link Label}">
+
+<!-- extra link link icon -->
+<i class="solar-icons" stroke="2" icon-name="{text:Extra Link Icon}"></i>
+<!-- extra link link icon -->
+
+</a>
+<!-- extra link link and label -->
+
+</li>
+<!-- extra link label and icon -->
+</ul>
+</div>
+<!-- wrapper for standard links (home, ask, archive, and an extra one) -->
+
+
+<!-- tasklist wrapper -->
+<div class="tasklist-wrapper">
+
+<!-- tasklist -->
+<ul class="tasklist">
+
+<!-- tasklist #1 -->
+{block:ifTask1}
+<li class="task {select:Task 1 Status}">
+<span class="checkbox"></span>
+
+<p>{text:Task 1}</p>
+</li>
+{/block:ifTask1}
+<!-- tasklist #1 -->
+
+<!-- tasklist #2 -->
+{block:ifTask2}
+<li class="task {select:Task 2 Status}">
+<span class="checkbox"></span>
+
+<p>{text:Task 2}</p>
+</li>
+{/block:ifTask2}
+<!-- tasklist #2 -->
+
+<!-- tasklist #3 -->
+{block:ifTask3}
+<li class="task {select:Task 3 Status}">
+<span class="checkbox"></span>
+
+<p>{text:Task 3}</p>
+</li>
+{/block:ifTask3}
+<!-- tasklist #3 -->
+
+<!-- tasklist #4 -->
+{block:ifTask4}
+<li class="task {select:Task 4 Status}">
+<span class="checkbox"></span>
+
+<p>{text:Task 4}</p>
+</li>
+{/block:ifTask4}
+<!-- tasklist #4 -->
+
+</ul>
+<!-- tasklist -->
+
+</div>
+<!-- tasklist wrapper -->
+
+</aside>
+<!-- extra sidebar -->
+
+</main>
+<!-- main container -->
+
+<!-- scroll to top and credit -->
+<div class="scroll-and-credit">
+
+<!-- scroll to top button, will appear if the user scrolls past 40px -->
+<button class="scroll-to-top" title="scroll to top">
+<i class="solar-icons" stroke="2" icon-name="chevron-up"></i>
+</button>
+<!-- scroll to top button, will appear if the user scrolls past 40px -->
+
+<!-- credit link. do not touch, delete, alter, or move -->
+<a href="http://pouthongwon.tumblr.com" class="credit" title="theme by pouthongwon">
+<i class="solar-icons" stroke="2" icon-name="face-blep"></i>
+</a>
+<!-- credit link. do not touch, delete, alter, or move -->
+
+</div>
+<!-- scroll to top and credit -->
+
+<!-- scripts for tooltips (cont.) -->
+<script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@5/dist/tippy-bundle.iife.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/tippy.js@5/dist/svg-arrow.css" />
+
+<!-- PHOTOSET: legacy -->
+<script src="https://static.tumblr.com/diajl5m/y39s6mwvr/legacy-photoset.js"></script>
+
+<!-- timeago by @mournstera -->
+<script src="https://static.tumblr.com/xvqpzpb/gXLsuira9/timeago.js"></script>
+
+<!-- AUDIO: UnifyAudio https://github.com/flipsewtf/UnifyAudio -->
+<script src="https://static.tumblr.com/diajl5m/mobsquso5/unify_audio.js"></script>
+
+<script>
+const themeToggleButtons = document.querySelectorAll(".toggle");
+
+themeToggleButtons.forEach((btn) => {
+btn.addEventListener("click", function () {
+
+// Add theme-transition class for smooth transitions
+document.documentElement.classList.add("theme-transition");
+
+// Retrieve the current theme and determine the target theme
+let currentTheme = document.documentElement.getAttribute("data-theme");
+let targetTheme = (currentTheme === "light") ? "dark" : "light";
+
+// Remove theme-transition class after a short delay
+window.setTimeout(function () {
+document.documentElement.classList.remove("theme-transition");
+}, 50);
+
+// Set the data-theme attribute and store in local storage
+document.documentElement.setAttribute("data-theme", targetTheme);
+localStorage.setItem("theme", targetTheme);
+});
+});
+
+
+const elements = document.querySelectorAll('.timeago');
+
+timeAgo(elements, {
+time: 'word', // should be 'letter' 'short' or 'word'
+spaces: true, // 'true' adds spaces between words and numbers
+words: true, // 'true' turns numbers to words
+prefix: '',  // adds a prefix. could be '~' or 'about' or 'posted' etc.
+suffix: '' // adds a suffix. could be 'ago' or period, etc.
+});
+
+// ------------------- shorten note count by @mournstera
+const noteCounts = document.querySelectorAll(".notecount");
+
+noteCounts.forEach(function (noteCountElement) {
+let noteCount = parseInt(noteCountElement.textContent.replace(/,/g, "").split(" ")[0], 10);
+
+if (noteCount >= 1000000) {
+noteCountElement.textContent = `${(noteCount / 1000000).toFixed(2)}m notes`;
+} else if (noteCount >= 1000) {
+noteCountElement.textContent = `${(noteCount / 1000).toFixed(1)}k notes`;
+}
+});
+
+
+const tmblrControls = document.querySelector(".controls");
+
+tmblrControls.addEventListener('click', () => {
+document.querySelector("iframe.tmblr-iframe").classList.toggle('active');
+})
+
+
+const openBtn = document.querySelector(".open-btn");
+const modal = document.querySelector(".modal");
+const closeBtn = document.querySelector(".close-btn");
+
+function openModal() {
+modal.classList.remove("hide");
+}
+
+function closeModal(e, clickedOutside) {
+if (clickedOutside) {
+if (e.target.classList.contains("modal"))
+modal.classList.add("hide");
+} else modal.classList.add("hide");
+}
+
+openBtn.addEventListener("click", openModal);
+modal.addEventListener("click", (e) => closeModal(e, true));
+closeBtn.addEventListener("click", closeModal);
+
+const tabElements = document.querySelectorAll('button[role="tab"]');
+const panelElements = document.querySelectorAll('[role="tabpanel"]');
+let activeIndex = 0;
+
+// Listen to clicks and key presses on tabs
+tabElements.forEach(function (tab, index) {
+tab.addEventListener("click", function (event) {
+setActiveTab(index);
+});
+
+tab.addEventListener("keydown", function (event) {
+const lastIndex = tabElements.length - 1;
+
+if (event.code === "ArrowLeft" || event.code === "ArrowUp") {
+if (activeIndex === 0) {
+// First element, jump to end
+setActiveTab(lastIndex);
+} else {
+// Move left
+setActiveTab(activeIndex - 1);
+}
+} else if (event.code === "ArrowRight" || event.code === "ArrowDown") {
+if (activeIndex === lastIndex) {
+// Last element, jump to beginning
+setActiveTab(0);
+} else {
+// Move right
+setActiveTab(activeIndex + 1);
+}
+} else if (event.code === "Home") {
+// Move to beginning
+setActiveTab(0);
+} else if (event.code === "End") {
+// Move to end
+setActiveTab(lastIndex);
+}
+});
+});
+
+function setActiveTab(index) {
+// Make currently active tab inactive
+tabElements[activeIndex].setAttribute("aria-selected", "false");
+tabElements[activeIndex].tabIndex = -1;
+
+// Set the new tab as active
+tabElements[index].setAttribute("aria-selected", "true");
+tabElements[index].tabIndex = 0;
+tabElements[index].focus();
+
+setActivePanel(index);
+activeIndex = index;
+}
+
+function setActivePanel(index) {
+// Hide currently active panel
+panelElements[activeIndex].setAttribute("hidden", "");
+panelElements[activeIndex].tabIndex = -1;
+
+// Show the new active panel
+panelElements[index].removeAttribute("hidden");
+panelElements[index].tabIndex = 0;
+}
+
+const navToggle = document.querySelector('.open-custom');
+
+navToggle.addEventListener('click', () => {
+document.body.classList.toggle('open-links');
+});
+
+let buttonContainer = document.querySelector(".scroll-and-credit");
+let scrollButton = document.querySelector(".scroll-to-top");
+
+window.onscroll = function() {
+scrollFunction();
+}
+
+function scrollFunction() {
+if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
+buttonContainer.classList.add("show-scroll");
+} else {
+buttonContainer.classList.remove("show-scroll");
+}
+}
+
+// When the user clicks on the button, scroll to the top of the document
+scrollButton.addEventListener('click', () => {
+document.body.scrollTop = 0;
+document.documentElement.scrollTop = 0;
+});
+
+// ------------------- remove empty p tags
+for (const p of document.querySelectorAll('p')) {
+if (p.innerHTML.trim() === '') {
+p.remove()
+}
+}
+
+// ------------------- NPF posts - reverse-compatible-template.html by @egg.design
+// create posts array
+let posts = []
+{block:Posts} 
+posts.push({ npf: JSON.parse({JSNPF}), id: {JSPostId}}) 
+{/block:Posts}
+
+//function for updating post types 
+function updateTypes(type, article) {
+article.classList.remove('text-post')
+article.classList.add(`${ type }-post`, 'npf-post')
+}
+
+// loop through array to get each post
+for (const post of posts) {
+let npf = post.npf
+let article = document.getElementById(`post-${post.id}`)
+// select captions that have something in them
+let caption = article.querySelector('.caption:is(:not(:empty))')
+if (caption != null && article.classList.contains('text-post')) {
+// if content exists
+if (npf.trail.length || npf.content.length) {
+// assign various post types based on NPF data
+switch (npf.trail[0]?.content[0]?.type ?? npf.content[0].type) {
+case 'image':
+updateTypes('photos', article)
+if (article.querySelector('.npf_row') == null) {
+caption.prepend(article.querySelector('figure'))
+}
+break
+case 'video':
+updateTypes('video', article)
+let video = article.querySelector('figure')
+caption.prepend(video)
+break
+case 'link':
+updateTypes('link', article)
+case 'audio':
+updateTypes('audio', article)
+break
+case 'quote':
+updateTypes('quote', article)
+}
+
+// if there are photos
+if (article.classList.contains('photos-post')) {
+let photoset = document.createElement('div')
+photoset.classList.add('npf-photos')
+caption.prepend(photoset)
+// find where a photoset would be split up by another content block
+let photoBreak = article.querySelector('.reblog-content p, .reblog-content h1, .reblog-content h2, .reblog-content blockquote')
+let elements = []
+if (photoBreak) {
+let prevElement = photoBreak.parentNode.firstElementChild
+while (prevElement !== photoBreak) {
+elements.push(prevElement)
+prevElement = prevElement.nextElementSibling
+}
+}
+// if there is nothing that breaks up the photoset, select all rows
+else {
+elements = article.querySelectorAll('.npf_row')
+}
+// move each row to the top
+for (const el of elements) {
+photoset.append(el)
+}
+if (article.querySelectorAll('.npf_row').length > 1) {
+updateTypes('photoset', article)
+}
+else {
+updateTypes('photo', article)
+}
+}
+
+// clean up any potential stray reblog headers
+let reblogHeader = article.querySelector('.reblog-header')
+let reblogContent = article.querySelector('.reblog-content')
+if (reblogHeader?.nextElementSibling === reblogContent && reblogContent?.childElementCount === 0) {
+reblogHeader.remove()
+reblogContent.remove()
+}
+}
+}
+}
+
+// wrap npf photoset in div that's not the first photoset
+const content = document.querySelectorAll(".reblog-content");
+let sections = []; // initialize empty array it'll be useful later !
+let temp_array = []; // will also be useful
+
+// We will re-create all the div "reblog-content".
+function removeAndReplace(content_div) {
+content_div.replaceChildren();
+let idx = 0;
+
+for (const array_containing_the_arrays_of_child_nodes of sections) {
+const div = document.createElement("div");
+array_containing_the_arrays_of_child_nodes[0].classList.contains("npf_row") ? ++idx : null;
+for (const child_nodes_array of array_containing_the_arrays_of_child_nodes) {
+if (!child_nodes_array.classList.contains("npf_row")) {
+content_div.appendChild(child_nodes_array);
+} else {
+div.appendChild(child_nodes_array);
+}
+}
+div.classList.add(`more_photoset`);
+div.children.length <= 0 ? null : content_div.appendChild(div);
+}
+sections = [];
+}
+
+function y() {
+content.forEach((content) => {
+const content_children = content.children;
+for (let i = 0; i < content_children.length; ++i) {
+const children = content_children[i];
+if (!children.classList.contains("npf_row")) {
+temp_array.length >= 1 ? sections.push(temp_array, [children]) : sections.push([children]);
+temp_array = [];
+} else {
+temp_array.push(children);
+if (content_children[content_children.length - 1] === children) {
+sections.push(temp_array);
+temp_array = [];
+}
+}
+}
+removeAndReplace(content);
+});
+}
+
+y();
+
+
+tippy('[title]', {
+theme: 'custom',
+arrow: tippy.roundArrow,
+followCursor: true,
+zIndex: 9999999999,
+maxWidth: 250,
+
+content(reference) {
+const title = reference.getAttribute('title');
+reference.removeAttribute('title');
+return title;
+},
+});
+</script>
+</body>
+</html>
