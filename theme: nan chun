@@ -8,38 +8,38 @@ note #1: don't alter, move, or delete my credit in the bottom right corner or in
 
 note #2: everything can be edited in the 'customize' panel, so don't worry about getting into the code —except when you want to add something
 
-note #3: if you want to add more likes or dislikes, follow this format and make sure to replace the '[ ]' with '{ }':
+note #3: if you want to add more likes or dislikes, follow this format and make sure to add '{ }' around everything and remove the space between 'text:' and '/block:':
 
 put this in the meta options:
 <meta name="text:Like 11" content="like 11"/>
 
-put this in the html after--> <!-- [/block:ifLike10]
-[block:ifLike11]
+put this in the html after--> <!-- [/block: ifLike10]
+block:Like11
 <li class="like-item">
-[text:Like 11]
+text: Like11
 </li>
-[/block:ifLike11]
+/block:Like11
 
 replace 'like' with 'dislike' if you want to add to the dislikes list
 
-note #4: if you want to add more tasks, follow this format and make sure to replace the '[ ]' with '{ }':
+note #4: if you want to add more tasks, follow this format and make sure to add '{ }' around everything and remove the space between 'text:', 'select:', and '/block::
 
 put this in the meta options:
-<meta name="select:Task 5 Status" content="" title="not done"/>
-<meta name="select:Task 5 Status" content="almost-done" title="almost done"/>
-<meta name="select:Task 5 Status" content="done" title="done"/>
+<meta name="select: Task 5 Status" content="" title="not done"/>
+<meta name="select: Task 5 Status" content="almost-done" title="almost done"/>
+<meta name="select: Task 5 Status" content="done" title="done"/>
 
 <meta name="text:Task 5" content="Task 5"/>
 
-put this in the html after [/block:ifTask4]
+put this in the html after [/block: ifTask4]
 
-[block:ifTask5]
-<li class="task [select:Task 5 Status]">
+block:ifTask5
+<li class="task select: Task 5 Status">
 <span class="checkbox"></span>
 
-<p>[text:Task 5]</p>
+<p>text: Task 5</p>
 </li>
-[/block:ifTask5]
+/block:ifTask5
 
 note #5: if you want to replace the sideblog images, follow these steps:
 
@@ -58,7 +58,7 @@ base code by @mournstera (+ light/dark toggle, poll post styling, and the follow
 - modified scroll to top tutorial by w3schools
 - images are from a variety of places (notably, various korean actors'/models' instagrams for the sideblogs and sidebar. pexels for the modal images)
 - theme title from 'nan chun' by se so neon and custom title + description are from the same song, translated by ana on youtube
-- link: https://www.youtube.com/watch?v=TmgU7GVj7yo
+    - link: https://www.youtube.com/watch?v=TmgU7GVj7yo
 
 -->
 
