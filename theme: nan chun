@@ -785,6 +785,8 @@ gap: 10px;
 
 position: relative;
 
+margin-block-end: 2rem;
+
 &::before {
 content: '';
 width: 1px;
@@ -908,10 +910,6 @@ color: transparent;
 .quote-text {
 font-family: var(--ff-accent);
 font-weight: 500;
-}
-
-.stats-wrapper {
-margin-block-start: 2rem;
 }
 
 .stats-list, .custom-links-list {
@@ -4253,7 +4251,7 @@ opacity: 1;
 <!-- update text -->
 
 </li>
-{/block:Update5Text}
+{/block:ifUpdate5Text}
 <!-- update 5: icon and text -->
 
 </ul>
