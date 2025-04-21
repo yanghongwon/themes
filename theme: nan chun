@@ -1122,16 +1122,13 @@ left: 0;
 translate: 1rem 0;
 z-index: -1;
 }
-
-&:has(figure)::before {
-translate: 1.9rem 0;
-}
 }
 
 .sideblog-item {
 display: flex;
 align-items: center;
-gap: 0.5rem;
+gap: 1.4rem;
+translate: -1rem 0;
 
 &:nth-child(odd) a span::before, &:nth-child(even) a::after, &:nth-child(even) a:hover span::before, &:nth-child(odd):hover a::after, &:nth-child(odd) .sideblog-icon i {
 --clr-gradient: var(--clr-accent);
@@ -1191,6 +1188,8 @@ padding: 0.4rem;
 background: var(--clr-container);
 border: 1px solid var(--clr-borders);
 border-radius: var(--radius-sm);
+
+translate: 1rem 0;
 
 i {
 background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
