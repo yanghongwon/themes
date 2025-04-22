@@ -17,11 +17,12 @@ step 4) go to the customize panel and find 'Sideblog [#] Image', there will be a
 step 5) delete the text and paste the image url you've copied
 
 credits:
-fonts by google fonts
-icons by solar icons
-base code by @mournstera (+ light/dark toggle, poll post styling, and the following scripts: unifyaudio, shorten notecount, and timeago)
+- fonts by google fonts
+- icons by solar icons
+- base code by @mournstera (+ light/dark toggle, poll post styling, and the following scripts: unifyaudio, shorten notecount, and timeago)
 - modal by geeksforgeeks
 - accessible tabs by code concisely
+- modified links on click by kevin powell (+ grid-row hack from coding2go)
 - modified scroll to top tutorial by w3schools
 - images are from a variety of places (notably, various korean actors'/models' instagrams for the sideblogs and sidebar. pexels for the modal images)
 - theme title from 'nan chun' by se so neon and custom title + description are from the same song, translated by ana on youtube
