@@ -1637,6 +1637,9 @@ align-items: center;
 justify-content: space-between;
 text-transform: lowercase;
 gap: 10px;
+margin-bottom: var(--text-margin);
+border-bottom: 1px solid var(--clr-borders);
+padding-bottom: var(--text-margin);
 
 .pinned-icon {
 display: flex;
@@ -1645,8 +1648,8 @@ justify-content: center;
 
 background: var(--clr-posts);
 padding: 0.4rem;
-border-radius: var(--radius-sm);
 border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
 
 & i {
 background: linear-gradient(to bottom, var(--clr-accent-gradient), var(--clr-accent-2-gradient));
@@ -1744,6 +1747,7 @@ gap: 5px;
 a.custom-like-container {
 position: relative;
 }
+
 a.custom-like-container .like_button {
 position: absolute;
 top: 0;
@@ -1754,16 +1758,18 @@ width: 100%;
 height: 100%;
 opacity: 0;
 }
+
 a.custom-like-container .like_button iframe {
 width: 100%!important;
 height: 100%!important;
 }
+
 a.custom-like-container .liked + .custom-like-text {
 color: var(--clr-accent)!important;
 }
 
 a.custom-like-container .liked + .custom-like-text p:after {
-content:'d';
+content:'d'!important;
 }
 
 .tags {
@@ -2559,16 +2565,14 @@ data-highres="{PhotoURL-HighRes}">
 </div>
 
 <div class="like-and-rb">
-<div class="like-line">
 <a href="#" class="custom-like-container">
 {LikeButton}
 
-<span class="custom-like-text">
+<button class="custom-like-text" title="like the post">
 <i class="solar-icons" stroke="2" icon-name="heart-1"></i>
 <p>like</p>
-</span>
+</button>
 </a>
-</div>
 
 <div class="rb-line">
 <span class="rb-label">
