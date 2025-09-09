@@ -3443,7 +3443,7 @@ data-highres="{PhotoURL-HighRes}">
 
 {block:NotReblog}
 <span class="permalink-notes">
-<a href="{Permalink" title="permalink" class="notecount">{NoteCount}
+<a href="{Permalink}" title="permalink" class="notecount">{NoteCount}
 
 </a>
 </span>
