@@ -1,0 +1,5844 @@
+<!--
+    THEME: EVE
+    by pouthongwon
+    
+    notes:
+    - don't move, alter, or delete the theme credit
+    - there are several features that have to be edited in the code:
+        - the likes and dislikes list
+        - the biography
+        - the faves modal
+        - the projects
+        - the updates list
+    - send me an ask if anything's wrong at http://pouthongwon.tumblr.com/ask
+    
+    credits:
+    - @mournstera for pretty much everything in the base code and the light/dark toggle
+    - @glenthemes for their google fonts script
+    - 480 design and r4inbow for their solar icons
+    - jimmy chung for remixicons
+    - accessible tabs: https://codepen.io/Solivar/pen/oNMKpMv
+    - modal: https://www.geeksforgeeks.org/javascript/how-to-create-a-modal-box-using-html-css-and-javascript/
+-->
+    
+    
+    
+    
+<!DOCTYPE html>
+<html lang="en" data-theme="light" class="{select:Layout} {select:Divider Shape}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{Title} {block:TagPage} | #{Tag}{/block:TagPage}
+{block:DayPage} | {Year}/{Month}/{DayofMonthWithSuffix}{/block:DayPage}
+</title>
+<link rel="shortcut icon" href="{Favicon}" type="image/x-icon">
+
+<!-- google fonts script by @glenthemes -->
+<script src="https://cdn.jsdelivr.net/gh/ht-devx/addGoogleFonts/v2/addGoogleFonts.min.js"></script>
+
+<script>
+addGoogleFonts("{text:Body Font}, {text:Accent Font}");
+</script>
+
+<!-- solar icons -->
+<link href="https://solar-icons.gitlab.io/i/icons.css" rel="stylesheet" crossorigin/>
+
+<!-- remix icons -->
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css" rel="stylesheet"/>
+
+<!-- light/dark script by @mournstera -->
+<script>
+// Check stored theme or system preference
+const storedTheme =
+localStorage.getItem("theme") ||
+(window.matchMedia("(prefers-color-scheme: dark)").matches
+? "dark"
+: "light");
+
+// Apply it immediately to <html> to avoid flash
+if (storedTheme) {
+document.documentElement.setAttribute(
+"data-theme",
+storedTheme,
+);
+}
+</script>
+
+<!-- jquery for tooltips -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<!-- light/dark images -->
+<meta name="image:Light Header Icon" content="https://i.postimg.cc/GpsksT4T/you-r-love-Photo-by-gim-yujeong-KIM-YOU-JUNG-on-November-22-2025-May-01.jpg"/>
+<meta name="image:Light About Tab Icon" content="https://i.postimg.cc/PrHtttLV/betterlee-0824-Photo-by-ina-eun-on-June-16-2025-May-be-an-image-of-1.jpg"/>
+
+<meta name="image:Dark Header Icon" content="https://i.postimg.cc/6QGdG481/you-r-love-Photo-by-gim-yujeong-KIM-YOU-JUNG-on-November-22-2025-May-15.jpg"/>
+<meta name="image:Dark About Tab Icon" content="https://i.postimg.cc/R0Bx4dbr/Screenshot-2024-03-21-at-11-05.jpg"/>
+
+<!-- divider shapes -->
+<meta name="select:Divider Shape" content="dots-divider" title="dots"/>
+<meta name="select:Divider Shape" content="lines-divider" title="lines"/>
+
+<!-- left/right sidebar -->
+<meta name="select:Layout" content="left-sb" title="left sidebar"/>
+<meta name="select:Layout" content="right-sb" title="right sidebar"/>
+
+<!-- post width -->
+<meta name="select:Post Width" content="400px" title="400px"/>
+<meta name="select:Post Width" content="450px" title="450px"/>
+<meta name="select:Post Width" content="500px" title="500px"/>
+<meta name="select:Post Width" content="540px" title="540px"/>
+
+<!-- sidebar width -->
+<meta name="select:Sidebar Width" content="310px" title="310px"/>
+<meta name="select:Sidebar Width" content="330px" title="330px"/>
+
+<!-- body font size -->
+<meta name="select:Body Font Size" content="0.9rem" title="0.9rem"/>
+<meta name="select:Body Font Size" content="1rem" title="1rem"/>
+<meta name="select:Body Font Size" content="1.1rem" title="1.1rem"/>
+
+<!-- gap between posts -->
+<meta name="select:Post Margin" content="6rem" title="small (6rem)"/>
+<meta name="select:Post Margin" content="8rem" title="medium (8rem)"/>
+<meta name="select:Post Margin" content="10rem" title="large (10rem)"/>
+
+<!-- gap between username and text (in reblogs) -->
+<meta name="select:Reblog Gap" content="1rem" title="0.5rem"/>
+<meta name="select:Reblog Gap" content="1.4rem" title="0.7rem"/>
+<meta name="select:Reblog Gap" content="1.8rem" title="0.9rem"/>
+
+<!-- gap between photos -->
+<meta name="select:Photo Gap" content="1px" title="1px"/>
+<meta name="select:Photo Gap" content="2px" title="2px"/>
+<meta name="select:Photo Gap" content="3px" title="3px"/>
+<meta name="select:Photo Gap" content="4px" title="4px"/>
+<meta name="select:Photo Gap" content="5px" title="5px"/>
+
+<!-- task statuses -->
+<meta name="select:Task 1 Status" content="" title="not done"/>
+<meta name="select:Task 1 Status" content="almost-done" title="almost done"/>
+<meta name="select:Task 1 Status" content="done" title="done"/>
+
+<meta name="select:Task 2 Status" content="" title="not done"/>
+<meta name="select:Task 2 Status" content="almost-done" title="almost done"/>
+<meta name="select:Task 2 Status" content="done" title="done"/>
+
+<meta name="select:Task 3 Status" content="" title="not done"/>
+<meta name="select:Task 3 Status" content="almost-done" title="almost done"/>
+<meta name="select:Task 3 Status" content="done" title="done"/>
+
+<!-- light mode colors -->
+<meta name="color:Light Background" content="#f0f0f0"/>
+<meta name="color:Light Background 2" content="#fff"/>
+<meta name="color:Light Text" content="#000"/>
+<meta name="color:Light Links" content="#202020"/>
+<meta name="color:Light Accent" content="#BC646F"/>
+<meta name="color:Light Accent 2" content="#8D4730"/>
+<meta name="color:Light Misc Accent" content="#A7989B"/>
+<meta name="color:Light Misc Accent 2" content="#827671"/>
+
+<!-- dark mode colors -->
+<meta name="color:Dark Background" content="#202020"/>
+<meta name="color:Dark Background 2" content="#101010"/>
+<meta name="color:Dark Text" content="#fff"/>
+<meta name="color:Dark Links" content="#eee"/>
+<meta name="color:Dark Accent" content="#ebb0aa"/>
+<meta name="color:Dark Accent 2" content="#dd878a"/>
+<meta name="color:Dark Misc Accent" content="#D3B8D5"/>
+<meta name="color:Dark Misc Accent 2" content="#AE91B9"/>
+
+<!-- body and accent font families -->
+<meta name="text:Body Font" content="Parkinsans"/>
+<meta name="text:Accent Font" content="Google Sans Code"/>
+
+<!-- custom title and description (will default to your title and description if neither of those are filled) -->
+<meta name="text:Title" content="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo sequi ex saepe."/> 
+<meta name="text:Description" content="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur fuga reprehenderit veritatis molestiae tempora dicta odit magni reiciendis. Repellat, hic."/> 
+
+<!-- tab icons and names -->
+<meta name="text:Tab 1 Icon" content="list-dsc"/>
+<meta name="text:Tab 1 Name" content="posts"/>
+
+<meta name="text:Tab 2 Icon" content="user-1"/>
+<meta name="text:Tab 2 Name" content="about the user"/>
+
+<meta name="text:Tab 3 Icon" content="edit-circle"/>
+<meta name="text:Tab 3 Name" content="the user's projects"/>
+
+<meta name="text:Tab 4 Icon" content="bell-1"/>
+<meta name="text:Tab 4 Name" content="updates"/>
+
+<!-- standard links -->
+<meta name="text:Home" content="home"/>
+<meta name="text:Askbox" content="askbox"/>
+<meta name="text:Archive" content="archive"/>
+
+<meta name="text:Extra Standard Link URL" content="/"/>
+<meta name="text:Extra Standard Link" content="extra standard link"/>
+
+<!-- about panel -->
+<meta name="text:About Title" content="about panel title"/>
+<meta name="text:About Subtitle" content="basic info"/>
+
+<meta name="text:About Stat 1 Title" content="name(s)"/>
+<meta name="text:About Stat 1" content="your name(s) go here"/>
+
+<meta name="text:About Stat 2 Title" content="pronoun(s)"/>
+<meta name="text:About Stat 2" content="your pronoun(s) go here"/>
+
+<meta name="text:About Stat 3 Title" content="gender, sexuality"/>
+<meta name="text:About Stat 3" content="[gender], [sexuality]"/>
+
+<meta name="text:About Stat 4 Title" content="where you are"/>
+<meta name="text:About Stat 4" content="where your location goes"/>
+
+<!-- custom and extra links -->
+<meta name="text:Custom Link 1 URL" content="/"/>
+<meta name="text:Custom Link 1" content="custom link 1"/>
+
+<meta name="text:Custom Link 2 URL" content="/"/>
+<meta name="text:Custom Link 2" content="custom link 2"/>
+
+<meta name="text:Custom Link 3 URL" content="/"/>
+<meta name="text:Custom Link 3" content="custom link 3"/>
+
+<meta name="text:Custom Link 3 URL" content="/"/>
+<meta name="text:Custom Link 3" content="custom link 3"/>
+
+<meta name="text:Custom Link 4 URL" content="/"/>
+<meta name="text:Custom Link 4" content="custom link 4"/>
+
+<meta name="text:Custom Link 5 URL" content="/"/>
+<meta name="text:Custom Link 5" content="custom link 5"/>
+
+<meta name="text:Custom Link 6 URL" content="/"/>
+<meta name="text:Custom Link 6" content="custom link 6"/>
+
+<meta name="text:Extra Link 1 URL" content="/"/>
+<meta name="text:Extra Link 1" content="extra link 1"/>
+
+<meta name="text:Extra Link 2 URL" content="/"/>
+<meta name="text:Extra Link 2" content="extra link 2"/>
+
+<meta name="text:Extra Link 3 URL" content="/"/>
+<meta name="text:Extra Link 3" content="extra link 3"/>
+
+<meta name="text:Extra Link 4 URL" content="/"/>
+<meta name="text:Extra Link 4" content="extra link 4"/>
+
+<!-- updates and progress panel -->
+<meta name="text:Update 1 Title" content="update 1 title"/>
+<meta name="text:Update 2 Title" content="update 2 title"/>
+<meta name="text:Update 3 Title" content="update 3 title"/>
+
+<meta name="text:Progress Bar 1 Title" content="progress bar 1 title"/>
+<meta name="text:Progress Bar 1 Info" content="bar 1 info"/>
+<meta name="text:Progress Bar 1 Width" content="50%"/>
+
+<meta name="text:Progress Bar 2 Title" content="progress bar 2 title"/>
+<meta name="text:Progress Bar 2 Info" content="bar 2 info"/>
+<meta name="text:Progress Bar 2 Width" content="12%"/>
+
+<meta name="text:Progress Bar 3 Title" content="progress bar 3 title"/>
+<meta name="text:Progress Bar 3 Info" content="bar 3 info"/>
+<meta name="text:Progress Bar 3 Width" content="75%"/>
+
+<!-- tasklist -->
+<meta name="text:Task 1 Title" content="task 1 title"/>
+<meta name="text:Task 1 Status" content="status"/>
+<meta name="text:Task 1" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur neque recusandae doloremque?"/>
+
+<meta name="text:Task 2 Title" content="task 2 title"/>
+<meta name="text:Task 2 Status" content="status"/>
+<meta name="text:Task 2" content="Lorem ipsum dolor sit amet. "/> 
+
+<meta name="text:Task 3 Title" content="task 3 title"/>
+<meta name="text:Task 3 Status" content="status"/>
+<meta name="text:Task 3" content="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae commodi quae eius cumque! Totam."/> 
+
+<!-- faves modal -->
+
+<meta name="text:Faves Item 1 Title" content="faves title 1"/>
+<meta name="text:Faves Item 1 Icon" content="heart-1"/>
+
+<meta name="text:Faves Item 2 Title" content="faves title 2"/>
+<meta name="text:Faves Item 2 Icon" content="heart-1"/>
+
+<meta name="text:Faves Item 3 Title" content="faves title 3"/>
+<meta name="text:Faves Item 3 Icon" content="heart-1"/>
+
+<style type="text/css">
+:root {
+interpolate-size: allow-keywords;
+
+--ff-body: "{text:Body Font}", sans-serif;
+--ff-accent: "{text:Accent Font}", monospace;
+
+--fs-body: {select:Body Font Size};
+--fs-h3: calc(var(--fs-body) + 0.2rem);
+--fs-h2: calc(var(--fs-body) + 0.4rem);
+--fs-h1: calc(var(--fs-body) + 0.6rem);
+
+--container-size: {select:Post Width};
+--sidebar-size: {select:Sidebar Width};
+--image-width: 4.5rem;
+
+--radius-sm: 0.4rem;
+--radius-round: 50%;
+
+--ease-transition-timing: 0.8s ease-in-out;
+--linear-transition-timing: 0.8s linear;
+--gradient-transition-timing: --clr-gradient var(--ease-transition-timing), --clr-gradient-2 var(--ease-transition-timing);
+
+--light-mode-filter: invert(100%);
+--dark-mode-filter: invert(0);
+}
+
+:root,
+html[data-theme="light"] {
+--light-mode: none;
+--dark-mode: flex;
+
+--light-image: flex;
+--dark-image: none;
+
+--clr-background: {color:Light Background}; /* #f0f0f0 */
+--clr-container: {color:Light Background 2}; /* #ffffff */
+--clr-text: {color:Light Text}; /* #000000 */
+--clr-links: {color:Light Links}; /* #505050 */
+--clr-borders: hsl(from var(--clr-text) h s 40%);
+
+--clr-accent: {color:Light Accent}; /* #BC646F */
+--clr-accent-2: {color:Light Accent 2}; /* #8D4730 */
+
+--clr-misc-accent: {color:Light Misc Accent}; /* #A7989B */
+--clr-misc-accent-2: {color:Light Misc Accent 2}; /* #827671 */
+}
+
+html[data-theme="dark"] {
+--light-mode: flex;
+--dark-mode: none;
+
+--light-image: none;
+--dark-image: flex;
+
+--clr-background: {color:Dark Background}; /* #202020 */
+--clr-container: {color:Dark Background 2}; /* #101010 */
+--clr-text: {color:Dark Text}; /* #ffffff */
+--clr-links: {color:Dark Links}; /* #eeeeee */
+--clr-borders: hsl(from var(--clr-text) h s 50%);
+
+--clr-accent: {color:Dark Accent}; /* #ebb0aa  */
+--clr-accent-2: {color:Dark Accent 2}; /* #dd878a */
+
+--clr-misc-accent: {color:Dark Misc Accent}; /* #D3B8D5 */
+--clr-misc-accent-2: {color:Dark Misc Accent 2}; /* #AE91B9 */
+}
+
+@property --clr-gradient {
+syntax: "<color>";
+initial-value: transparent;
+inherits: false;
+}
+
+@property --clr-gradient-2 {
+syntax: "<color>";
+initial-value: transparent;
+inherits: false;
+}
+
+@property --angle {
+syntax: "<angle>";
+initial-value: 0deg;
+inherits: false;
+}
+
+*,
+*::before,
+*::after {
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+
+html.theme-transition,
+html.theme-transition * {
+transition: none !important;
+}
+
+html {
+font: inherit;
+
+@media (prefers-reduced-motion: no-preference) {
+scroll-behavior: smooth;
+}
+}
+
+body {
+background-color: var(--clr-background);
+color: var(--clr-text);
+font-family: var(--ff-body);
+font-size: var(--fs-body);
+
+display: grid;
+grid-template-columns: 1rem [content-start] 1fr [content-end] 1rem;
+}
+
+/* global styles */
+a {
+color: var(--clr-links);
+text-decoration: none;
+transition: color var(--ease-transition-timing);
+
+&:hover {
+color: var(--clr-accent);
+}
+}
+
+h1,
+h2,
+h3,
+p,
+ul:is([class], [id]),
+ol:is([class], [id]) {
+margin: 0;
+padding: 0;
+}
+
+h1,
+h2,
+h3 {
+font-family: var(--ff-accent);
+font-weight: 600;
+font-size: var(--fs-heading);
+line-height: 1.2;
+}
+
+h1 {
+--fs-heading: var(--fs-h1);
+}
+
+h2 {
+--fs-heading: var(--fs-h2);
+}
+
+h3 {
+--fs-heading: var(--fs-h3);
+}
+
+p:is(:not(:last-of-type, :only-of-type)) {
+margin-block-end: 0.6rem;
+}
+
+ul:is([class], [id]),
+ol:is([class], [id]) {
+list-style: none;
+}
+
+i.solar-icons,
+i[class^="ri-"] {
+display: flex;
+
+font-size: var(--fs-h3);
+line-height: var(--fs-h3);
+}
+
+button {
+background: transparent;
+color: inherit;
+font-family: inherit;
+font-size: inherit;
+
+border: 0;
+padding: 0;
+cursor: pointer;
+}
+
+s,
+del {
+text-decoration: 2px line-through var(--clr-accent-gradient);
+opacity: 0.7;
+}
+
+/* global styles */
+
+/* utility classes */
+.icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+background: var(--clr-icon-bg, var(--clr-container));
+background-repeat: no-repeat;
+color: var(--clr-icon, inherit);
+padding: 0.4rem;
+border: 1px solid var(--clr-icon-borders, var(--clr-borders));
+border-radius: var(--icon-radius, var(--radius-sm));
+}
+
+.fit-cover {
+object-fit: cover;
+}
+
+.grid-stack,
+.stack {
+display: grid;
+justify-items: start;
+gap: var(--grid-gap, 10px);
+z-index: 1;
+}
+
+.light-mode {
+display: var(--light-mode);
+}
+
+.dark-mode {
+display: var(--dark-mode);
+}
+
+.light-image {
+display: var(--light-image);
+}
+
+.dark-image {
+display: var(--dark-image);
+}
+
+.inner-text,
+.text-inner {
+margin-block-start: var(--margin-block-start, 0);
+margin-block-end: var(--margin-block-end, 0);
+}
+
+.icon-wrapper {
+width: var(--image-width);
+aspect-ratio: 1;
+padding: 0.4rem;
+border-radius: var(--image-radius, var(--radius-round));
+
+&.linear-gradient {
+background: linear-gradient(to bottom, var(--clr-container)) padding-box, linear-gradient(to bottom, var(--clr-borders), var(--clr-icon-accent)) border-box;
+border: 1px solid transparent;
+}
+
+&.conic-gradient {
+background: linear-gradient(to bottom, var(--clr-container)) padding-box, conic-gradient(from var(--angle), var(--clr-borders) 80%, var(--clr-icon-accent) 0) border-box;
+border: 1px solid transparent;
+}
+}
+
+.icon-wrapper,
+.image-wrapper {
+img {
+width: 100%;
+height: 100%;
+
+display: block;
+border-radius: inherit;
+}
+}
+
+.text-list:not(:has(.project-text)) {
+display: block;
+
+li {
+display: inline;
+
+p {
+display: inline;
+}
+
+&:not(:last-of-type)::after {
+content: ',';
+margin-inline: 0px 5px;
+}
+}
+}
+
+ul.flex {
+display: flex;
+gap: 10px;
+
+html.lines-divider & li:not(:has(i, .dot)) {
+display: flex;
+gap: 10px;
+
+&:not(:last-of-type)::after {
+content: "";
+width: 1px;
+background: var(--clr-borders);
+flex-shrink: 0;
+}
+}
+
+html.dots-divider & li:not(:has(i, .dot)) {
+display: flex;
+align-items: center;
+gap: 10px;
+
+&:not(:last-of-type)::after {
+content: "";
+width: 6px;
+aspect-ratio: 1;
+background: var(--clr-accent);
+border-radius: var(--radius-round);
+}
+}
+}
+
+ul.inline-block {
+display: block;
+
+li {
+display: inline;
+
+&::after {
+content: '';
+display: inline-block;
+
+vertical-align: middle;
+margin-inline: 5px;
+}
+}
+
+html.lines-divider & li:not(:has(i, .dot)) {
+&:not(:last-of-type)::after {
+width: 1px;
+height: 2ch;
+background: var(--clr-borders);
+}
+}
+
+html.dots-divider & li:not(:has(i, .dot)) {
+&:not(:last-of-type)::after {
+width: 6px;
+aspect-ratio: 1;
+background: var(--clr-accent);
+border-radius: var(--radius-round);
+}
+}
+}
+/* utility classes */
+
+/* modal styles */
+.modal {
+position: fixed;
+background: hsl(from var(--clr-background) h s l / 0.7);
+z-index: 1000;
+width: 100%;
+height: 100%;
+inset: 0;
+
+overflow: auto;
+overscroll-behavior: contain;
+cursor: pointer;
+
+transition: opacity var(--linear-transition-timing), visibility var(--linear-transition-timing);
+
+@media (prefers-reduced-motion: no-preference) {
+& .modal-container {
+transform: translateY(-5rem);
+transition: var(--linear-transition-timing);
+}
+}
+}
+
+.modal.hide {
+opacity: 0;
+visibility: hidden;
+}
+
+.modal:not(.hide) {
+opacity: 1;
+visibility: visible;
+
+@media (prefers-reduced-motion: no-preference) {
+& .modal-container {
+transform: translateY(0rem);
+transition: var(--linear-transition-timing);
+}
+}
+}
+
+.modal-dialog {
+position: relative;
+}
+
+.close-modal-wrapper {
+position: absolute;
+top: 0;
+right: 0;
+translate: -1rem -3rem;
+}
+
+.close-modal-btn {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+
+--clr-icon-bg: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+
+transition: var(--gradient-transition-timing);
+
+&:hover {
+--clr-gradient: var(--clr-container);
+--clr-gradient-2: var(--clr-container);
+}
+
+i {
+--clr-gradient: var(--clr-background);
+--clr-gradient-2: var(--clr-background);
+
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient));
+background-clip: text;
+color: transparent;
+transition: var(--gradient-transition-timing);
+}
+
+&:hover i {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+}
+}
+
+.modal-container {
+margin: 4rem auto;
+
+width: 100%;
+max-width: var(--container-size);
+
+@media screen and (width >= 900px) {
+width: var(--container-size);
+}
+}
+
+.faves-wrapper {
+&:not(:last-child)::after {
+content: '';
+width: 50%;
+height: 1px;
+background: var(--clr-borders);
+
+display: block;
+margin-block: 1.2rem;
+margin-inline: auto;
+}
+
+&:nth-of-type(odd) {
+.faves-icon i {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+}
+}
+
+&:nth-of-type(even) {
+.faves-icon i {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+}
+}
+
+.faves-title {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+
+border-bottom: 1px solid var(--clr-borders);
+padding-block-end: 0.5rem;
+margin-block-end: 0.5rem;
+
+b {
+font-size: calc(var(--fs-body) + 0.1rem);
+font-family: var(--ff-accent);
+}
+}
+
+.faves-icon {
+i {
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-clip: text;
+color: transparent;
+}
+}
+/* modal styles */
+
+/* main grid styles */
+.main-grid {
+--nav-sidebar-size: 3rem;
+
+grid-area: content;
+display: grid;
+grid-template-columns: var(--nav-sidebar-size) auto;
+align-items: start;
+grid-auto-flow: dense;
+gap: 3rem;
+
+min-height: 100vh;
+min-height: 100dvh;
+}
+/* main grid styles */
+
+/* nav sidebar styles */
+.nav-sidebar {
+width: var(--nav-sidebar-size);
+
+grid-column: 1;
+align-self: stretch;
+margin-inline-start: 1rem;
+}
+
+.tabs-list {
+height: 100%;
+
+display: grid;
+gap: 3rem;
+border-left: 1px solid var(--clr-borders);
+
+align-content: center;
+
+position: fixed;
+
+li {
+position: relative;
+
+button {
+background: var(--clr-background);
+padding: 0.4rem;
+border-radius: var(--radius-round);
+
+position: absolute;
+top: 0;
+left: 0;
+transform: translateX(-50%);
+}
+}
+}
+
+.tab {
+button[aria-selected="true"] {
+background: var(--clr-text);
+color: var(--clr-background);
+}
+}
+/* nav sidebar styles */
+
+/* main wrapper styles */
+.main-wrapper {
+grid-column: 2;
+
+display: grid;
+justify-content: start;
+gap: 3rem;
+
+margin: 4rem auto;
+}
+/* main wrapper styles */
+
+/* panel wrapper styles */
+.panels-group {
+& > * {
+animation: fade-in var(--linear-transition-timing);
+}
+}
+
+.panel-wrapper:not(.posts-panel, .about-panel, .projects-panel) {
+max-width: var(--container-size);
+width: 100%;
+
+@media screen and (width >= 900px) {
+width: var(--container-size);
+}
+}
+/* panel wrapper styles */
+
+/* posts panel styles */
+.posts-panel {
+display: grid;
+gap: 3rem;
+}
+
+.posts-panel-header {
+max-width: var(--container-size);
+width: 100%;
+margin-inline: auto;
+
+container-type: inline-size;
+
+@container (width > 400px) {
+.links-wrapper {
+display: flex;
+align-items: center;
+gap: 10px;
+flex: 1;
+
+&::before, &::after {
+content: '';
+width: 100%;
+height: 1px;
+background: var(--clr-borders);
+flex: 1;
+}
+}
+}
+
+@media screen and (width >= 900px) {
+width: var(--container-size);
+
+grid-template-columns: var(--image-width) 1fr;
+}
+}
+
+.sidebar-and-content {
+display: grid;
+grid-template-areas: 'posts-panel-content'
+'posts-panel-sidebar';
+align-items: start;
+justify-items: center;
+gap: 3rem;
+
+@media screen and (width >= 900px) {
+html.left-sb & {
+grid-template-areas: 'posts-panel-sidebar posts-panel-content';
+}
+
+html.right-sb & {
+grid-template-areas: 'posts-panel-content posts-panel-sidebar';
+}
+}
+}
+
+.posts-panel-sidebar {
+grid-area: posts-panel-sidebar;
+
+max-width: var(--container-size);
+width: 100%;
+
+container: posts-panel-sidebar / inline-size;
+
+@media screen and (width >= 900px) {
+width: var(--sidebar-size);
+
+position: sticky;
+top: 1rem;
+}
+}
+
+.posts-panel-content {
+grid-area: posts-panel-content;
+
+max-width: var(--container-size);
+width: 100%;
+
+@media screen and (width >= 900px) {
+width: var(--container-size);
+}
+}
+
+/* posts panel header styles */
+.icon-and-description {
+display: flex;
+align-items: start;
+gap: 10px;
+}
+
+.links-btn {
+position: relative;
+}
+
+.btn-icon {
+--icon-radius: var(--radius-round);
+
+position: absolute;
+bottom: -0.2rem;
+right: 0.2rem;
+
+@media (prefers-reduced-motion: no-preference) {
+transition: rotate var(--linear-transition-timing);
+
+[aria-expanded="true"] & {
+rotate: 45deg;
+}
+}
+}
+
+.header-icons {
+.icon-wrapper {
+--angle: 80deg;
+--clr-icon-accent: var(--clr-accent);
+
+border: 2px solid transparent;
+
+@media (prefers-reduced-motion: no-preference) {
+transition: --angle var(--linear-transition-timing);
+
+[aria-expanded="true"] & {
+--angle: 180deg;
+}
+}
+}
+}
+
+.header-text {
+display: flex;
+gap: 10px;
+
+&::before {
+content: '';
+width: 1px;
+background: var(--clr-borders);
+flex-shrink: 0;
+}
+}
+
+.header-description {
+padding: 0.7rem 1rem;
+background: var(--clr-container);
+border-radius: var(--radius-sm);
+}
+
+.header-links {
+height: 0;
+overflow: hidden;
+
+@media (prefers-reduced-motion: no-preference) {
+transition: height 0.8s linear allow-discrete;
+}
+
+&[data-state="open"] {
+height: auto;
+}
+}
+
+.links-wrapper {
+margin-block-start: 0.7rem;
+text-align: center;
+
+a {
+display: block;
+
+max-width: 10ch;
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: clip;
+}
+}
+/* posts panel header styles */
+
+/* post sidebar styles */
+.btn-and-title {
+display: flex;
+gap: 10px;
+}
+
+.sidebar-title {
+--dot-size: 14px;
+
+display: flex;
+gap: 10px;
+
+&::before {
+content: '';
+width: 1px;
+background: var(--clr-borders);
+}
+
+h1 {
+font-size: var(--fs-h3);
+}
+}
+
+.dots-wrapper {
+--dot-size: 14px;
+
+display: grid;
+grid-template-rows: repeat(2, calc(var(--dot-size) / 2));
+anchor-name: --dots-wrapper;
+}
+
+.dot {
+width: var(--dot-size);
+aspect-ratio: 1;
+background: var(--clr-dot);
+border-radius: var(--radius-round);
+}
+
+.primary {
+--clr-dot: var(--clr-accent);
+
+@media (prefers-reduced-motion: no-preference) {
+transition: transform var(--linear-transition-timing);
+
+[aria-expanded="true"] & {
+transform: translateY(calc(var(--dot-size) / 2));
+}
+}
+}
+
+.secondary {
+--clr-dot: var(--clr-accent-2);
+
+@media (prefers-reduced-motion: no-preference) {
+transition: transform var(--linear-transition-timing);
+
+[aria-expanded="true"] & {
+transform: translateY(calc((var(--dot-size) / 2) * -1));
+}
+}
+}
+
+.sidebar-links {
+position: absolute;
+position-anchor: --dots-wrapper;
+top: anchor(top);
+left: calc(anchor(left) + 1.8rem);
+
+width: fit-content;
+border-radius: var(--radius-sm);
+overflow: hidden;
+
+opacity: 0;
+visibility: hidden;
+display: none;
+transition: opacity var(--linear-transition-timing), visibility var(--linear-transition-timing), transform var(--linear-transition-timing), display var(--linear-transition-timing) allow-discrete;
+
+background: var(--clr-text);
+color: var(--clr-background);
+
+@media (prefers-reduced-motion: no-preference) {
+transform: translateY(2rem);
+}
+
+&[data-state="open"] {
+opacity: 1;
+visibility: visible;
+display: block;
+
+@media (prefers-reduced-motion: no-preference) {
+transform: translateY(0);
+}
+
+@starting-style {
+opacity: 0;
+visibility: hidden;
+
+@media (prefers-reduced-motion: no-preference) {
+transform: translateY(2rem);
+}
+}
+}
+}
+
+.sidebar-links-list {
+li {
+&:not(:last-child)::after {
+--clr-borders: hsl(from var(--clr-text) h s 75%);
+
+content: '';
+width: 100%;
+height: 1px;
+background: var(--clr-borders);
+
+display: block;
+}
+
+a {
+display: block;
+color: var(--clr-background);
+
+max-width: 15ch;
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: clip;
+
+padding: 0.5rem 0.7rem;
+
+background: linear-gradient(to right, var(--clr-accent), var(--clr-accent-2));
+background-repeat: no-repeat;
+background-size: var(--bg-size-x, 0) 100%;
+background-position: right;
+
+transition: background-size var(--linear-transition-timing);
+
+&:hover {
+--bg-size-x: 100%;
+
+background-position: left;
+}
+}
+}
+}
+
+.standard-links-wrapper {
+border-top: 1px solid var(--clr-borders);
+margin-block-start: 0.7rem;
+padding-block-start: 0.7rem;
+}
+
+.standard-links-list {
+@media screen and (width >= 900px) {
+justify-content: center;
+}
+
+a {
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: clip;
+
+display: block;
+}
+
+@container posts-panel-sidebar (width = 310px) {
+a {
+max-width: 10ch;
+}
+}
+
+@container posts-panel-sidebar (width = 330px) {
+a {
+max-width: 13ch;
+}
+}
+}
+/* post sidebar styles */
+
+/* post styles */
+.post-info-item {
+p {
+display: block;
+}
+
+b {
+display: block;
+}
+
+a {
+--clr-gradient: hsl(from var(--clr-text) h s 75%);
+--clr-gradient-2: hsl(from var(--clr-text) h s 75%);
+
+text-decoration: none;
+
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+background-repeat: no-repeat;
+background-size: 100% 1px;
+background-position: bottom;
+
+color: var(--clr-background);
+
+transition: var(--gradient-transition-timing), color var(--linear-transition-timing);
+
+&:hover {
+--clr-gradient: var(--clr-borders);
+--clr-gradient-2: var(--clr-borders);
+}
+}
+}
+
+.post-info-text {
+position: absolute;
+position-anchor: --post-info-btn;
+top: anchor(top);
+left: anchor(right);
+
+margin-block-start: 0.9rem;
+margin-inline-start: -9rem;
+
+opacity: 0;
+visibility: hidden;
+transition: opacity var(--linear-transition-timing), var(--linear-transition-timing), transform var(--linear-transition-timing);
+
+background: var(--clr-text);
+color: var(--clr-background);
+width: 10rem;
+border-radius: var(--radius-sm);
+z-index: 1000;
+
+@media (prefers-reduced-motion: no-preference) {
+transform: translateY(2rem);
+}
+
+a {
+color: var(--clr-container);
+font-family: var(--ff-body);
+font-weight: 400;
+}
+}
+
+.open-post-info .post-info-text {
+opacity: 1;
+visibility: visible;
+
+@media (prefers-reduced-motion: no-preference) {
+transform: translateY(0);
+}
+}
+
+.post-info-inner {
+margin: 0;
+padding: 0;
+line-height: 1.2rem;
+
+li {
+&:not(:last-child) {
+border-bottom: 1px solid var(--clr-borders);
+}
+}
+}
+
+.rb-info {
+padding: 0.5rem;
+
+display: grid;
+justify-content: start;
+
+a {
+transition: text-decoration-color var(--linear-transition-timing), color var(--linear-transition-timing);
+
+&:hover {
+text-decoration-color: var(--clr-misc-accent);
+}
+}
+}
+
+section.content {
+--post-margin: {select:Post Margin};
+--reblog-gap: {select:Reblog Gap};
+--text-margin: calc(var(--reblog-gap) / 2);
+--round1: var(--radius-sm);
+--round2: var(--radius-sm);
+--round3: var(--radius-round);
+--photo-corners: var(--radius-sm);
+--gutter: {select:Photo Gap};
+}
+
+article {
+width: 100%;
+
+&:not(:last-of-type) {
+margin-block-end: var(--post-margin);
+}
+}
+
+/* Wrapper for the actual content of a Tumblr post. */
+
+/* -----------------------------------------------------  Line height handling
+
+Line-height is applied directly to the text elements inside each post
+rather than on <body>, so it doesn't affect buttons, images, or other
+elements that rely on square/consistent dimensions.
+
+This includes headings, paragraphs, lists, blockquotes, ask questions,
+and note lists.
+
+I use :is() instead of :where() to avoid accidentally overriding other
+inherited line-heights.
+*/
+:is(
+article h1,
+article h2,
+article h3,
+article p,
+article ul:not(.post-info-inner),
+article ol,
+article blockquote,
+ol.notes) {
+line-height: var(--line-height);
+}
+
+/* -------------------------------------------- CAPTIONS, UL, OL HEADLINES */
+
+/* If you have a border (like this basecode has) on the post wrapper,
+We can have a nice snug fit for photos/photosets, and place the
+padding of the wrapper on everything else. The other way won't work
+due to negative space not handling NPF photos that great.
+
+you can add     figure:has(iframe), .video:has(iframe),
+to the list, and *some videos* will have padding as well.
+There are too many variables to catch everything.
+
+*/
+
+
+article :is(
+.poll-post a.poll-row,  /*poll row */
+.custom-link-block,  /*link block */
+figcaption.audio-caption,  /* audio block */
+h1,
+h2,
+h3,
+ul:not(.post-info-inner),
+ol,
+pre,
+blockquote) {
+margin: var(--text-margin) 0; /* make it `margin: var(--text-margin) 0;` if your post wrapper does not have a border or framing */
+}
+
+
+/*ul and ol stuff have been reset in the css reset portion at the top of the CSS stylesheet. Now we make it work for our themes*/
+article ul, article ol {
+padding-left: var(--reblog-gap);
+}
+article ul {
+list-style: outside;
+}
+article ol {
+list-style: decimal;
+}
+article ul li:hover::marker,
+article ol li:hover::marker {
+color: var(--clr-accent);
+}
+article ol li, article ul li {
+padding-left: var(--text-margin);
+}
+
+
+article h1,
+.poll-post .poll-question { /* poll header is a <p> but big as hell, so we make it match */
+font-size: 1.5em;
+font-weight: 700;
+}
+article h2 {
+font-size: 1.3em;
+font-weight: 700;
+}
+article h3 {
+font-size: 1.2em;
+font-weight: 700;
+}
+/* ----------------------------------------------- BLOCKQUOTES/QUOTE POSTS */
+
+/* Tumblr blockquotes are messy:
+- article blockquote: legacy Tumblr quotes
+- blockquote.npf_indented: from NPF posts
+- p.npf_quote: usually styled quotes, often reblogs of
+legacy quotes becomes p.npf_quote
+
+We standardize them for consistency. */
+
+article blockquote,
+blockquote.npf_indented {
+border-left: 0.0625rem solid var(--clr-borders);
+padding-left: var(--text-margin);
+margin-left: var(--text-margin)!important;
+}
+
+article blockquote p {
+margin: 0!important; /* remove extra spacing inside legacy blockquotes */
+}
+
+/* NPF quotes */
+p.npf_quote {
+font-size: inherit;
+font-family: inherit;
+vertical-align: inherit;
+font-style: normal;
+border-left: 0.125rem solid transparent;
+border-image: linear-gradient(to bottom, var(--clr-accent), var(--clr-accent-2));
+border-image-slice: 1;
+padding-left: var(--text-margin);
+margin-left: var(--text-margin);
+}
+
+/* Attributions inside NPF photos/posts
+- width:auto ensures responsiveness */
+.post-content div.npf_row .npf_col figure p.tmblr-attribution,
+.post div.npf_row .npf_col figure p.tmblr-attribution,
+body div.npf_row .npf_col figure p.tmblr-attribution {
+width: auto;
+}
+
+/* ----------------------------------------------- USER/AVATAR/REBLOG HEADERS */ 
+
+/* 
+If your post wrapper does not have a border or framing,
+you may want to remove the vertical spacing and only keep horizontal spacing.
+
+In that case, set:
+
+.reblog-header {
+margin: var(--text-margin) 0;
+}
+
+And leave the non-original rule empty:
+
+.reblog-header:is(:not(.original)) {
+}
+
+This keeps spacing consistent without adding unnecessary top/bottom gaps,
+similar to how we handle captions, headings, and lists in the main post content.
+*/
+
+
+/*  user original  */
+.reblog-header {
+margin: var(--text-margin) 0;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+/*  user reblog  */
+.reblog-header:is(:not(.original)) {
+border-top: 2px solid var(--clr-borders);
+padding-block-start: var(--text-margin);
+}
+
+/*  username text */
+.reblog-header .user {
+--clr-gradient: var(--clr-text);
+--clr-gradient-2: var(--clr-text);
+
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+color: var(--clr-background);
+padding: 0.3rem;
+border-radius: 0.2rem;
+border: 1px solid var(--clr-borders);
+
+transition: var(--gradient-transition-timing), color var(--ease-transition-timing);
+}
+/*  username url text hover */
+.reblog-header a.user:hover {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+
+color: var(--clr-background); 
+}
+/* ---------------------------------------------------------- NPF PHOTOSET */
+article img {
+display: block;
+max-width: 100%;
+height: auto;
+}
+
+article iframe {
+max-width: 100%;
+height: auto;
+}
+
+.post-content div.npf_row {
+margin-bottom: calc(var(--gutter) - 4px);
+
+&:last-child {
+margin-bottom: 0;
+}
+
+.npf_col {
+margin-right: calc(var(--gutter) - 4px);
+
+&:last-child {
+margin-right: 0;
+}
+}
+}
+
+/* General photoset styling */
+.npf_row:only-of-type,
+.npf-photos,
+.more_photoset {
+border-radius: var(--photo-corners);
+overflow: hidden;
+}
+
+/* Margin between figures */
+figure:is(:not(:last-of-type)) {
+margin-bottom: var(--gutter);
+}
+
+/* Full-width figure rounding for NPF photos followed by figure */
+.npf-photos:has(+figure) {
+border-radius: var(--photo-corners) var(--photo-corners) 0 0;
+max-width: fit-content;
+}
+
+.npf-photos + figure {
+overflow: hidden;
+border-radius: 0 0 var(--photo-corners) var(--photo-corners);
+margin: var(--gutter) 0;
+max-width: fit-content;
+}
+
+/* Figures containing linked photos */
+figure:has(a.post_media_photo_anchor) {
+width: fit-content;
+max-width: 100%; /* keeps it responsive inside the container */
+}
+
+/* ----------------------------------------------------- LEGACY PHOTOSET */
+
+
+/* Each photo-row and legacy-photoset-inner receives half
+of the gutter as padding. This ensures consistent spacing
+between photos, while the last element aligns with
+the outer container. 
+
+So we use calc(). gutter-width divided by 2. */
+
+
+/* control of single legacy photo 
+and photoset border-radius */
+.legacy-photo img,
+.photoset {
+border-radius: var(--photo-corners);
+overflow: hidden;
+}
+.photo-row {
+padding: calc(var(--gutter) / 2) 0; 
+display: flex;
+
+&:first-child {
+padding-top: 0;
+}
+
+&:last-child {
+padding-bottom: 0;
+}
+}
+.legacy-photoset-inner {
+cursor: pointer;
+padding: 0 calc(var(--gutter) / 2); 
+flex-grow: 1;
+
+& .image {
+width: 100%;
+height: 100%;
+display: block;
+object-fit: cover;
+}
+
+&:first-child {
+padding-left: 0;
+}
+
+&:last-child {
+padding-right: 0;
+}
+}
+.photo-row-1 .legacy-photoset-inner { width: 100%; }
+.photo-row-2 .legacy-photoset-inner { width: 50%; }
+.photo-row-3 .legacy-photoset-inner { width: 33.3333333%; }
+
+.photo-single {
+cursor: pointer;
+}
+
+/* The /mournstera-legacy-photoset.js script
+sets the photoset's `visibility` to visible
+once the layout is processed, preventing
+layout shifts or a "wonky" initial display. */
+
+.photoset {
+visibility: hidden;
+}
+
+/* --------------------------------------------------- LINK STYLE IN POSTS */
+
+/* I like to overide the global link styling of:
+
+a {
+color:rgb(var(--color-link));
+text-decoration: none;
+overflow-wrap: anywhere;
+
+&:hover {
+color: rgb(var(--color-accent)); 
+}
+}
+
+
+
+
+*/
+:where(
+.post-content p,
+.post-content ul,
+.post-content ol,
+.post-content blockquote
+) a {
+text-decoration: underline;
+text-decoration-thickness: 3px;
+text-decoration-color: var(--clr-accent);
+text-decoration-skip-ink: none;
+text-underline-offset: 3px;
+}
+
+/* Hover state for links in the same areas*/
+:where(
+.post-content p,
+.post-content ul,
+.post-content ol,
+.post-content blockquote,
+.sidebar-description,
+.updates
+) a:hover {
+color: var(--clr-accent);
+text-decoration-color: var(--clr-text);
+}
+
+/* Make sure that links inside spans inherit surrounding
+text color from the colors used in dashboard. This fix is
+only sometimes needed - it is depended on whether
+the user used one of the 3 choices in the Text Editor:
+
+- Rich text
+- HTML
+- Markdown
+
+The "correct parent is <a><span>text</span></a>
+however some use <span><a>text</a></span>
+which mess things up.
+
+*/
+
+.post-content span a {
+color: inherit;
+}
+
+/* "Read More" links/buttons */
+.read_more_container {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.read_more {
+--clr-gradient: var(--clr-container);
+--clr-gradient-2: var(--clr-container);
+
+display: block;
+text-align: center;
+width: 16ch;
+
+font-family: var(--ff-accent);
+font-weight: 600;
+
+border-radius: var(--round1);
+padding: 0.5rem 0.7rem;
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+background-size: var(--bg-size-x, 0) 100%;
+background-repeat: no-repeat;
+background-position: right;
+transition: background-size var(--linear-transition-timing), var(--gradient-transition-timing), color var(--linear-transition-timing);
+
+color: var(--clr-text);
+text-decoration: none;
+border: 0.0625rem solid var(--clr-borders);
+
+&:hover {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+--bg-size-x: 100%;
+
+background-position: left;
+color: var(--clr-background);
+}
+}
+
+/* --------------------------------------------------- MISC STYLING FOR SPECIAL CONTENT */
+
+/* Quirky paragraph style (npf_quirky) */
+p.npf_quirky {
+line-height: inherit;
+font-size: 1.6em;
+}
+
+/* Preformatted text adjustments:
+- Resets whitespace to allow line breaks naturally
+- Removes default margins to fit post layout */
+
+pre {
+white-space: initial;
+margin: 0;
+}
+
+/* Inline code styling:
+- Matches surrounding text size
+- Transparent background so it blends in
+- Allows long words or URLs to break naturally */
+
+code {
+line-height: inherit !important;
+background: transparent;
+font-size: inherit !important;
+word-wrap: break-word;
+}
+
+/* ----------------------------------- ALT. DESCRIPTION (Tumblr Popovers) */
+
+/* Overrides Tumblr's default popover styling:
+- Heavy use of !important to ensure custom theme colors and padding are applied
+- Makes popover content readable and visually consistent with the theme */
+
+/* Tutorial popover wrapper */
+.popover.tutorial {
+padding: 0.5rem!important;
+background-color: var(--clr-text)!important;
+color: var(--clr-background)!important;
+}
+
+/* General popover wrapper:
+- Rounded corners
+- Inherit theme font
+- Removes Tumblr's default shadow */
+.popover {
+border-radius: var(--radius-sm)!important;
+font: inherit!important;
+box-shadow: none!important;
+}
+
+/* Tutorial popover content and title text colors */
+.popover.tutorial .content,
+.popover.tutorial .title {
+color: var(--clr-background)!important;
+}
+
+/* Tutorial popover title:
+- Bold and slightly larger for emphasis */
+.popover.tutorial .title {
+font-weight: 700!important;
+font-size: 1.2em!important;
+}
+
+/* Tutorial popover content:
+- Inherits font size from parent for consistency */
+.popover.tutorial .content {
+font-size: inherit!important;
+}
+
+/* Tutorial popover "OK" button:
+- Matches theme colors
+- Cursor indicates clickable
+- Rounded and padded for visual balance and usability */
+.popover.tutorial .ok_button {
+color: var(--clr-background)!important;
+cursor: pointer!important;
+background: var(--clr-accent)!important;
+padding: 0.5rem!important;
+border-radius: var(--radius-sm);
+}
+
+
+/* ------------------------------------------------------- POST-TYPE: poll */
+.poll-post a.poll-row {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+
+color: var(--clr-background);
+line-height: inherit !important;
+font-size: var(--fs-body);
+font-weight: 600;
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+width: auto!important;
+border-radius: var(--radius-sm)!important;
+text-align: center;
+min-height: auto;
+transition: var(--gradient-transition-timing), color var(--linear-transition-timing);
+}
+
+.poll-post a.poll-row:hover {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+
+color: var(--clr-background)!important;
+}
+a.poll-row p {
+margin: 0!important;
+}
+.poll-post .poll-see-results {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+
+margin-top: var(--text-margin);
+margin-bottom: var(--text-margin);
+margin-inline: auto;
+
+display: block;
+
+color: var(--clr-background);
+
+width: 14ch;
+padding: 0.5rem 0.7rem;
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+
+text-align: center;
+
+transition: var(--gradient-transition-timing);
+
+&:hover {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+}
+}
+/* -------------------------------------------------------- POST-TYPE: ask */
+
+.ask-block {
+--image-width: 3.5em;
+
+margin-block-end: 1.5rem;
+
+&:has(+ .caption) {
+margin-block-end: 0;
+}
+
+p {
+margin: 0;
+}
+}
+
+header.ask-header {
+display: flex;
+align-items: center;
+gap: 10px;
+
+img.ask-avatar {
+width: var(--image-width);
+height: var(--image-width); 
+border-radius: var(--round1);
+}
+
+.ask-user {
+display: flex;
+flex-direction: column;
+gap: 5px;
+
+a {
+font-family: var(--ff-accent);
+font-size: calc(var(--fs-body) + 0.1rem);
+
+color: var(--clr-text);
+text-decoration: none;
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+background-repeat: no-repeat;
+background-size: 100% var(--bg-size-y, 5px);
+background-position: bottom;
+transition: background-size var(--linear-transition-timing), var(--gradient-transition-timing), color var(--linear-transition-timing);
+
+&:hover {
+--bg-size-y: 100%;
+
+color: var(--clr-background);
+}
+}
+
+.asker {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+
+&:hover {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+}
+}
+
+.answerer {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+
+&:hover {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+}
+
+.ask-username {
+font-weight: 700;
+text-transform: lowercase;
+}
+}
+}
+
+.ask-user {
+text-transform: lowercase;
+}
+
+
+/* handles photoset in answered asks, but skips inline images in ask/answers */
+:where(.ask-body) img {
+width: auto !important;
+max-width: 100%;
+border-radius: var(--photo-corners);
+}
+
+.ask-body {
+margin-block-start: 0.5rem;
+background: var(--clr-container);
+padding: 0.7rem;
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+
+&:has(img:first-child) {
+margin-block-start: 0.5rem;
+}
+}
+
+.ask-answer {
+margin-block-start: var(--text-margin);
+padding-block-start: var(--text-margin);
+border-top: 1px solid var(--clr-borders);
+
+p {
+margin: 0;
+}
+}
+
+/* ------------------------------------------------------- POST-TYPE: chat */
+p.npf_chat span.label {
+font-weight: 600;
+}
+p.npf_chat {
+font-family: inherit!important;
+}
+/* --------------------------------- POST-TYPE: video/some audio responsiveness */
+
+article iframe:not(
+iframe.bandcamp_audio_player,
+.spotify_audio_player,
+iframe.soundcloud_audio_player,
+iframe.tumblr_audio_player,
+iframe[src*="instagram.com"]
+) {
+max-width: 100%;
+aspect-ratio: 16/9;
+height: auto;
+display: block;
+}
+figure.tmblr-embed iframe.embed_iframe[src*="instagram.com"] {
+height: revert-layer !important;
+aspect-ratio: auto !important;
+width: 100% !important;
+}
+iframe.soundcloud_audio_player,
+.tumblr_video_container {
+width: 100%!important;
+height: auto!important;
+}
+
+figure iframe.spotify_audio_player,
+iframe.spotify_audio_player {
+max-height: 80px;
+width: 100%;
+}
+
+article iframe[src*='soundcloud'] {
+max-height: 130px;
+}
+
+figure iframe.bandcamp_audio_player {
+max-height: 120px;
+}
+
+figure.tmblr-full video {
+display: block;
+}
+
+/* -----------------------------------------------------  POST TYPE: audio */
+/* .audio-caption is set as flex by tumblr as default, but we need it to be display block */
+/* Force audio-caption to block (Tumblr sets it as flex by default) */
+.tmblr-full > .audio-caption {
+display: block !important;
+}
+
+/* Wrapper for the entire audio post */
+figcaption.audio-caption {
+background: var(--clr-container);
+border: 1px solid var(--clr-borders);
+border-radius: var(--radius-sm);
+}
+
+/* Wrapper for play button, audio details, and album */
+.audio-info {
+display: flex;
+align-items: center;
+gap: 20px;
+padding: 20px;
+}
+
+/* Audio text (album title, etc.) */
+.tmblr-full > .audio-caption .audio-details {
+max-width: 100%;
+padding: 0; /* remove Tumblr default padding */
+flex: auto;
+}
+
+/* Album cover */
+.tmblr-full > .audio-caption .album-cover {
+width: 80px;
+height: 80px;
+border-radius: var(--radius-sm);
+object-fit: cover;
+}
+
+/* Play/pause button wrapper */
+.custom-audio-player-container .play-pause {
+display: flex;
+}
+
+/* Play/pause button icon */
+.custom-audio-player-container .play-pause svg {
+width: 26px;
+height: 26px;
+color: var(--clr-accent-2);
+}
+
+/* Reset font size for artist and album text (Tumblr defaults to 1.2em) */
+.tmblr-full > .audio-caption .album,
+.tmblr-full > .audio-caption .artist {
+font-size: 1em;
+line-height: 1.5;
+}
+
+/* Wrapper for progress bar and time display */
+.progress-bar-container {
+display: flex;
+align-items: center;
+gap: 20px;
+border-top: 1px solid var(--clr-borders);
+padding: 20px;
+}
+
+/* Style progress bar track (range input for Chrome/WebKit) */
+.progress-bar {
+width: 100%;
+height: 10px;
+-webkit-appearance: none; /* removes default styling */
+background: var(--clr-background);
+border-radius: 5px;
+border: 1px solid var(--clr-borders);
+}
+
+/* Progress track for WebKit and Mozilla */
+.progress-bar::-webkit-slider-runnable-track,
+.progress-bar::-moz-range-track {
+width: 100%;
+height: 10px;
+background: var(--clr-background);
+border-radius: 5px;
+border: 1px solid var(--clr-borders);
+}
+
+/* Progress thumb for WebKit (Chrome, Safari, etc.) */
+.progress-bar::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 16px;
+height: 16px;
+background: var(--clr-accent);
+border-radius: 50%;
+cursor: pointer;
+}
+
+/* Progress thumb for Mozilla (Firefox) */
+.progress-bar::-moz-range-thumb {
+width: 16px;
+height: 16px;
+background: var(--clr-accent);
+border: 0; /* remove Firefox border */
+border-radius: 50%;
+cursor: pointer;
+}
+
+/* MM:SS time counter */
+.time-display {
+flex-shrink: 0;
+}
+
+
+
+/* ------------------------------------------------------  POST TYPE: link */
+.custom-link-block {
+/* wrapper for link block */
+}
+
+a.link-header {
+display: grid;
+grid-template-columns: 1fr auto;
+align-items: center;
+background: var(--clr-accent);
+color: var(--clr-background);
+padding: var(--text-margin);
+border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+
+&:not(:has(+ .link-description)) {
+border-radius: var(--radius-sm);
+}
+
+.link-title-wrap {
+display: flex;
+flex-direction: column;
+gap: 0.4rem;
+
+span.link-title {
+font-size: 1.3em;
+line-height: 1.5;
+font-weight: 700;
+}
+span.site-url {
+font-size: 0.9em;
+text-transform: uppercase;
+}
+}
+
+svg.link-icon {
+width: 1.8em;
+height: 1.8em;
+flex-shrink: 0;
+stroke-width: 3.2;
+margin-left: 10px;
+transition: transform 0.15s ease;
+}
+
+&:hover svg.link-icon {
+transform: translateX(0.6rem);
+}
+}
+
+p.link-description {
+background: var(--clr-container);
+border: 0.0625rem solid var(--clr-borders);
+border-top: 0;
+padding: var(--text-margin);
+border-radius: 0 0 var(--round2) var(--round2);
+}
+
+.post-header {
+font-family: var(--ff-accent);
+font-weight: 700;
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+
+background: var(--clr-container);
+border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+border-bottom: 1px solid var(--clr-borders);
+padding: var(--text-margin) var(--reblog-gap);
+margin-block-end: var(--text-margin);
+
+width: 100%;
+}
+
+.header-left {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.header-right {
+font-family: var(--ff-body);
+font-weight: 400;
+}
+
+.post-info-btn {
+anchor-name: --post-info-btn;
+anchor-scope: --post-info-btn;
+
+rotate: 0deg;
+transition: rotate var(--linear-transition-timing), color var(--linear-transition-timing);
+
+.open-post-info & {
+rotate: 90deg;
+color: var(--clr-misc-accent);
+}
+}
+
+.pinned-item {
+--clr-icon-bg: var(--clr-accent);
+--clr-icon: var(--clr-background);
+
+display: flex;
+gap: 7px;
+text-transform: lowercase;
+
+&::after {
+content: '';
+}
+
+html.dots-divider & {
+align-items: center;
+
+&::after {
+width: 5px;
+aspect-ratio: 1;
+background: var(--clr-accent);
+border-radius: var(--radius-round);
+}
+}
+
+html.lines-divider & {
+&::after {
+width: 1px;
+background: var(--clr-borders);
+flex-shrink: 0;
+}
+}
+}
+
+.post-footer, .tags-container, .permalink-container {
+margin-block-start: var(--text-margin);
+}
+
+.post-footer {
+border-top: 1px solid var(--clr-borders);
+padding-block-start: 0.7rem;
+}
+
+.post-footer-sides {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+}
+
+.post-footer-left {
+display: flex;
+align-items: center;
+gap: 7px;
+
+&::after {
+content: '';
+width: 2rem;
+height: 1px;
+background: var(--clr-borders);
+}
+}
+
+.footer-item-wrapper {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.footer-item {
+display: flex;
+gap: 7px;
+font-family: var(--ff-accent);
+
+html.dots-divider & {
+align-items: center;
+
+&:not(:last-of-type)::after {
+content: '';
+width: 6px;
+aspect-ratio: 1;
+background: var(--clr-accent);
+border-radius: var(--radius-round);
+}
+}
+
+html.lines-divider & {
+&:not(:last-of-type)::after {
+content: '';
+width: 1px;
+background: var(--clr-borders);
+flex-shrink: 0;
+}
+}
+}
+
+.likes-item {
+display: flex;
+gap: 7px;
+font-family: var(--ff-accent);
+
+& > *:not(:last-child) {
+display: flex;
+gap: 7px;
+
+html.dots-divider & {
+align-items: center;
+
+&::after {
+content: '';
+width: 6px;
+aspect-ratio: 1;
+background: var(--clr-misc-accent);
+border-radius: var(--radius-round);
+}
+}
+
+html.lines-divider & {
+&::after {
+content: '';
+width: 1px;
+background: var(--clr-borders);
+flex-shrink: 0;
+}
+}
+}
+}
+
+/*  LIKE BUTTON */
+a.custom-like-container {
+position: relative;
+
+.like_button {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+opacity: 0;
+z-index: 1;
+
+iframe {
+width: 100% !important;
+height: 100% !important;
+}
+}
+
+.liked + .like-btn b {
+color: var(--clr-accent) !important;
+}
+
+.liked + .like-btn b::after {
+content: 'd';
+}
+}
+
+/* likes styles */
+
+.tags-container, .permalink-tags-list {
+display: block;
+
+a {
+--clr-gradient: var(--clr-borders);
+--clr-gradient-2: var(--clr-borders);
+
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+background-repeat: no-repeat;
+background-size: 100% 1px;
+background-position: bottom;
+transition: var(--gradient-transition-timing), color var(--linear-transition-timing);
+
+&:hover {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+}
+
+&:not(:last-child) {
+margin-inline-end: 10px;
+}
+}
+}
+
+.permalink-container {
+border-top: 4px solid var(--clr-borders);
+padding-block-start: var(--text-margin);
+}
+
+.permalink-stats {
+display: flex;
+align-items: flex-start;
+gap: 10px;
+text-transform: lowercase;
+
+.stats-inner {
+display: flex;
+gap: 10px;
+
+&::before {
+content: '';
+width: 1px;
+background: var(--clr-borders);
+}
+}
+
+.stat-icon {
+i {
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+background-clip: text;
+color: transparent;
+}
+
+&:is(.date-icon) i {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+}
+
+&:is(.user-icon) i {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+}
+
+.inner-text {
+--grid-gap: 0px;
+}
+}
+
+.permalink-date, .permalink-content {
+display: flex;
+align-items: center;
+gap: 5px;
+}
+
+.permalink-date {
+&::before {
+content: '';
+width: 1rem;
+height: 2px;
+background: var(--clr-borders);
+}
+}
+
+.permalink-text {
+b, a {
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+background-size: 100% 5px;
+background-repeat: no-repeat;
+background-position: bottom left;
+
+transition: var(--gradient-transition-timing), color var(--linear-transition-timing);
+}
+
+a {
+--clr-gradient: rgba(from var(--clr-text) r g b / 0.2);
+--clr-gradient-2: rgba(from var(--clr-text) r g b / 0.2);
+
+&:hover {
+color: var(--clr-text);
+}
+}
+
+&:is(.permalink-root) b, &:is(.permalink-parent) a:hover {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+
+transition: var(--gradient-transition-timing), color var(--linear-transition-timing);
+}
+
+&:is(.permalink-parent) b, &:is(.permalink-root) a:hover {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+
+transition: var(--gradient-transition-timing), color var(--linear-transition-timing);
+}
+}
+
+.permalink-content {
+p {
+display: flex;
+gap: 10px;
+
+&::before {
+content: '';
+width: 1px;
+background: var(--clr-borders);
+}
+}
+}
+
+.notes-container {
+margin-block-start: 2rem;
+margin-block-end: 4rem;
+}
+
+.notes-flex {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+
+background: var(--clr-container);
+padding: 0.5rem 1rem;
+border-bottom: 4px solid var(--clr-borders);
+border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+margin-block-end: 1rem;
+}
+
+.note-label {
+font-family: calc(var(--fs-body) + 0.1rem);
+font-family: var(--ff-accent);
+font-weight: 600;
+
+background: linear-gradient(to right, var(--clr-accent), var(--clr-accent-2));
+background-size: 100% 5px;
+background-repeat: no-repeat;
+background-position: bottom left;
+}
+
+.notes-icon {
+--clr-icon-bg: var(--clr-background);
+}
+
+ol.notes {
+display: grid;
+gap: 1rem;
+}
+
+ol.notes li.note img.avatar {
+display: none;
+}
+
+ol.notes li.note {
+background: var(--clr-container);
+padding: 0.5rem 1rem;
+
+&:is(.like, .reblog, .reply) {
+border-left: 3px solid transparent;
+border-image: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+border-image-slice: 1;
+border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+&:is(.like) {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+
+&:is(.reblog) {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+}
+
+&:is(.reply) {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-misc-accent);
+}
+
+&:is(.more_notes_link_container) {
+border-image: linear-gradient(to right, var(--clr-borders) 0 0);
+border-image-slice: 1;
+border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+border-bottom: 3px solid transparent;
+}
+
+& a {
+--clr-gradient: rgba(from var(--clr-text) r g b / 0.3);
+--clr-gradient-2: rgba(from var(--clr-text) r g b / 0.3);
+
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+background-size: 100% 5px;
+background-position: bottom left;
+background-repeat: no-repeat;
+transition: color var(--linear-transition-timing), var(--gradient-transition-timing);
+
+&:hover {
+color: var(--clr-text);
+transition: color var(--linear-transition-timing), var(--gradient-transition-timing);
+}
+}
+
+&:is(.reblog) a:hover {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+
+transition: color var(--linear-transition-timing), var(--gradient-transition-timing);
+}
+
+&:is(.like) a:hover {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+
+transition: color var(--linear-transition-timing), var(--gradient-transition-timing);
+}
+
+&:is(.reply) a:hover {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-misc-accent);
+
+transition: color var(--linear-transition-timing), var(--gradient-transition-timing);
+}
+}
+
+/* pagination styles */
+.pagination-wrapper {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+margin-block-start: 3rem;
+margin-block-end: 4rem;
+
+.icon {
+--icon-radius: var(--radius-round);
+transition: background var(--linear-transition-timing), color var(--linear-transition-timing);
+}
+
+a[class*="page-"] {
+cursor: not-allowed;
+
+.icon {
+color: hsl(from var(--clr-text) h s l / 0.5);
+}
+}
+
+a.page-link {
+cursor: pointer;
+
+transition: background var(--linear-transition-timing), color var(--linear-transition-timing);
+
+.icon {
+color: hsl(from var(--clr-text) h s l / 1);
+}
+
+&:hover .icon {
+--clr-icon-bg: var(--clr-accent);
+color: var(--clr-background);
+}
+}
+}
+
+.current-and-total-pages {
+display: flex;
+align-items: center;
+gap: 5px;
+
+background: var(--clr-container);
+padding: 0.4rem 0.7rem;
+border-radius: var(--radius-sm);
+
+span {
+display: flex;
+gap: 5px;
+
+&:not(:last-child)::after {
+content: '/';
+}
+}
+}
+
+.prev-and-next {
+display: flex;
+align-items: center;
+gap: 5px;
+}
+
+.prev-page {
+display: flex;
+gap: 5px;
+
+&::after {
+content: '';
+width: 1px;
+background: var(--clr-borders);
+flex-shrink: 0;
+}
+}
+/* pagination styles */
+
+/* ----------------------------------------- TUMBLR: LIGHTBOXES, BANNERS.*/
+.vignette, #vignette {
+opacity: 0;
+}
+.lightbox-image, #tumblr_lightbox img {
+box-shadow: none !important;
+border-radius: 0 !important;
+max-width: none;
+}
+.tmblr-lightbox, #tumblr_lightbox {
+background-color: hsl(from var(--clr-background) h s l / 0.7)!important;
+}
+.iframe-controls--phone-mobile,
+.tmblr-iframe--gdpr-banner,
+.tmblr-iframe--app-cta-button,
+.gdpr-banner {
+display: none !important;
+}
+.tmblr-iframe-pushdown {
+padding-top: 0!important; 
+}
+
+/* post styles */
+/* posts panel styles */
+
+/* about panel styles */
+.about-panel {
+display: grid;
+grid-template-areas: 'about-sidebar'
+'about-content' 
+'extra-about-sidebar';
+align-items: start;
+justify-content: center;
+gap: 3rem;
+
+@media screen and (width >= 900px) {
+html.left-sb & {
+grid-template-areas: 'about-sidebar about-content extra-about-sidebar';
+}
+
+html.right-sb & {
+grid-template-areas: 'extra-about-sidebar about-content about-sidebar';
+}
+}
+}
+
+.about-sidebar {
+grid-area: about-sidebar;
+
+width: 100%;
+max-width: var(--container-size);
+
+@media screen and (width >= 900px) {
+width: var(--sidebar-size);
+}
+}
+
+.about-content {
+grid-area: about-content;
+
+width: 100%;
+max-width: var(--container-size);
+
+@media screen and (width >= 900px) {
+width: var(--container-size);
+}
+}
+
+.extra-about-sidebar {
+grid-area: extra-about-sidebar;
+
+width: 100%;
+max-width: var(--container-size);
+
+@media screen and (width >= 900px) {
+width: var(--sidebar-size);
+}
+}
+
+/* about sidebar styles */
+.stats-list {
+--dot-size: 14px;
+
+position: relative;
+
+&::before {
+content: '';
+width: 1px;
+height: calc(100% - 0.4rem);
+background: var(--clr-borders);
+
+position: absolute;
+top: 0;
+left: 0;
+translate: calc(var(--dot-size) / 2) 0.2rem;
+z-index: -1;
+}
+}
+
+.stat-item {
+display: grid;
+grid-template-columns: var(--dot-size) 1fr;
+gap: 10px;
+
+&::before {
+--radius-sm: 0.2rem;
+
+content: '';
+width: var(--dot-size);
+aspect-ratio: 1;
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+border-radius: var(--radius-sm);
+
+margin-block-start: 0.2rem;
+}
+
+&:nth-child(odd)::before {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+
+&:nth-child(even)::before {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+}
+}
+
+.stat-title {
+font-family: var(--ff-accent);
+font-size: calc(var(--fs-body) + 0.1rem);
+margin-block-end: 0.1rem;
+}
+/* about sidebar styles */
+
+/* extra about sidebar panel styles */
+.username-and-modal {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+
+padding-block-end: 0.7rem;
+margin-block-end: 0.7rem;
+border-bottom: 1px solid var(--clr-borders);
+}
+
+.about-sidebar-title {
+b {
+font-family: var(--ff-accent);
+font-size: calc(var(--fs-body) + 0.1rem);
+}
+}
+
+.modal-btn {
+--clr-gradient: var(--clr-container);
+--clr-gradient-2: var(--clr-container);
+
+--clr-icon-bg: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+
+transition: background var(--linear-transition-timing), color var(--linear-transition-timing), var(--gradient-transition-timing);
+
+&:hover {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+--clr-icon: var(--clr-background);
+}
+}
+
+.icon-and-title {
+display: flex;
+align-items: center;
+gap: 10px;
+
+container: icon-and-title / inline-size;
+
+@container icon-and-title (width = 270px) {
+b {
+max-width: 18ch;
+}
+}
+
+@container icon-and-title (width >= 310px) {
+b {
+max-width: 20ch;
+}
+}
+}
+
+.about-sidebar-icons {
+--image-width: 4rem;
+--clr-icon-accent: var(--clr-misc-accent);
+}
+
+.title-and-username {
+display: flex;
+gap: 10px;
+
+&::before {
+content: '';
+width: 1px;
+background: var(--clr-borders);
+flex-shrink: 0;
+}
+
+b {
+display: block;
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+}
+
+p {
+display: flex;
+align-items: center;
+gap: 10px;
+
+&::before {
+content: '';
+width: 1rem;
+height: 1px;
+background: var(--clr-misc-accent);
+flex-shrink: 0;
+}
+}
+}
+
+.tasklist-wrapper {
+margin-block-start: 1.4rem;
+}
+
+.tasklist {
+--grid-gap: 1rem;
+
+& > * {
+justify-self: stretch;
+}
+}
+
+.task {
+position: relative;
+
+&:not(.done, .almost-done) {
+.tasklist-title {
+.status {
+&::before {
+content: 'not done';
+}
+}
+}
+}
+
+&.almost-done {
+.tasklist-text {
+p {
+opacity: 0.7;
+}
+}
+
+.tasklist-title {
+.status {
+&::before {
+content: 'almost done';
+}
+}
+}
+}
+
+&.done {
+.tasklist-text {
+p {
+opacity: 0.4;
+text-decoration: line-through 2px var(--clr-accent);
+}
+}
+
+.tasklist-title {
+.status {
+&::before {
+content: 'done';
+}
+}
+}
+}
+}
+
+.tasklist-title {
+width: calc(100% - 2rem);
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+
+position: absolute;
+top: -0.55rem;
+left: 1rem;
+
+b {
+font-family: var(--ff-accent);
+font-size: calc(var(--fs-body) + 0.1rem);
+
+display: block;
+max-width: 20ch;
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: clip;
+}
+}
+
+.tasklist-text {
+background: var(--clr-container);
+padding: 0.7rem 1rem;
+border-radius: var(--radius-sm);
+}
+/* extra about sidebar panel styles */
+
+/* about panel styles */
+
+/* project panel styles */
+.projects-list {
+--grid-gap: 2.5rem;
+}
+
+.project-item {
+display: grid;
+grid-template-areas: 'project-info'
+'project-stats';
+align-items: start;
+justify-content: start;
+gap: 1rem;
+
+@media screen and (width >= 900px) {
+html.left-sb & {
+grid-template-areas: 'project-stats project-info';
+}
+
+html.right-sb & {
+grid-template-areas: 'project-info project-stats';
+}
+}
+}
+
+.project-info-wrapper {
+grid-area: project-info;
+
+max-width: var(--container-size);
+width: 100%;
+
+@media screen and (width >= 900px) {
+width: var(--container-size);
+}
+}
+
+.project-stats {
+grid-area: project-stats;
+
+max-width: var(--container-size);
+width: 100%;
+
+background: var(--clr-text);
+color: var(--clr-background);
+border-radius: var(--radius-sm);
+
+@media screen and (width >= 900px) {
+width: 10rem;
+}
+}
+
+.project-header {
+b {
+display: block;
+
+font-family: var(--ff-accent);
+font-size: var(--fs-h3);
+}
+}
+
+.project-header-title {
+background: var(--clr-text);
+color: var(--clr-background);
+padding: 0.7rem 1rem;
+border-radius: var(--radius-sm);
+}
+
+.project-info {
+margin-block-start: 0.7rem;
+}
+
+.project-stats-list {
+li {
+&:not(:last-of-type)::after {
+content: '';
+width: 100%;
+height: 1px;
+background: hsl(from var(--clr-text) h s 80%);
+
+display: block;
+}
+}
+}
+
+.project-stats-text {
+padding: 0.5rem 0.7rem;
+}
+
+.project-info-item {
+&:not(:last-child)::after {
+content: '';
+width: 100%;
+height: 1px;
+background: var(--clr-borders);
+
+display: block;
+margin-block: 0.5rem;
+}
+}
+
+.text-list {
+display: block;
+
+li, p {
+display: inline;
+}
+
+&:not(.tags) li {
+&:not(:last-child)::after {
+content: ',';
+margin-inline: 0px 5px;
+}
+}
+
+&.tags {
+& li:not(:last-child)::after {
+content: '';
+display: inline-block;
+vertical-align: middle;
+margin-inline: 5px;
+}
+
+html.dots-divider & li:not(:last-child)::after {
+width: 7px;
+aspect-ratio: 1;
+background: var(--clr-misc-accent);
+border-radius: var(--radius-round);
+}
+
+html.lines-divider & li:not(:last-child)::after {
+width: 1px;
+height: 2ch;
+background: var(--clr-borders);
+}
+
+li.warning p {
+background: linear-gradient(to right, var(--clr-accent), var(--clr-accent-2));
+background-repeat: no-repeat;
+background-size: 100% 3px;
+background-position: bottom;
+}
+}
+}
+/* project panel styles */
+
+/* updates and progress panel styles */
+.updates-list {
+--grid-gap: 1.4rem;
+
+& > * {
+justify-self: stretch;
+}
+}
+
+.update-item {
+position: relative;
+
+&:nth-child(odd) .update-title::before {
+--clr-gradient: var(--clr-accent);
+--clr-gradient-2: var(--clr-accent-2);
+}
+
+&:nth-child(even) .update-title::before {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+}
+}
+
+.update-title {
+width: calc(100% - 2rem);
+position: absolute;
+top: 0;
+left: 0;
+translate: 1rem -0.5rem;
+
+font-family: var(--ff-accent);
+font-size: calc(var(--fs-body) + 0.1rem);
+
+display: flex;
+align-items: center;
+gap: 7px;
+
+&::before {
+content: '';
+width: 10px;
+aspect-ratio: 1;
+background: linear-gradient(to bottom, var(--clr-gradient), var(--clr-gradient-2));
+border-radius: 0.2rem;
+}
+
+b {
+max-width: 100%;
+
+display: block;
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+}
+}
+
+.update-text {
+background: var(--clr-container);
+padding: 0.7rem 1rem;
+border-radius: var(--radius-sm);
+}
+
+.progress-wrapper {
+--grid-gap: 1.5rem;
+
+&::before {
+content: '';
+width: 100%;
+height: 1px;
+background: var(--clr-borders);
+
+display: block;
+margin-block: 1.3rem;
+}
+}
+
+.progress-item {
+width: 100%;
+}
+
+.progress-title {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+
+a {
+--clr-gradient: var(--clr-borders);
+--clr-gradient-2: var(--clr-borders);
+
+font-family: var(--ff-accent);
+font-weight: 700;
+font-size: calc(var(--fs-body) + 0.1rem);
+
+background: linear-gradient(to right, var(--clr-gradient), var(--clr-gradient-2));
+background-repeat: no-repeat;
+background-size: 100% 1px;
+background-position: bottom;
+transition: var(--gradient-transition-timing), color var(--linear-transition-timing);
+
+&:hover {
+--clr-gradient: var(--clr-misc-accent);
+--clr-gradient-2: var(--clr-misc-accent-2);
+}
+}
+}
+
+.progress-info {
+display: flex;
+align-items: center;
+gap: 5px;
+
+span {
+display: flex;
+gap: 5px;
+
+&:not(:last-of-type, :only-of-type)::after {
+content: '';
+}
+
+html.dots-divider & {
+align-items: center;
+
+&:not(:last-of-type, :only-of-type)::after {
+width: 5px;
+aspect-ratio: 1;
+background: var(--clr-misc-accent);
+border-radius: var(--radius-round);
+}
+}
+
+html.lines-divider & {
+&:not(:last-of-type, :only-of-type)::after {
+width: 1px;
+background: var(--clr-borders);
+flex-shrink: 0;
+}
+}
+}
+}
+
+.progress-bar-wrapper {
+margin-block-start: 0.4rem;
+
+position: relative;
+width: 100%;
+height: 12px;
+overflow: hidden;
+border-radius: 100vw;
+
+border: 1px solid var(--clr-borders);
+background: var(--clr-container);
+
+&::before {
+content: '';
+width: var(--progress-bar-width);
+height: 100%;
+background: linear-gradient(to right, var(--clr-misc-accent), var(--clr-misc-accent-2));
+
+position: absolute;
+inset: 0;
+border-radius: 100vw 0 0 100vw;
+}
+}
+
+/* updates and progress panel styles */
+
+/* top and bottom styles */
+.toggle-and-controls {
+--grid-gap: 0.8rem;
+
+position: fixed;
+top: 1rem;
+right: 1rem;
+z-index: 6;
+}
+
+.controls {
+--clr-icon-bg: var(--clr-text);
+--clr-icon: var(--clr-background);
+
+box-shadow: 2px 2px var(--clr-text);
+}
+
+iframe.tmblr-iframe {
+transform: scale(0.75, 0.75);
+translate: -1.4rem 0.3rem;
+filter: var(--light-mode-filter);
+
+opacity: 0;
+visibility: hidden;
+transition: opacity var(--ease-transition-timing), visibility var(--ease-transition-timing);
+
+html[data-theme="dark"] & {
+filter: var(--dark-mode-filter);
+}
+}
+
+.show-iframe iframe.tmblr-iframe {
+opacity: 1;
+visibility: visible;
+}
+
+.toggle {
+--clr-icon-bg: linear-gradient(to bottom, var(--clr-accent), var(--clr-accent-2));
+--clr-icon: var(--clr-background);
+
+box-shadow: 2px 2px var(--clr-accent);
+}
+
+.scroll-and-credit {
+--clr-icon-bg: var(--clr-text);
+--clr-icon: var(--clr-background);
+
+position: fixed;
+bottom: 1rem;
+right: 1rem;
+}
+
+.scroll-to-top {
+opacity: 0;
+visibility: hidden;
+transition: opacity var(--ease-transition-timing), visibility var(--ease-transition-timing), background var(--ease-transition-timing), color var(--ease-transition-timing), translate var(--ease-transition-timing);
+
+&:hover {
+--clr-icon-bg: var(--clr-container);
+--clr-icon: var(--clr-accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+translate: 0 -100%;
+}
+}
+
+.show-scroll .scroll-to-top {
+opacity: 1;
+visibility: visible;
+
+@media (prefers-reduced-motion: no-preference) {
+translate: 0 0;
+}
+}
+
+.credit {
+transition: background var(--ease-transition-timing), color var(--ease-transition-timing);
+
+&:hover {
+background: var(--clr-container);
+color: var(--clr-accent);
+}
+}
+
+/* top and bottom corner styles */
+
+.tippy-tooltip.custom-theme {
+background-color: var(--clr-text);
+color: var(--clr-background);
+font-size: inherit;
+font-weight: 600;
+font-family: var(--ff-accent);
+letter-spacing: 0.5px;
+margin-block: 0.7rem;
+text-align: center;
+}
+
+.tippy-tooltip.custom-theme .tippy-svg-arrow {
+fill: var(--clr-text);
+}
+
+@keyframes fade-in {
+from {
+opacity: 0;
+}
+
+to {
+opacity: 1;
+}
+}
+</style>
+</head>
+<body>
+
+<!-- tumblr controls and light/dark toggle -->
+<div class="toggle-and-controls | stack">
+
+<!-- tumblr controls -->
+<button class="controls | icon">
+<i class="ri-equalizer-fill"></i>
+</button>
+
+<!-- light/dark toggle -->
+<button class="toggle | icon" aria-label="toggle dark & light mode" type="button" role="button">
+<span class="light-mode">
+<i class="ri-sun-fill"></i>
+</span>
+
+<span class="dark-mode">
+<i class="ri-moon-fill"></i>
+</span>
+</button>
+</div>
+
+<!-- main grid: tablist and panels -->
+<div class="main-grid">
+
+<!-- tablist -->
+<aside class="nav-sidebar">
+<ul class="tabs-list" role="tablist">
+
+<!-- tab one: posts -->
+<li class="tab">
+<button id="tab-1" aria-controls="posts" aria-selected="true" role="tab" tabindex="0" aria-label="{text:Tab 1 Name}" title="{text:Tab 1 Name}">
+<span class="tab-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Tab 1 Icon}"></i>
+</span>
+</button>
+</li>
+
+<!-- tab two: about the user -->
+<li class="tab">
+<button id="tab-2" aria-controls="about" aria-selected="false" role="tab" tabindex="-1" aria-label="{text:Tab 2 Name}" title="{text:Tab 2 Name}">
+<span class="tab-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Tab 2 Icon}"></i>
+</span>
+</button>
+</li>
+
+<!-- tab three: projects -->
+<li class="tab">
+<button id="tab-3" aria-controls="projects" aria-selected="false" role="tab" tabindex="-1" aria-label="{text:Tab 3 Name}" title="{text:Tab 3 Name}">
+<span class="tab-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Tab 3 Icon}"></i>
+</span>
+</button>
+</li>
+
+<!-- tab four: updates -->
+<li class="tab">
+<button id="tab-4" aria-controls="updates" aria-selected="false" role="tab" tabindex="-1" aria-label="{text:Tab 4 Name}" title="{text:Tab 4 Name}">
+<span class="tab-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Tab 4 Icon}"></i>
+</span>
+</button>
+</li>
+
+</ul>
+</aside>
+
+
+<!-- panels -->
+<main class="main-wrapper">
+
+<div class="main-content">
+<div class="panels-group">
+
+<!-- posts panel -->
+<div id="posts" aria-labelledby="tab-1" role="tabpanel" tabindex="0">
+<div class="posts-panel | panel-wrapper">
+
+<!-- posts panel header: icon and extra links -->
+<header class="posts-panel-header">
+
+<!-- icon and description -->
+<div class="icon-and-description">
+
+<!-- extra links button -->
+<button class="links-btn" aria-expanded="false" aria-controls="header-links" aria-label="extra links" title="extra links">
+
+<!-- header icons -->
+<div class="header-icons">
+
+<!-- light header icon -->
+<span class="light-image">
+<div class="icon-wrapper | conic-gradient">
+<img src="{image:Light Header Icon}" class="header-icon | fit-cover" alt=""/>
+</div>
+</span>
+
+<!-- dark header icon -->
+<span class="dark-image">
+<div class="icon-wrapper | conic-gradient">
+<img src="{image:Dark Header Icon}" class="header-icon | fit-cover" alt=""/>
+</div>
+</span>
+</div>
+
+<!-- button icon -->
+<div class="btn-icon | icon">
+<i class="ri-add-large-line"></i>
+</div>
+</button>
+
+<!-- header description -->
+<div class="header-text">
+<div class="header-description">
+
+<!-- custom description -->
+{block:ifDescription}
+<p>{text:Description}</p>
+{/block:ifDescription}
+
+<!-- if you don't have a custom description -->
+{block:ifNotDescription}
+<p>{Description}</p>
+{/block:ifNotDescription}
+</div>
+</div>
+</div>
+
+<!-- extra links -->
+<div id="header-links" class="header-links" data-state="closed">
+<div class="links-wrapper">
+<ul class="header-links-list | flex">
+
+<!-- extra link one -->
+{block:ifExtraLink1URL}
+<li>
+<a href="{text:Extra Link 1 URL}">{text:Extra Link 1}</a>
+</li>
+{/block:ifExtraLink1URL}
+
+<!-- extra link two -->
+{block:ifExtraLink2URL}
+<li>
+<a href="{text:Extra Link 2 URL}">{text:Extra Link 2}</a>
+</li>
+{/block:ifExtraLink2URL}
+
+<!-- extra link three -->
+{block:ifExtraLink3URL}
+<li>
+<a href="{text:Extra Link 3 URL}">{text:Extra Link 3}</a>
+</li>
+{/block:ifExtraLink3URL}
+
+<!-- extra link four -->
+{block:ifExtraLink4URL}
+<li>
+<a href="{text:Extra Link 4 URL}">{text:Extra Link 4}</a>
+</li>
+{/block:ifExtraLink4URL}
+
+</ul>
+</div>
+</div>
+
+</header>
+
+<!-- sidebar and content -->
+<div class="sidebar-and-content">
+
+<!-- posts panel sidebar -->
+<aside class="posts-panel-sidebar">
+
+<!-- title and links button -->
+<div class="btn-and-title">
+
+<!-- custom links wrapper -->
+<div class="sidebar-links-wrapper">
+
+<!-- links button -->
+<button class="dots-wrapper" aria-controls="sidebar-links" aria-expanded="false" aria-label="custom links" title="custom links">
+<span class="primary | dot"></span>
+<span class="secondary | dot"></span>
+</button>
+
+<!-- custom links -->
+<div id="sidebar-links" class="sidebar-links" data-state="closed">
+<ul class="sidebar-links-list">
+
+<!-- custom link one -->
+{block:ifCustomLink1URL}
+<li>
+<a href="{text:Custom Link 1 URL}">{text:Custom Link 1}</a>
+</li>
+{/block:ifCustomLink1URL}
+
+<!-- custom link two -->
+{block:ifCustomLink2URL}
+<li>
+<a href="{text:Custom Link 2 URL}">{text:Custom Link 2}</a>
+</li>
+{/block:ifCustomLink2URL}
+
+<!-- custom link three -->
+{block:ifCustomLink3URL}
+<li>
+<a href="{text:Custom Link 3 URL}">{text:Custom Link 3}</a>
+</li>
+{/block:ifCustomLink3URL}
+
+<!-- custom link four -->
+{block:ifCustomLink4URL}
+<li>
+<a href="{text:Custom Link 4 URL}">{text:Custom Link 4}</a>
+</li>
+{/block:ifCustomLink4URL}
+
+<!-- custom link five -->
+{block:ifCustomLink5URL}
+<li>
+<a href="{text:Custom Link 5 URL}">{text:Custom Link 5}</a>
+</li>
+{/block:ifCustomLink5URL}
+
+<!-- custom link six -->
+{block:ifCustomLink6URL}
+<li>
+<a href="{text:Custom Link 6 URL}">{text:Custom Link 6}</a>
+</li>
+{/block:ifCustomLink6URL}
+
+</ul>
+</div>
+</div>
+
+<!-- sidebar title -->
+<div class="sidebar-title">
+
+<!-- custom title -->
+{block:ifTitle}
+<h1>{text:Title}</h1>
+{/block:ifTitle}
+
+<!-- if there's no custom title -->
+{block:ifNotTitle}
+<h1>{Title}</h1>
+{/block:ifNotTitle}
+</div>
+
+</div>
+
+<!-- standard links list -->
+<div class="standard-links-wrapper">
+<ul class="standard-links-list | flex">
+
+<!-- home link -->
+<li>
+<a href="/">{text:Home}</a>
+</li>
+
+<!-- askbox link -->
+{block:AskEnabled}
+<li>
+<a href="/ask">{text:Askbox}</a>
+</li>
+{/block:AskEnabled}
+
+<!-- archive link -->
+<li>
+<a href="/archive">{text:Archive}</a>
+</li>
+
+<!-- extra standard link -->
+{block:ifExtraStandardLinkURL}
+<li>
+<a href="{text:Extra Standard Link URL}">{text:Extra Standard Link}</a>
+</li>
+{/block:ifExtraStandardLinkURL}
+
+</ul>
+</div>
+</aside>
+
+<div class="posts-panel-content">
+<section class="content">
+<!--
+{ block:Posts } block with inlineMediaWidth / inlineNestedMediaWidth attributes:
+
+- Unlike a plain { block:posts }, this ensures that inline images
+and nested media in posts display correctly up to the specified width.
+- Important for full-size images in posts without breaking layout.
+- Note: Tumblr’s editor will not highlight this as a "“"valid block"
+but it works as expected and should not be replaced with a plain { block:posts }.
+-->
+{block:posts inlineMediaWidth="1280" inlineNestedMediaWidth="1280"}
+
+<article id="post-{PostID}" class="{posttype}-post posts" role="article" aria-labelledby="post-title-{PostID}">
+
+
+<!-- .post-content BEGINS -->
+<div class="post-content">
+
+{block:Date}
+{block:IndexPage}
+{block:RebloggedFrom}
+<header class="post-header">
+<section class="header-left">
+{block:PinnedPostLabel}
+<div class="pinned-item">
+<div class="pinned-text">
+{PinnedPostLabel}
+</div>
+</div>
+{/block:PinnedPostLabel}
+
+<div class="header-date">
+<a href="/day/{Year}/{Month}/{Date}">
+<span class="timeago">{TimeStamp}</span>
+</a>
+</div>
+</section>
+
+<section class="header-right">
+<div class="post-info-wrapper">
+<button class="post-info-btn" aria-label="reblog and root into" title="reblog and root info">
+<i class="ri-more-fill"></i>
+</button>
+
+<div class="post-info-text">
+<ul class="post-info-inner">
+<li>
+<div class="parent-rb | rb-info">
+<b>posted by</b>
+<a href="{ReblogParentURL}">@{ReblogParentName}</a>
+</div>
+</li>
+
+<li>
+<div class="root-rb | rb-info">
+<b>reblogged from</b>
+<a href="{ReblogRootURL}">@{ReblogRootName}</a>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section>
+</header>
+{/block:RebloggedFrom}
+
+{block:NotReblog}
+<header class="post-header">
+<section class="header-left">
+{block:PinnedPostLabel}
+<div class="pinned-item">
+<div class="pinned-text">
+{PinnedPostLabel}
+</div>
+</div>
+{/block:PinnedPostLabel}
+
+<div class="header-date">
+<a href="/day/{Year}/{MonthNumberWithZero}/{DayOfMonthWithZero}">
+<span class="timeago">{TimeStamp}</span>
+</a>
+</div>
+</section>
+</header>
+{/block:NotReblog}
+{/block:IndexPage}
+{/block:Date}
+
+{block:Photo}
+<!-- legacy single photo -->
+<a class="legacy-photo photo-single"  onclick="Tumblr.Lightbox.init([{ width: {PhotoWidth-HighRes}, height: {PhotoHeight-HighRes}, low_res: '{PhotoURL-500}', high_res: '{PhotoURL-HighRes}' }]); $('body').toggleClass('tumblr_lightbox_active'); return false"><img src="{PhotoURL-HighRes}"></a>
+{/block:Photo}
+
+{block:Photoset}
+<!-- legacy photoset -->
+<div class="photoset" data-layout="{PhotosetLayout}">
+{block:Photos}
+<div class="legacy-photoset-inner" 
+data-width="{PhotoWidth-HighRes}" 
+data-height="{PhotoHeight-HighRes}" 
+data-lowres="{PhotoURL-500}" 
+data-highres="{PhotoURL-HighRes}">
+<img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" class="image"/>
+</div>
+{/block:Photos}
+</div>
+{/block:Photoset}
+
+{block:Quote}
+<!-- legacy quote (styled as npf) -->
+<div class="caption">
+<p class="npf_quote">{Quote}</p>
+{block:Source}
+<p class="source">-{Source}</p>
+{/block:Source}
+</div>
+{/block:Quote}
+
+{block:Chat}
+<!-- legacy chat (styled as npf) -->
+<div class="caption">
+{block:Lines}
+<p class="npf_chat">
+{block:Label}
+<span class="label">{Label}</span>
+{/block:Label}
+{Line}
+</p>
+{/block:Lines}
+</div>
+{/block:Chat}
+
+{block:link}
+<!-- legacy link (npf+legacy styled JS manip) -->
+<div class="custom-link-block">
+<a {Target} href="{URL}" class="link-header">
+<div class="link-title-wrap">
+<span class="link-title">{Name}</span>
+{block:Host}
+<span class="site-url" aria-label="Host: {Host}">{Host}</span>
+{/block:Host}
+</div>
+<svg class="link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+</a>
+{block:Excerpt}
+<p class="link-description">{Excerpt}</p>
+{/block:Excerpt}
+</div>
+{/block:link}
+
+{block:Video}
+<!-- legacy video -->
+<div class="video">
+{Video-700}
+</div>
+{/block:Video}
+
+{block:Audio}
+<!-- legacy audio -->
+
+<!--I have installed my plugin to unify legacy and NPF audio posts.
+read more here:
+https://github.com/flipsewtf/Tumblr/tree/main/Plugins/UnifyAudio-->
+
+<figure class="tmblr-full">
+<figcaption class="audio-caption legacy">
+<div class="audio-info">
+<span class="tmblr-audio-meta audio-details">
+{block:TrackName}<span class="tmblr-audio-meta title">{TrackName}</span>{/block:TrackName}
+{block:Artist}<span class="tmblr-audio-meta artist">{Artist}</span>{/block:Artist}
+{block:Album}<span class="tmblr-audio-meta album">{Album}</span>{/block:Album}
+</span>
+{block:AlbumArt}<img class="album-cover" src="{AlbumArtURL}" alt="image"/>{/block:AlbumArt}
+</div>
+</figcaption>
+{block:AudioPlayer}{AudioPlayer}{/block:AudioPlayer}
+</figure>
+{/block:Audio}
+
+{block:Answer}
+<!-- Ask post -->
+
+<!-- Question -->
+<div class="ask-block ask-question">
+<header class="ask-header">
+<img class="ask-avatar" src="{AskerPortraitURL-48}" alt="Avatar of ansker">
+<div class="ask-user">
+<span id="asker-{PostID}" class="ask-username">{Asker}</span>
+<span class="ask-label">Sent a message</span>
+</div>
+</header>
+<div class="ask-body">
+{Question}
+</div>
+</div>
+
+<!-- Direct answer -->
+{block:NotReblog}
+<div class="caption ask-answer">
+{Answer}
+</div>
+{/block:NotReblog}
+
+<!-- Reblogged answer -->
+{block:Answerer}
+<div class="ask-block ask-answer-reblog">
+<header class="ask-header">
+<img class="ask-avatar" src="{AnswererPortraitURL-48}" alt="Avatar of answerer">
+<div class="ask-user">
+<span class="ask-username">{Answerer}</span>
+<span class="ask-label">Answered</span>
+</div>
+</header>
+<div class="ask-body">
+{Answer}
+</div>
+</div>
+{/block:Answerer}
+
+{/block:Answer}
+
+
+
+<!--caption / and text posts -->
+
+<div class="caption {block:notreblog}original-post{/block:notreblog}">
+<!-- caption -->
+{block:Text}
+{block:Title}<h1 id="post-title-{PostID}">{Title}</h1>{/block:Title}
+{/block:Text}
+
+{block:Link}
+{block:Description}
+{block:NotReblog}{Description}{/block:NotReblog}
+{/block:Description}
+{/block:Link}
+
+{block:notreblog}
+{block:caption}{Caption}{/block:caption}
+
+{block:Text}<!-- 'reblog-content original' needed for
+secondary photosets in npf to wrap properly in its own div -->
+<div class="reblog-content original">{Body}</div>
+{/block:Text}
+
+{/block:notreblog}
+
+{block:Rebloggedfrom}
+{block:Reblogs}
+
+<!-- display:none; below hides the double comments that sometimes appear in old pre-2014 reblogged quote posts --> 
+<div class="reblogs" {block:Quote}style="display:none;"{/block:Quote}>
+<div class="reblog-header {block:IsOriginalEntry}original{/block:IsOriginalEntry} flex gap1 align-center">
+
+{block:IsActive}
+<a class="user flex align-center" target="_blank" href="{Permalink}">{Username}</a>
+{/block:IsActive}
+
+{block:IsDeactivated}
+<span class="user deactivated" title="Deactivated" aria-label="User is deactivated">{Username}</span>
+{/block:IsDeactivated}
+</div>
+
+<div class="reblog-content">
+{Body}
+</div>
+</div>
+{/block:Reblogs}
+{/block:RebloggedFrom}
+</div>
+
+</div><!-- .post-content END -->
+
+
+
+<!-- always wrap content that is only meant for dated stuff in { block:Date } so username.tumblr.com/about-me does not have a footer-->
+
+{block:Date}
+{block:IndexPage}
+<footer class="post-footer">
+
+<div class="post-footer-sides">
+<div class="post-footer-left">
+<div class="notes-item | footer-item">
+<a href="{Permalink}" title="{NoteCountWithLabel}">
+<span class="notecount">{NoteCount}</span>
+</a>
+</div>
+</div>
+
+<div class="post-footer-right">
+<div class="footer-item-wrapper">
+
+<div class="likes-item | footer-item">
+<a href="#" class="custom-like-container">
+{LikeButton}
+
+<button class="like-btn">
+<b>like</b>
+</button>
+</a>
+
+<a href="{ReblogURL}" class="rb-link">
+<b>reblog</b>
+</a>
+</div>
+</div>
+</div>
+</div>
+
+{block:HasTags}
+<div class="tags-container">
+{block:Tags}
+<a href="{TagURL}">#{Tag}</a>
+{/block:Tags}
+</div>
+{/block:HasTags}
+</footer>
+{/block:IndexPage}
+
+
+{block:PermalinkPage}
+<div class="permalink-container | grid-stack">
+
+<div class="permalink-stats">
+<span class="date-icon | stat-icon icon">
+<i class="solar-icons" stroke="2" icon-name="clock-1"></i>
+</span>
+
+<div class="stats-inner">
+<div class="inner-text | grid-stack">
+<div class="permalink-ago">Posted <b>{TimeAgo}</b></div>
+<div class="permalink-date">on <b>{Month} {DayOfMonth}, {Year}</b></div>
+</div>
+</div>
+</div>
+
+{block:RebloggedFrom}
+<div class="permalink-stats">
+<span class="user-icon | stat-icon icon">
+<i class="solar-icons" stroke="2" icon-name="users"></i>
+</span>
+
+<div class="stats-inner">
+<div class="inner-text | grid-stack">
+<div class="permalink-root | permalink-text"><b>original poster:</b> <a href="{ReblogRootURL}">@{ReblogRootName}</a></div>
+<div class="permalink-parent | permalink-text"><b>reblogged from:</b> <a href="{ReblogParentURL}">@{ReblogParentName}</a></div>
+</div>
+</div>
+</div>
+{/block:RebloggedFrom}
+
+{block:ContentSource}
+<div class="permalink-source">
+<span class="stat-icon | icon">
+<i class="solar-icons" stroke="2" icon-name="folder-1"></i>
+</span>
+
+<p>Source: <a href="{SourceURL}">{SourceTitle}</a></p>
+
+</div>
+{/block:ContentSource}
+
+{block:HasTags}
+<div class="permalink-tags">
+<div class="permalink-tags-list">
+{block:Tags}
+<a href="{TagURL}" class="p-tag">{Tag}</a>
+{/block:Tags}
+</div>
+</div>
+{/block:HasTags}
+</div>
+{/block:PermalinkPage}
+
+{/block:Date}
+</article>
+
+{block:PostNotes}
+<div class="notes-container">
+<div class="notes-flex">
+<span class="note-label">{NoteCountWithLabel}</span>
+
+<span class="note-icon | icon">
+<i class="solar-icons" stroke="2" icon-name="folder-bookmark"></i>
+</span>
+</div>
+{PostNotes-64}
+</div>
+{/block:PostNotes}
+
+{/block:Posts}
+
+{block:Pagination}
+<div class="pagination-wrapper">
+<div class="current-and-total-pages">
+<span class="current-page">{CurrentPage}</span>
+<span class="total-pages">{TotalPages}</span>
+</div>
+
+<div class="prev-and-next">
+<div class="prev-page">
+<a {block:PreviousPage}href="{PreviousPage}"{/block:PreviousPage} class="{block:PreviousPage}page-{/block:PreviousPage}link">
+<span class="page-icon | icon">
+<i class="solar-icons" stroke="2" icon-name="chevron-left"></i>
+</span>
+</a>
+</div>
+
+<div class="next-page">
+<a {block:NextPage}href="{NextPage}"{/block:NextPage} class="{block:NextPage}page-{/block:NextPage}link">
+<span class="page-icon | icon">
+<i class="solar-icons" stroke="2" icon-name="chevron-right"></i>
+</span>
+</a>
+</div>
+</div>
+</div>
+
+</div>
+{/block:Pagination}
+</section>
+</div>
+</div>
+</div>
+
+
+
+<!-- about panel -->
+<div id="about" aria-labelledby="tab-2" role="tabpanel" tabindex="-1" hidden>
+<div class="about-panel | panel-wrapper">
+<aside class="about-sidebar">
+
+<!-- stats list -->
+<ul class="stats-list | stack">
+
+<!-- stat one -->
+{block:ifAboutStat1Title}
+<li class="stat-item">
+<div class="stat-text-wrapper">
+
+<!-- stat title -->
+<div class="stat-title">
+<b>{text:About Stat 1 Title}</b>
+</div>
+
+<!-- stat text -->
+<div class="stat-text">
+<p>{text:About Stat 1}</p>
+</div>
+</div>
+
+</li>
+{/block:ifAboutStat1Title}
+
+
+<!-- stat two -->
+{block:ifAboutStat2Title}
+<li class="stat-item">
+<div class="stat-text-wrapper">
+
+<!-- stat title -->
+<div class="stat-title">
+<b>{text:About Stat 2 Title}</b>
+</div>
+
+<!-- stat text -->
+<div class="stat-text">
+<p>{text:About Stat 2}</p>
+</div>
+
+</div>
+</li>
+{/block:ifAboutStat2Title}
+
+<!-- stat three -->
+{block:ifAboutStat3Title}
+<li class="stat-item">
+<div class="stat-text-wrapper">
+
+<!-- stat title -->
+<div class="stat-title">
+<b>{text:About Stat 3 Title}</b>
+</div>
+
+<!-- stat text -->
+<div class="stat-text">
+<p>{text:About Stat 3}</p>
+</div>
+
+</div>
+</li>
+{/block:ifAboutStat3Title}
+
+<!-- stat four -->
+{block:ifAboutStat4Title}
+<li class="stat-item">
+<div class="stat-text-wrapper">
+
+<!-- stat title -->
+<div class="stat-title">
+<b>{text:About Stat 4 Title}</b>
+</div>
+
+<!-- stat text -->
+<div class="stat-text">
+<p>{text:About Stat 4}</p>
+</div>
+
+</div>
+</li>
+{/block:ifAboutStat4Title}
+
+
+<!-- likes list -->
+{block:ifLikesListTitle}
+<li class="stat-item">
+<div class="stat-text-wrapper">
+
+<!-- likes list title -->
+<div class="stat-title">
+<b>{text:Likes List Title}</b>
+</div>
+
+
+<!-- likes list text -->
+<div class="stat-text">
+<ul class="text-list">
+<li>
+<p>like 1</p>
+</li>
+
+<li>
+<p>like 2</p>
+</li>
+
+<li>
+<p>like 3</p>
+</li>
+
+<li>
+<p>like 4</p>
+</li>
+
+<li>
+<p>like 5</p>
+</li>
+
+<li>
+<p>like 6</p>
+</li>
+
+<li>
+<p>like 7</p>
+</li>
+</ul>
+</div>
+</div>
+</li>
+{/block:ifLikesListTitle}
+
+<!-- dislikes list -->
+{block:ifDislikesListTitle}
+<li class="stat-item">
+<div class="stat-text-wrapper">
+
+<!-- dislikes list title -->
+<div class="stat-title">
+<b>{text:Dislikes List Title}</b>
+</div>
+
+
+<!-- dislikes list text -->
+<div class="stat-text">
+<ul class="text-list">
+<li>
+<p>like 1</p>
+</li>
+
+<li>
+<p>like 2</p>
+</li>
+
+<li>
+<p>like 3</p>
+</li>
+
+<li>
+<p>like 4</p>
+</li>
+
+<li>
+<p>like 5</p>
+</li>
+
+<li>
+<p>like 6</p>
+</li>
+</ul>
+</div>
+</div>
+</li>
+{/block:ifDislikesListTitle}
+
+</ul>
+</aside>
+
+<!-- about biography -->
+<div class="about-content">
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem expedita neque mollitia.</p>
+</div>
+
+
+<!-- extra about sidebar -->
+<aside class="extra-about-sidebar">
+<div class="username-and-modal">
+
+<!-- about sidebar title -->
+<div class="about-sidebar-title">
+<b>{text:About Title}</b>
+</div>
+
+<!-- faves icon button (this will appear if you have an icon) -->
+{block:ifFavesIcon}
+<button class="modal-btn | icon" aria-label="favorites modal" title="favorites modal">
+<i class="solar-icons" stroke="2" icon-name="{text:Faves Icon}"></i>
+</button>
+{/block:ifFavesIcon}
+</div>
+
+
+<div class="icon-and-title">
+
+<!-- about sidebar icons -->
+<div class="about-sidebar-icons">
+
+<!-- light image -->
+<span class="light-image">
+<div class="icon-wrapper | linear-gradient">
+<img src="{image:Light About Tab Icon}" class="about-sidebar-icon | fit-cover" alt=""/>
+</div>
+</span>
+
+<!-- dark image -->
+<span class="dark-image">
+<div class="icon-wrapper | linear-gradient">
+<img src="{image:Dark About Tab Icon}" class="about-sidebar-icon | fit-cover" alt=""/>
+</div>
+</span>
+
+</div>
+
+<!-- about sidebar username and subtitle -->
+<div class="title-and-username">
+<div class="text-inner">
+
+<!-- about username -->
+<b>@{Name}</b>
+
+<!-- about subtitle -->
+{block:ifAboutSubtitle}
+<p>{text:About Subtitle}</p>
+{/block:ifAboutSubtitle}
+
+</div>
+</div>
+</div>
+
+
+<!-- tasklist -->
+<div class="tasklist-wrapper">
+<ul class="tasklist | stack">
+
+<!-- task one -->
+{block:ifTask1Title}
+<li class="task | {select:Task 1 Status}">
+
+<!-- task title -->
+<div class="tasklist-title">
+<b>{text:Task 1 Title}</b>
+
+<!-- task status -->
+<span class="status"></span>
+</div>
+
+<!-- task text -->
+<div class="tasklist-text">
+<p>{text:Task 1}</p>
+</div>
+
+</li>
+{/block:ifTask1Title}
+
+<!-- task two -->
+{block:ifTask2Title}
+<li class="task | {select:Task 2 Status}">
+
+<!-- task title -->
+<div class="tasklist-title">
+<b>{text:Task 2 Title}</b>
+
+<!-- task status -->
+<span class="status"></span>
+</div>
+
+<!-- task text -->
+<div class="tasklist-text">
+<p>{text:Task 2}</p>
+</div>    
+
+</li>
+{/block:ifTask2Title}
+
+
+<!-- task three -->
+{block:ifTask3Title}
+<li class="task | {select:Task 3 Status}">
+
+<!-- task title -->
+<div class="tasklist-title">
+<b>{text:Task 3 Title}</b>
+
+<!-- task status -->
+<span class="status"></span>
+</div>
+
+<!-- task text -->
+<div class="tasklist-text">
+<p>{text:Task 3}</p>
+</div>
+
+</li>
+{/block:ifTask3Title}
+
+
+<!-- task four -->
+{block:ifTask4Title}
+<li class="task | {select:Task 4 Status}">
+
+<!-- task title -->
+<div class="tasklist-title">
+<b>{text:Task 4 Title}</b>
+
+<!-- task status -->
+<span class="status"></span>
+</div>
+
+<!-- task text -->
+<div class="tasklist-text">
+<p>{text:Task 4}</p>
+</div>
+
+</li>
+{/block:ifTask4Title}
+
+</ul>
+</div>
+
+</aside>
+</div>
+</div>
+
+
+
+<!-- projects panel -->
+<div id="projects" aria-labelledby="tab-3" role="tabpanel" tabindex="-1" hidden>
+<div class="projects-panel | panel-wrapper">
+<ul class="projects-list | stack">
+
+<!-- project one -->
+<li class="project-item">
+<div class="project-info-wrapper">
+
+<!-- project title -->
+<header class="project-header">
+
+<div class="project-header-title">
+<b>Lorem ipsum dolor sit amet consectetur.</b>
+</div>
+
+</header>
+
+
+<!-- project information -->
+<div class="project-info">
+<ul class="project-info-list">
+
+<!-- project description -->
+<li class="project-info-item">
+<div class="project-text">
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia aspernatur iste odit quam nulla numquam, commodi veniam debitis consectetur labore?</p>
+</div>
+</li>
+
+
+<!-- character/ship list -->
+<li class="project-info-item">
+<div class="project-text">
+<ul class="text-list">
+
+<!-- character/ship one -->
+<li class="text-item">
+<p>character 1</p>
+</li>
+
+<!-- character/ship two -->
+<li class="text-item">
+<p>character 2</p>
+</li>
+
+<!-- character/ship three -->
+<li class="text-item">
+<p>character 3</p>
+</li>
+
+<!-- character/ship four -->
+<li class="text-item">
+<p>character 4</p>
+</li>
+
+<!-- character/ship five -->
+<li class="text-item">
+<p>character 5</p>
+</li>
+
+<!-- character/ship six -->
+<li class="text-item">
+<p>character 6</p>
+</li>
+
+<!-- character/ship seven -->
+<li class="text-item">
+<p>character 7</p>
+</li>
+
+<!-- character/ship eight -->
+<li class="text-item">
+<p>character 8</p>
+</li>
+
+<!-- character/ship nine -->
+<li class="text-item">
+<p>character 9</p>
+</li>
+
+<!-- character/ship ten -->
+<li class="text-item">
+<p>character 10</p>
+</li>
+</ul>
+
+</div>
+</li>
+
+
+<!-- warnings and tags -->
+<li class="project-info-item">
+<div class="project-text">
+<ul class="tags | text-list">
+
+<!-- example of a warning -->
+<li class=" warning | text-item">
+<p>warning example</p>
+</li>
+
+<!-- tag -->
+<li class="text-item">
+<p>tag 2</p>
+</li>
+
+<!-- tag -->
+<li class="text-item">
+<p>tag 3</p>
+</li>
+
+<!-- tag -->
+<li class="text-item">
+<p>tag 4</p>
+</li>
+
+<!-- tag -->
+<li class="text-item">
+<p>tag 5</p>
+</li>
+
+<!-- tag -->
+<li class="text-item">
+<p>tag 6</p>
+</li>
+</ul>
+
+</div>
+</li>
+
+</ul>
+</div>
+</div>
+
+
+<!-- project stats list -->
+<div class="project-stats">
+<ul class="project-stats-list">
+
+<!-- project stat one -->
+<li class="project-stats-item">
+
+<!-- project stat text -->
+<div class="project-stats-text">
+<b>date started</b>
+<p>year/month/day</p>
+</div>
+
+</li>
+
+<!-- project stat two -->
+<li class="project-stats-item">
+
+<!-- project stat text -->
+<div class="project-stats-text">
+<b>date ended</b>
+<p>year/month/day</p>
+</div>
+
+</li>
+
+
+<!-- project stat three -->
+<li class="project-stats-item">
+
+<!-- project stat text -->
+<div class="project-stats-text">
+<b>fandom</b>
+<p>fandom</p>
+</div>
+
+</li>
+
+</ul>
+</div>
+</li>
+
+
+
+<!-- project two -->
+<li class="project-item">
+<div class="project-info-wrapper">
+
+<!-- project title -->
+<header class="project-header">
+
+<div class="project-header-title">
+<b>Lorem ipsum dolor sit amet consectetur.</b>
+</div>
+
+</header>
+
+
+<!-- project information -->
+<div class="project-info">
+<ul class="project-info-list">
+
+<!-- project description -->
+<li class="project-info-item">
+<div class="project-text">
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia aspernatur iste odit quam nulla numquam, commodi veniam debitis consectetur labore?</p>
+</div>
+</li>
+
+
+<!-- character/ship list -->
+<li class="project-info-item">
+<div class="project-text">
+<ul class="text-list">
+
+<!-- character/ship one -->
+<li class="text-item">
+<p>character 1</p>
+</li>
+
+<!-- character/ship two -->
+<li class="text-item">
+<p>character 2</p>
+</li>
+
+<!-- character/ship three -->
+<li class="text-item">
+<p>character 3</p>
+</li>
+
+<!-- character/ship four -->
+<li class="text-item">
+<p>character 4</p>
+</li>
+
+<!-- character/ship five -->
+<li class="text-item">
+<p>character 5</p>
+</li>
+
+<!-- character/ship six -->
+<li class="text-item">
+<p>character 6</p>
+</li>
+
+<!-- character/ship seven -->
+<li class="text-item">
+<p>character 7</p>
+</li>
+
+<!-- character/ship eight -->
+<li class="text-item">
+<p>character 8</p>
+</li>
+
+<!-- character/ship nine -->
+<li class="text-item">
+<p>character 9</p>
+</li>
+
+<!-- character/ship ten -->
+<li class="text-item">
+<p>character 10</p>
+</li>
+</ul>
+
+</div>
+</li>
+
+
+<!-- warnings and tags -->
+<li class="project-info-item">
+<div class="project-text">
+<ul class="tags | text-list">
+
+<!-- example of a warning -->
+<li class=" warning | text-item">
+<p>warning example</p>
+</li>
+
+<!-- tag -->
+<li class="text-item">
+<p>tag 2</p>
+</li>
+
+<!-- tag -->
+<li class="text-item">
+<p>tag 3</p>
+</li>
+
+<!-- tag -->
+<li class="text-item">
+<p>tag 4</p>
+</li>
+
+<!-- tag -->
+<li class="text-item">
+<p>tag 5</p>
+</li>
+
+<!-- tag -->
+<li class="text-item">
+<p>tag 6</p>
+</li>
+</ul>
+
+</div>
+</li>
+
+</ul>
+</div>
+</div>
+
+
+<!-- project stats list -->
+<div class="project-stats">
+<ul class="project-stats-list">
+
+<!-- project stat one -->
+<li class="project-stats-item">
+
+<!-- project stat text -->
+<div class="project-stats-text">
+<b>date started</b>
+<p>year/month/day</p>
+</div>
+
+</li>
+
+<!-- project stat two -->
+<li class="project-stats-item">
+
+<!-- project stat text -->
+<div class="project-stats-text">
+<b>date ended</b>
+<p>year/month/day</p>
+</div>
+
+</li>
+
+
+<!-- project stat three -->
+<li class="project-stats-item">
+
+<!-- project stat text -->
+<div class="project-stats-text">
+<b>fandom</b>
+<p>fandom</p>
+</div>
+
+</li>
+
+</ul>
+</div>
+</li>
+
+
+
+</ul>
+</div>
+</div>
+
+
+
+<!-- updates panel -->
+<div id="updates" aria-labelledby="tab-4" role="tabpanel" tabindex="-1" hidden>
+<div class="updates-panel | panel-wrapper">
+<ul class="updates-list | stack">
+
+<!-- update one -->
+{block:ifUpdate1Title}
+<li class="update-item">
+
+<!-- update title -->
+<div class="update-title">
+<b>{text:Update 1 Title}</b>
+</div>
+
+
+<!-- media list -->
+<div class="update-text">
+<div class="text-inner">
+<ul class="text-list">
+
+<!-- media item -->
+<li class="text-item">
+<p>media #1</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #2</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #3</p>
+</li>
+</ul>
+
+</div>
+</div>
+</li>
+{/block:ifUpdate1Title}
+
+
+<!-- update two -->
+{block:ifUpdate2Title}
+<li class="update-item">
+
+<!-- update title -->
+<div class="update-title">
+<b>{text:Update 2 Title}</b>
+</div>
+
+
+<!-- media list -->
+<div class="update-text">
+<div class="text-inner">
+<ul class="text-list">
+
+<!-- media item -->
+<li class="text-item">
+<p>media #1</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #2</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #3</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #4</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #5</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #6</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #7</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #8</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #9</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita quibusdam placeat voluptatibus.</p>
+</li>
+
+</ul>
+
+</div>
+</div>
+</li>
+{/block:ifUpdate2Title}
+
+
+{block:ifUpdate3Title}
+<li class="update-item">
+
+<!-- update title -->
+<div class="update-title">
+<b>{text:Update 3 Title}</b>
+</div>
+
+
+<!-- media list -->
+<div class="update-text">
+<div class="text-inner">
+<ul class="text-list">
+
+<!-- media item -->
+<li class="text-item">
+<p>media #1</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #2</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #3</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #4</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #5</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #6</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #7</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #8</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>media #9</p>
+</li>
+
+<!-- media item -->
+<li class="text-item">
+<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita quibusdam placeat voluptatibus.</p>
+</li>
+
+</ul>
+
+</div>
+</div>
+</li>
+{/block:ifUpdate3Title}
+
+
+</ul>
+
+
+<!-- progress section -->
+<div class="progress-wrapper">
+
+<ul class="progress-list | stack">
+
+<!-- progress bar -->
+{block:ifProgressBar1Title}
+<li class="progress-item">
+
+<!-- progress title and info -->
+<div class="progress-title">
+<b>{text:Progress Bar 1 Title}</b>
+
+<!-- progress info -->
+<div class="progress-info">
+<span class="info-text">
+<p>{text:Progress Bar 1 Info}</p>
+</span>
+
+<span class="percentage">
+{text:Progress Bar 1 Width}
+</span>
+</div>
+</div>
+
+<!-- progress bar -->
+<div class="progress-bar-wrapper" style="--progress-bar-width: {text:Progress Bar 1 Width}"></div>
+</li>
+{/block:ifProgressBar1Title}
+
+
+{block:ifProgressBar2Title}
+<li class="progress-item">
+
+<!-- progress title and info -->
+<div class="progress-title">
+<b>{text:Progress Bar 2 Title}</b>
+
+<!-- progress info -->
+<div class="progress-info">
+<span class="info-text">
+<p>{text:Progress Bar 2 Info}</p>
+</span>
+
+<span class="percentage">
+{text:Progress Bar 2 Width}
+</span>
+</div>
+</div>
+
+<!-- progress bar -->
+<div class="progress-bar-wrapper" style="--progress-bar-width: {text:Progress Bar 2 Width}"></div>
+    
+</li>
+{/block:ifProgressBar2Title}
+
+
+
+{block:ifProgressBar3Title}
+<li class="progress-item">
+
+<!-- progress title and info -->
+<div class="progress-title">
+<b>{text:Progress Bar 3 Title}</b>
+
+<!-- progress info -->
+<div class="progress-info">
+<span class="info-text">
+<p>{text:Progress Bar 3 Info}</p>
+</span>
+
+<span class="percentage">
+{text:Progress Bar 3 Width}
+</span>
+</div>
+</div>
+
+<!-- progress bar -->
+<div class="progress-bar-wrapper" style="--progress-bar-width: {text:Progress Bar 3 Width}"></div>
+    
+</li>
+{/block:ifProgressBar3Title}
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+</main>
+</div>
+
+
+<!-- faves modal (will only be shown if you have an icon for the button) -->
+<div class="modal hide">
+<div class="modal-dialog">
+<div class="close-modal-wrapper">
+<button class="close-modal-btn | icon" aria-label="close modal" title="close modal">
+<i class="ri-close-circle-fill"></i>
+</button>
+</div>
+
+<!-- faves list -->
+<div class="modal-container">
+
+<!-- fave -->
+{block:ifFavesItem1Title}
+<div class="faves-wrapper">
+
+<!-- faves title -->
+<div class="faves-title">
+
+<!-- title text -->
+<b>{text:Faves Item 1 Title}</b>
+
+<!-- title icon -->
+<span class="faves-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Faves Item 1 Icon}"></i>
+</span>
+
+</div>
+
+
+<!-- faves text -->
+<div class="faves-text">
+<ul class="faves-list | text-list">
+
+<!-- fave -->
+<li>
+<p>artist 1</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 2</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 3</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 4</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 5</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 6</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 7</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 8</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 9</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 10</p>
+</li>
+
+</ul>
+</div>
+</div>
+{/block:ifFavesItem1Title}
+
+
+{block:ifFavesItem2Title}
+<div class="faves-wrapper">
+<div class="faves-wrapper">
+
+<!-- faves title -->
+<div class="faves-title">
+
+<!-- title text -->
+<b>{text:Faves Item 2 Title}</b>
+
+<!-- title icon -->
+<span class="faves-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Faves Item 2 Icon}"></i>
+</span>
+
+</div>
+
+
+<!-- faves text -->
+<div class="faves-text">
+<ul class="faves-list | text-list">
+
+<!-- fave -->
+<li>
+<p>artist 1</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 2</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 3</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 4</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 5</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 6</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 7</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 8</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 9</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 10</p>
+</li>
+
+</ul>
+</div>
+</div>
+{/block:ifFavesItem2Title}
+
+
+{block:ifFavesItem3Title}
+<div class="faves-wrapper">
+<div class="faves-wrapper">
+
+<!-- faves title -->
+<div class="faves-title">
+
+<!-- title text -->
+<b>{text:Faves Item 3 Title}</b>
+
+<!-- title icon -->
+<span class="faves-icon">
+<i class="solar-icons" stroke="2" icon-name="{text:Faves Item 3 Icon}"></i>
+</span>
+
+</div>
+
+
+<!-- faves text -->
+<div class="faves-text">
+<ul class="faves-list | text-list">
+
+<!-- fave -->
+<li>
+<p>artist 1</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 2</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 3</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 4</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 5</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 6</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 7</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 8</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 9</p>
+</li>
+
+<!-- fave -->
+<li>
+<p>artist 10</p>
+</li>
+
+</ul>
+</div>
+</div>
+{/block:ifFavesItem3Title}
+
+</div>
+</div>
+</div>
+
+
+
+<!-- scroll to top and credit -->
+<div class="scroll-and-credit | stack">
+
+<!-- scroll to top -->
+<button class="scroll-to-top | icon" aria-label="scroll to top" title="scroll to top">
+<i class="solar-icons" stroke="2" icon-name="chevron-up"></i>
+</button>
+
+<!-- credit icon. DO NOT ALTER, MOVE, OR DELETE -->
+<a href="http://pouthongwon.tumblr.com" class="credit | icon" aria-label="theme credit (by pouthongwon)" title="theme by pouthongwon">
+<i class="solar-icons" stroke="2" icon-name="face-blep"></i>
+</a>
+
+</div>
+
+<script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@5/dist/tippy-bundle.iife.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/tippy.js@5/dist/svg-arrow.css" />
+
+<!--Legacy photoset script-->
+<script src="https://static.tumblr.com/diajl5m/dgbt13q7x/mournstera-legacy-photoset.js"></script>
+
+<!--unifying legacy and npf audio script -->
+<script src="https://static.tumblr.com/diajl5m/LPDt50612/mournstera_unify_audio.js"></script>
+
+<!--Unifying legacy and npf structure of links-->
+<script src="https://static.tumblr.com/diajl5m/KOtt506hd/mournstera_unify_links.js"></script>
+
+<!-- timeago plugin by @mournstera -->
+<script src="https://static.tumblr.com/xvqpzpb/AdWt8u64d/timeago.min.js"></script>
+
+<script>
+const themeToggleButtons = document.querySelectorAll(".toggle");
+
+themeToggleButtons.forEach((btn) => {
+// Determine initial theme
+const storedTheme =
+localStorage.getItem("theme") ||
+(window.matchMedia("(prefers-color-scheme: dark)").matches
+? "dark"
+: "light");
+
+// Set initial ARIA attributes
+btn.setAttribute(
+"aria-label",
+storedTheme === "dark" ? "Enable light mode" : "Enable dark mode",
+);
+btn.setAttribute("aria-pressed", storedTheme === "dark");
+
+// Set the initial theme on <html>
+document.documentElement.setAttribute("data-theme", storedTheme);
+
+// Click handler
+btn.addEventListener("click", function () {
+const currentTheme = document.documentElement.getAttribute("data-theme");
+const targetTheme = currentTheme === "light" ? "dark" : "light";
+
+// Snappy transition
+document.documentElement.classList.add("theme-transition");
+setTimeout(() => {
+document.documentElement.classList.remove("theme-transition");
+}, 50);
+
+// Apply new theme and store preference
+document.documentElement.setAttribute("data-theme", targetTheme);
+localStorage.setItem("theme", targetTheme);
+
+// Update ARIA attributes
+btn.setAttribute(
+"aria-label",
+targetTheme === "dark" ? "Enable light mode" : "Enable dark mode",
+);
+btn.setAttribute("aria-pressed", targetTheme === "dark");
+});
+});
+
+const tabElements = document.querySelectorAll('button[role="tab"]');
+const panelElements = document.querySelectorAll('[role="tabpanel"]');
+let activeIndex = 0;
+
+// Listen to clicks and key presses on tabs
+tabElements.forEach(function (tab, index) {
+tab.addEventListener("click", function (event) {
+setActiveTab(index);
+});
+
+tab.addEventListener("keydown", function (event) {
+const lastIndex = tabElements.length - 1;
+
+if (event.code === "ArrowLeft" || event.code === "ArrowUp") {
+if (activeIndex === 0) {
+// First element, jump to end
+setActiveTab(lastIndex);
+} else {
+// Move left
+setActiveTab(activeIndex - 1);
+}
+} else if (event.code === "ArrowRight" || event.code === "ArrowDown") {
+if (activeIndex === lastIndex) {
+// Last element, jump to beginning
+setActiveTab(0);
+} else {
+// Move right
+setActiveTab(activeIndex + 1);
+}
+} else if (event.code === "Home") {
+// Move to beginning
+setActiveTab(0);
+} else if (event.code === "End") {
+// Move to end
+setActiveTab(lastIndex);
+}
+});
+});
+
+function setActiveTab(index) {
+// Make currently active tab inactive
+tabElements[activeIndex].setAttribute("aria-selected", "false");
+tabElements[activeIndex].tabIndex = -1;
+
+// Set the new tab as active
+tabElements[index].setAttribute("aria-selected", "true");
+tabElements[index].tabIndex = 0;
+tabElements[index].focus();
+
+setActivePanel(index);
+activeIndex = index;
+}
+
+function setActivePanel(index) {
+// Hide currently active panel
+panelElements[activeIndex].setAttribute("hidden", "");
+panelElements[activeIndex].tabIndex = -1;
+
+// Show the new active panel
+panelElements[index].removeAttribute("hidden");
+panelElements[index].tabIndex = 0;
+}
+
+{block:ifFavesIcon}
+const openBtn = document.querySelector(".modal-btn");
+const modal = document.querySelector(".modal");
+const closeBtn = document.querySelector(".close-modal-btn");
+
+function openModal() {
+modal.classList.remove("hide");
+}
+
+function closeModal(e, clickedOutside) {
+if (clickedOutside) {
+if (e.target.classList.contains("modal"))
+modal.classList.add("hide");
+} else modal.classList.add("hide");
+}
+
+openBtn.addEventListener("click", openModal);
+modal.addEventListener("click", (e) => closeModal(e, true));
+closeBtn.addEventListener("click", closeModal);
+{/block:ifFavesIcon}
+
+let headerLinksBtn = document.querySelector(".links-btn");
+let headerLinksWrapper = document.querySelector(".header-links");
+
+headerLinksBtn.addEventListener("click", () => {
+const isOpened = headerLinksBtn.getAttribute("aria-expanded") === "true";
+
+if (isOpened) {
+headerLinksBtn.setAttribute("aria-expanded", "false");
+headerLinksWrapper.setAttribute("data-state", "closed");
+} else {
+headerLinksBtn.setAttribute("aria-expanded", "true");
+headerLinksWrapper.setAttribute("data-state", "open");
+}
+});
+
+let sidebarLinksBtn = document.querySelector(".dots-wrapper");
+let sidebarLinksWrapper = document.querySelector(".sidebar-links");
+
+sidebarLinksBtn.addEventListener("click", () => {
+const isOpened = sidebarLinksBtn.getAttribute("aria-expanded") === "true";
+
+if (isOpened) {
+sidebarLinksBtn.setAttribute("aria-expanded", "false");
+sidebarLinksWrapper.setAttribute("data-state", "closed");
+} else {
+sidebarLinksBtn.setAttribute("aria-expanded", "true");
+sidebarLinksWrapper.setAttribute("data-state", "open");
+}
+});
+
+// Select all accordion headers
+const postHeaders = document.querySelectorAll('.post-info-btn');
+
+// Loop through each header to add a click event listener
+postHeaders.forEach(header => {
+header.addEventListener('click', () => {
+// Get the parent .accordion-item of the clicked header
+const postItem = header.parentElement; /* it's div preceding the .post-info-btn */
+
+// Toggle 'active' class to show or hide content
+postItem.classList.toggle('open-post-info');
+
+// Optionally, close all other sections when one is opened
+document.querySelectorAll('.post-info-wrapper').forEach(item => {
+// Check if the item is not the one clicked
+if (item !== postItem) {
+// Remove 'active' class from other items
+item.classList.remove('open-post-info');
+}
+});
+});
+});
+
+let buttonContainer = document.querySelector(".scroll-and-credit");
+let scrollButton = document.querySelector(".scroll-to-top");
+
+window.onscroll = function () {
+scrollFunction();
+};
+
+function scrollFunction() {
+if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
+buttonContainer.classList.add("show-scroll");
+} else {
+buttonContainer.classList.remove("show-scroll");
+}
+}
+
+// When the user clicks on the button, scroll to the top of the document
+scrollButton.addEventListener("click", () => {
+document.body.scrollTop = 0;
+document.documentElement.scrollTop = 0;
+});
+
+let tumblrControls = document.querySelector(".controls");
+
+tumblrControls.addEventListener('click', () => {
+document.body.classList.toggle('show-iframe');
+});
+
+tippy('[title]', {
+theme: 'custom',
+arrow: tippy.roundArrow,
+followCursor: true,
+zIndex: 9999999999,
+maxWidth: 260,
+
+content(reference) {
+const title = reference.getAttribute('title');
+reference.removeAttribute('title');
+return title;
+},
+});
+
+const elements = document.querySelectorAll('.timeago');
+
+timeAgo(elements, {
+time: 'short', // should be 'letter' 'short' or 'word'
+spaces: true, // 'true' adds spaces between words and numbers
+words: false, // 'true' turns numbers to words
+prefix: 'posted',  // adds a prefix. could be '~' or 'about' or 'posted' etc.
+suffix: 'ago' // adds a suffix. could be 'ago' or period, etc.
+});
+
+// --------------------------------------------------- NOTE COUNT SHORTEN
+document.querySelectorAll(".notecount").forEach(noteCountElement => {
+const noteCount = parseInt(noteCountElement.textContent.replace(/,/g, "").split(" ")[0], 10);
+
+if (noteCount >= 1000) {
+const formattedCount = (noteCount >= 1000000)
+? `${(noteCount / 1000000).toFixed(2)}m `
+: `${(noteCount / 1000).toFixed(1)}k`;
+noteCountElement.textContent = `${ formattedCount }`;
+}
+});
+
+// ----------------------------------------------------------- WRAP LEGACY ASK IN <p>
+// legacy ask questions did not have any <p> so now it matches npf ask questions
+// and can be styled alike.
+
+document.querySelectorAll('.ask-body').forEach(q => {
+if (!q.querySelector('*') && q.textContent.trim()) {
+const p = document.createElement('p');
+p.textContent = q.textContent;
+q.textContent = '';
+q.appendChild(p);
+}
+});
+
+// REMOVE EMPTY p
+for (const p of document.querySelectorAll('p')) {
+if (p.innerHTML.trim() === '') {
+p.remove()
+}
+}
+
+// --------------------------------------------------------- DISPLAY NPF POST
+// reverse-compatible-template.html by @egg.design
+
+// create posts array
+let posts = []
+{block:Posts} 
+posts.push({ npf: JSON.parse({JSNPF}), id: {JSPostId}}) 
+{/block:Posts}
+
+//function for updating post types 
+function updateTypes(type, article) {
+article.classList.remove('text-post')
+article.classList.add(`${ type }-post`, 'npf-post')
+}
+
+// loop through array to get each post
+for (const post of posts) {
+let npf = post.npf
+let article = document.getElementById(`post-${post.id}`)
+// select captions that have something in them
+let caption = article.querySelector('.caption:is(:not(:empty))')
+if (caption != null && article.classList.contains('text-post')) {
+// if content exists
+if (npf.trail.length || npf.content.length) {
+// assign various post types based on NPF data
+switch (npf.trail[0]?.content[0]?.type ?? npf.content[0].type) {
+case 'image':
+updateTypes('photos', article)
+if (article.querySelector('.npf_row') == null) {
+caption.prepend(article.querySelector('figure'))
+}
+break
+case 'video':
+updateTypes('video', article)
+let video = article.querySelector('figure')
+caption.prepend(video)
+break
+case 'link':
+updateTypes('link', article)
+case 'audio':
+updateTypes('audio', article)
+break
+case 'quote':
+updateTypes('quote', article)
+}
+
+// if there are photos
+if (article.classList.contains('photos-post')) {
+let photoset = document.createElement('div')
+photoset.classList.add('npf-photos')
+caption.prepend(photoset)
+// find where a photoset would be split up by another content block
+let photoBreak = article.querySelector('.reblog-content p, .reblog-content h1, .reblog-content h2, .reblog-content blockquote')
+let elements = []
+if (photoBreak) {
+let prevElement = photoBreak.parentNode.firstElementChild
+while (prevElement !== photoBreak) {
+elements.push(prevElement)
+prevElement = prevElement.nextElementSibling
+}
+}
+// if there is nothing that breaks up the photoset, select all rows
+else {
+elements = article.querySelectorAll('.npf_row')
+}
+// move each row to the top
+for (const el of elements) {
+photoset.append(el)
+}
+if (article.querySelectorAll('.npf_row').length > 1) {
+updateTypes('photoset', article)
+}
+else {
+updateTypes('photo', article)
+}
+}
+
+// clean up any potential stray reblog headers
+let reblogHeader = article.querySelector('.reblog-header')
+let reblogContent = article.querySelector('.reblog-content') 
+if (reblogHeader?.nextElementSibling === reblogContent && reblogContent?.childElementCount === 0) {
+reblogHeader.remove()
+reblogContent.remove()
+}
+}
+}
+}
+
+// wrap npf photoset in div that's not the first photoset
+const content = document.querySelectorAll(".reblog-content");
+let sections = []; // initialize empty array it'll be useful later !
+let temp_array = []; // will also be useful
+
+// We will re-create all the div "reblog-content".
+function removeAndReplace(content_div) {
+content_div.replaceChildren();
+let idx = 0;
+
+for (const array_containing_the_arrays_of_child_nodes of sections) {
+const div = document.createElement("div");
+array_containing_the_arrays_of_child_nodes[0].classList.contains("npf_row") ? ++idx : null;
+for (const child_nodes_array of array_containing_the_arrays_of_child_nodes) {
+if (!child_nodes_array.classList.contains("npf_row")) {
+content_div.appendChild(child_nodes_array);
+} else {
+div.appendChild(child_nodes_array);
+}
+}
+div.classList.add(`more_photoset`);
+div.children.length <= 0 ? null : content_div.appendChild(div);
+}
+sections = [];
+}
+
+function y() {
+content.forEach((content) => {
+const content_children = content.children;
+for (let i = 0; i < content_children.length; ++i) {
+const children = content_children[i];
+if (!children.classList.contains("npf_row")) {
+temp_array.length >= 1 ? sections.push(temp_array, [children]) : sections.push([children]);
+temp_array = [];
+} else {
+temp_array.push(children);
+if (content_children[content_children.length - 1] === children) {
+sections.push(temp_array);
+temp_array = [];
+}
+}
+}
+removeAndReplace(content);
+});
+}
+
+y();
+</script>
+</body>
+</html>
