@@ -287,6 +287,8 @@ interpolate-size: allow-keywords;
 --radius-sm: 0.4rem;
 --radius-round: 50%;
 
+--line-height: 1.2rem;
+
 --ease-transition-timing: 0.8s ease-in-out;
 --linear-transition-timing: 0.8s linear;
 --gradient-transition-timing: --clr-gradient var(--ease-transition-timing), --clr-gradient-2 var(--ease-transition-timing);
@@ -2412,6 +2414,8 @@ background-repeat: no-repeat;
 background-size: 100% 1px;
 background-position: bottom;
 transition: var(--gradient-transition-timing), color var(--linear-transition-timing);
+
+line-height: var(--line-height);
 
 &:hover {
 --clr-gradient: var(--clr-misc-accent);
