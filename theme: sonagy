@@ -1968,10 +1968,6 @@ margin-block-start: 0.5rem;
 margin-block-start: var(--text-margin);
 padding-block-start: var(--text-margin);
 border-top: 1px solid var(--clr-borders);
-
-p {
-margin: 0;
-}
 }
 
 /* ------------------------------------------------------- POST-TYPE: chat */
